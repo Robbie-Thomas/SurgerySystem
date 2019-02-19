@@ -21,7 +21,7 @@ public class Patient {
     @Column( name="Middle_Name")
     private String middleName;
 
-    @Column( name="last_Name")
+    @Column( name="Last_Name")
     private String lastName;
 
     @Column( name="Medical_Information")

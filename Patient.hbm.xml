@@ -4,45 +4,87 @@
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-    <class name="Patient" table="PATIENT">
+    <class name = "Patient" table = "Patient">
 
-        <meta attribute="class-description">
-            This class contains the patient details.
+        <meta attribute = "class-description">
+            This class contains the Patient detail.
         </meta>
 
-        <patient_Id name="id" type="int" column="id">
+        <id name = "id" type = "int" column = "id">
             <generator class="native"/>
-        </patient_Id>
+        </id>
 
-        <set name="patientAddress" cascade="all">
-            <key column="patient_id"/>
-            <one-to-many class="PatientAddress"/>
-        </set>
 
-        <property name="firstName" column="first_name" type="string"/>
-        <property name="lastName" column="last_name" type="string"/>
-        <property name="middleName" column="middle_name" type="string"/>
-        <property name="dob" column="date_of_birth" type="date"/>
-        <property name="appointment" column="appointment" type="class"/>
 
+        <property name = "firstName" column = "First_Name" type = "string" not-null="true"/>
+        <property name = "lastName" column = "Last_Name" type = "string"/>
+        <property name="middleName" column="Middle_Name" type="string" not-null="true"/>
+        <property name="dob" column="DateOfBirth" type="date" not-null="true"/>
+        <property name="medicalInformation" column="Medical_Information" type="string"/>
+        <property name="appointment" column="Appointment_Id" type="integer"/>
+        <property name="row_Create" column="Row_Create" type="date" not-null="true"/>
+        <property name="row_LastUpdate" column="Row_LastUpdate" type="date" />
+
+
+        <many-to-one name = "patientAddress" column = "Address_Id" unique="true" class="PatientAddress" not-null="true" cascade="all"/>
+        <many-to-one name="appointment" column="Appointment_Id" unique="true" class="Appointment" not-null="true" cascade="all" />
+        <many-to-one name="emailAddress" column="Email_Id" unique="true" class="PatientEmailAddress" not-null="true" cascade="all" />
+        <many-to-one name="patientPhone" column="Phone_Id" unique="true" class="PatientPhone" not-null="true" cascade="all" />
     </class>
-    <class name="PatientAddress" table="PATIENTADDRESS">
-        <meta attribute="class-description">
-            This class contains the patients address
+
+    <class name = "PatientPhone" table = "PatientPhoneNumber">
+
+        <meta attribute = "class-description">
+            This class contains the PatientPhone records.
         </meta>
 
-        <patient_Id name="patient_Id" type="int" column="patient_Id">
+        <id name = "id" type = "int" column = "id">
             <generator class="native"/>
-        </patient_Id>
+        </id>
 
-        <property name="houseNumber" column="house_number" type="integer"/>
-        <property name="houseName" column="house_name" type="string"/>
-        <property name="street" column="street" type="string"/>
-        <property name="city" column="city" type="string"/>
-        <property name="county" column="county" type="string"/>
-        <property name="postcode" column="postcode" type="string"/>
-        <property name="country" column="county" type="string"/>
+        <property name="phoneNumber" column="Phone_Number" type="string" not-null="true"/>
+        <property name="row_Create" column="Row_Create" type="date" not-null="true" />
+        <property name="row_LastUpdate" column="Row_LastUpdate" type="date" />
 
     </class>
+
+    <class name = "PatientEmailAddress" table = "PatientEmailAddress">
+
+        <meta attribute = "class-description">
+            This class contains the PatientEmailAddress records.
+        </meta>
+
+        <id name = "id" type = "int" column = "id">
+            <generator class="native"/>
+        </id>
+
+        <property name="emailAddress" column="Phone_Number" type="string"/>
+        <property name="row_Create" column="Row_Create" type="date" />
+        <property name="row_LastUpdate" column="Row_LastUpdate" type="date" />
+
+    </class>
+
+    <class name = "PatientAddress" table = "PatientAddress">
+
+        <meta attribute = "class-description">
+            This class contains the PatientEmailAddress records.
+        </meta>
+
+        <id name = "id" type = "int" column = "id">
+            <generator class="native"/>
+        </id>
+
+        <property name="houseNumber" column="House_Number" type="string"/>
+        <property name="houseName" column="House_Name" type="string"/>
+        <property name="street" column="Street" type="string" not-null="true" />
+        <property name="city" column="City" type="string" not-null="true" />
+        <property name="postcode" column="Postcode" type="string" not-null="true" />
+        <property name="county" column="County" type="string" not-null="true" />
+        <property name="country" column="Country" type="string" not-null="true" />
+        <property name="row_Create" column="Row_Create" type="date" not-null="true"/>
+        <property name="row_LastUpdate" column="Row_LastUpdate" type="date" />
+
+    </class>
+
 
 </hibernate-mapping>

@@ -8,7 +8,7 @@ import java.util.*;
 public class PatientAddress {
 
     private String houseName, street, city, postcode, county, country;
-    private int houseNumber;
+    private String houseNumber;
     private int id;
     private LocalDateTime row_Create, row_LastUpdate;
 
@@ -16,7 +16,7 @@ public class PatientAddress {
     public PatientAddress() {
     }
 
-    public PatientAddress(String houseName, String street, String city, String postcode, String county, String country, int houseNumber, LocalDateTime row_Create) {
+    public PatientAddress(String houseName, String street, String city, String postcode, String county, String country, String houseNumber, LocalDateTime row_Create) {
         this.houseName = houseName;
         this.street = street;
         this.city = city;
@@ -99,11 +99,11 @@ public class PatientAddress {
         this.country = country;
     }
 
-    public int getHouseNumber() {
+    public String getHouseNumber() {
         return houseNumber;
     }
 
-    public void setHouseNumber(int houseNumber) {
+    public void setHouseNumber(String houseNumber) {
         this.houseNumber = houseNumber;
     }
 
