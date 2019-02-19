@@ -1,10 +1,7 @@
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.Column;
-import javax.persistence.PostUpdate;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -122,6 +119,11 @@ public class Appointment
     @PostUpdate
     void postUpdate(Object object) {
         setRow_LastUpdate(LocalDateTime.now());
+    }
+
+    @PrePersist
+    void prePersist(Object object) {
+        setRow_Create(LocalDateTime.now());
     }
 }
 

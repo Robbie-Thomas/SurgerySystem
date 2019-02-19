@@ -1,20 +1,49 @@
 import org.jetbrains.annotations.Contract;
 
-import javax.persistence.PostUpdate;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Objects;
 
+@Entity
+@Table(name = "Patient")
 public class Patient {
-
+    @Id @GeneratedValue
+    @Column (name = "id")
     private int id;
+
+    @Column( name="DateOfBirth")
     private Date dob;
-    private String firstName, middleName, lastName, medicalInformation;
+
+    @Column( name="First_Name")
+    private String firstName;
+
+    @Column( name="Middle_Name")
+    private String middleName;
+
+    @Column( name="last_Name")
+    private String lastName;
+
+    @Column( name="Medical_Information")
+    private String medicalInformation;
+
+    @Column( name="Appointment_Id")
     private Appointment appointment;
+
+    @Column( name="Address_Id")
     private PatientAddress patientAddress;
+
+    @Column( name="Phone_Id")
     private PatientPhone patientPhone;
+
+    @Column( name="Email_Id")
     private PatientEmailAddress emailAddress;
-    private LocalDateTime row_Create, row_LastUpdate;
+
+    @Column( name="Row_Create")
+    private LocalDateTime row_Create;
+
+    @Column( name="Row_LastUpdate")
+    private LocalDateTime row_LastUpdate;
 
 
     public Patient() {
@@ -146,5 +175,10 @@ public class Patient {
     @PostUpdate
     void postUpdate(Object object) {
         setRow_LastUpdate(LocalDateTime.now());
+    }
+
+    @PrePersist
+    void prePersist(Object object) {
+        setRow_Create(LocalDateTime.now());
     }
 }

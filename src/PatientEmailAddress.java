@@ -1,6 +1,7 @@
 import org.jetbrains.annotations.Contract;
 
 import javax.persistence.PostUpdate;
+import javax.persistence.PrePersist;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Objects;
@@ -70,5 +71,10 @@ public class PatientEmailAddress {
     @PostUpdate
     void postUpdate(Object object) {
         setRow_LastUpdate(LocalDateTime.now());
+    }
+
+    @PrePersist
+    void prePersist(Object object) {
+        setRow_Create(LocalDateTime.now());
     }
 }

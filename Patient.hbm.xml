@@ -1,0 +1,48 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="Patient" table="PATIENT">
+
+        <meta attribute="class-description">
+            This class contains the patient details.
+        </meta>
+
+        <patient_Id name="id" type="int" column="id">
+            <generator class="native"/>
+        </patient_Id>
+
+        <set name="patientAddress" cascade="all">
+            <key column="patient_id"/>
+            <one-to-many class="PatientAddress"/>
+        </set>
+
+        <property name="firstName" column="first_name" type="string"/>
+        <property name="lastName" column="last_name" type="string"/>
+        <property name="middleName" column="middle_name" type="string"/>
+        <property name="dob" column="date_of_birth" type="date"/>
+        <property name="appointment" column="appointment" type="class"/>
+
+    </class>
+    <class name="PatientAddress" table="PATIENTADDRESS">
+        <meta attribute="class-description">
+            This class contains the patients address
+        </meta>
+
+        <patient_Id name="patient_Id" type="int" column="patient_Id">
+            <generator class="native"/>
+        </patient_Id>
+
+        <property name="houseNumber" column="house_number" type="integer"/>
+        <property name="houseName" column="house_name" type="string"/>
+        <property name="street" column="street" type="string"/>
+        <property name="city" column="city" type="string"/>
+        <property name="county" column="county" type="string"/>
+        <property name="postcode" column="postcode" type="string"/>
+        <property name="country" column="county" type="string"/>
+
+    </class>
+
+</hibernate-mapping>
