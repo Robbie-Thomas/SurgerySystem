@@ -2,11 +2,12 @@ import org.jetbrains.annotations.Contract;
 
 import javax.persistence.PostUpdate;
 import javax.persistence.PrePersist;
+import java.beans.Statement;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Objects;
 
-public class Nurse {
+public class Nurse{
 
     private int id, workday_id;
     private String firstName, lastName, specialistArea;
