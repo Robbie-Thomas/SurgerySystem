@@ -1,16 +1,20 @@
+import org.jetbrains.annotations.Contract;
+
+import javax.persistence.PostUpdate;
+import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.Objects;
 
 public class Staff {
 
     private int id;
     private Doctor doctor;
     private Nurse nurse;
-    private Date row_Create, row_LastUpdate;
+    private LocalDateTime row_Create, row_LastUpdate;
 
     public Staff(){}
 
-    public Staff(int id, Doctor doctor, Nurse nurse, Date row_Create) {
-        this.id = id;
+    public Staff(Doctor doctor, Nurse nurse, LocalDateTime row_Create) {
         this.doctor = doctor;
         this.nurse = nurse;
         this.row_Create = row_Create;
@@ -40,19 +44,40 @@ public class Staff {
         this.nurse = nurse;
     }
 
-    public Date getRow_Create() {
+    public LocalDateTime getRow_Create() {
         return row_Create;
     }
 
-    public void setRow_Create(Date row_Create) {
+    public void setRow_Create(LocalDateTime row_Create) {
         this.row_Create = row_Create;
     }
 
-    public Date getRow_LastUpdate() {
+    public LocalDateTime getRow_LastUpdate() {
         return row_LastUpdate;
     }
 
-    public void setRow_LastUpdate(Date row_LastUpdate) {
+    private void setRow_LastUpdate(LocalDateTime row_LastUpdate) {
         this.row_LastUpdate = row_LastUpdate;
     }
+
+    @Contract(value = "null -> false", pure = true)
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Staff)) return false;
+        Staff staff = (Staff) o;
+        return id == staff.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    //on update sets the row LastUpdate to the localtime
+    @PostUpdate
+    void postUpdate(Object object) {
+        setRow_LastUpdate(LocalDateTime.now());
+    }
+
 }

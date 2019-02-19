@@ -2,10 +2,12 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.Column;
+import javax.persistence.PostUpdate;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import java.sql.Date;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 
 public class Appointment
@@ -15,12 +17,12 @@ public class Appointment
     private Patient patient;
     private Staff staff;
     private String roomName;
-    private int roomNumber;
-    private Date row_Create, row_LastUpdate;
+    private int roomNumber, id;
+    private LocalDateTime row_Create, row_LastUpdate;
 
     public Appointment(){}
 
-    public Appointment(Date appointmentDate, LocalDateTime appointmentTime, Patient patient, Staff staff, String roomName, int roomNumber, Date row_Create) {
+    public Appointment(Date appointmentDate, LocalDateTime appointmentTime, Patient patient, Staff staff, String roomName, int roomNumber, LocalDateTime row_Create) {
         this.appointmentDate = appointmentDate;
         this.appointmentTime = appointmentTime;
         this.patient = patient;
@@ -28,6 +30,14 @@ public class Appointment
         this.roomName = roomName;
         this.roomNumber = roomNumber;
         this.row_Create = row_Create;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Date getAppointmentDate() {
@@ -62,19 +72,19 @@ public class Appointment
         this.staff = staff;
     }
 
-    public Date getRow_Create() {
+    public LocalDateTime getRow_Create() {
         return row_Create;
     }
 
-    public void setRow_Create(Date row_Create) {
+    public void setRow_Create(LocalDateTime row_Create) {
         this.row_Create = row_Create;
     }
 
-    public Date getRow_LastUpdate() {
+    public LocalDateTime getRow_LastUpdate() {
         return row_LastUpdate;
     }
 
-    public void setRow_LastUpdate(Date row_LastUpdate) {
+    private void setRow_LastUpdate(LocalDateTime row_LastUpdate) {
         this.row_LastUpdate = row_LastUpdate;
     }
 
@@ -94,5 +104,24 @@ public class Appointment
         this.roomNumber = roomNumber;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Appointment)) return false;
+        Appointment that = (Appointment) o;
+        return id == that.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+
+    //on update sets the row LastUpdate to the localtime
+    @PostUpdate
+    void postUpdate(Object object) {
+        setRow_LastUpdate(LocalDateTime.now());
+    }
 }
 
