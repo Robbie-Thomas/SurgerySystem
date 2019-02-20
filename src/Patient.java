@@ -29,17 +29,8 @@ public class Patient {
     @Column( name="Medical_Information")
     private String medicalInformation;
 
-    @Column( name="Appointment_Id")
-    private Appointment appointment;
 
-    @Column( name="Address_Id")
-    private PatientAddress patientAddress;
 
-    @Column( name="Phone_Id")
-    private PatientPhone patientPhone;
-
-    @Column( name="Email_Id")
-    private PatientEmailAddress emailAddress;
 
     @Column (name = "Create_Time")
     @CreationTimestamp
@@ -50,18 +41,16 @@ public class Patient {
     private LocalDateTime updateDateTime;
 
 
-    public Patient(Date dob, String firstName, String lastName, String medicalInformation, PatientAddress patientAddress, PatientPhone patientPhone, PatientEmailAddress emailAddress) {
+    public Patient() {
     }
 
-    public Patient(Date dob, String firstName, String lastName, String medicalInformation, Appointment appointment, PatientAddress patientAddress, PatientPhone patientPhone, PatientEmailAddress emailAddress) {
+    public Patient(Date dob, String firstName, String lastName, String medicalInformation) {
         this.dob = dob;
         this.firstName = firstName;
         this.lastName = lastName;
         this.medicalInformation = medicalInformation;
-        this.appointment = appointment;
-        this.patientAddress = patientAddress;
-        this.patientPhone = patientPhone;
-        this.emailAddress = emailAddress;
+
+
 
     }
 
@@ -113,37 +102,7 @@ public class Patient {
         this.medicalInformation = medicalInformation;
     }
 
-    public Appointment getAppointment() {
-        return appointment;
-    }
 
-    public void setAppointment(Appointment appointment) {
-        this.appointment = appointment;
-    }
-
-    public PatientAddress getPatientAddress() {
-        return patientAddress;
-    }
-
-    public void setPatientAddress(PatientAddress patientAddress) {
-        this.patientAddress = patientAddress;
-    }
-
-    public PatientPhone getPatientPhone() {
-        return patientPhone;
-    }
-
-    public void setPatientPhone(PatientPhone patientPhone) {
-        this.patientPhone = patientPhone;
-    }
-
-    public PatientEmailAddress getEmailAddress() {
-        return emailAddress;
-    }
-
-    public void setEmailAddress(PatientEmailAddress emailAddress) {
-        this.emailAddress = emailAddress;
-    }
 
 
 
