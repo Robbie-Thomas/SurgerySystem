@@ -30,8 +30,6 @@ public class Patient {
     private String medicalInformation;
 
 
-
-
     @Column (name = "Create_Time")
     @CreationTimestamp
     private LocalDateTime createDateTime;

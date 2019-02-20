@@ -37,7 +37,7 @@ public class ManagePatient {
 
         try {
             tx = session.beginTransaction();
-            Patient patient = new Patient(dob, firstName, lastName, medicalInformation, patientAddress, patientPhone, emailAddress);
+            Patient patient = new Patient(dob, firstName, lastName, medicalInformation);
             PatientId = (Integer) session.save(patient);
             tx.commit();
         }catch (HibernateException e)
