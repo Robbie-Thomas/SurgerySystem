@@ -22,8 +22,7 @@
         <property name="dob" column="DateOfBirth" type="date" not-null="true"/>
         <property name="medicalInformation" column="Medical_Information" type="string"/>
         <property name="appointment" column="Appointment_Id" type="integer"/>
-        <property name="row_Create" column="Row_Create" type="date" not-null="true"/>
-        <property name="row_LastUpdate" column="Row_LastUpdate" type="date" />
+
 
 
         <many-to-one name = "patientAddress" column = "Address_Id" unique="true" class="PatientAddress" not-null="true" cascade="all"/>

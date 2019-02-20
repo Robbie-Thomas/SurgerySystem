@@ -1,3 +1,5 @@
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.jetbrains.annotations.Contract;
 
 import javax.persistence.*;
@@ -39,17 +41,19 @@ public class Patient {
     @Column( name="Email_Id")
     private PatientEmailAddress emailAddress;
 
-    @Column( name="Row_Create")
-    private LocalDateTime row_Create;
+    @Column (name = "Create_Time")
+    @CreationTimestamp
+    private LocalDateTime createDateTime;
 
-    @Column( name="Row_LastUpdate")
-    private LocalDateTime row_LastUpdate;
+    @Column (name = "Update_Time")
+    @UpdateTimestamp
+    private LocalDateTime updateDateTime;
 
 
-    public Patient() {
+    public Patient(Date dob, String firstName, String lastName, String medicalInformation, PatientAddress patientAddress, PatientPhone patientPhone, PatientEmailAddress emailAddress) {
     }
 
-    public Patient(Date dob, String firstName, String lastName, String medicalInformation, Appointment appointment, PatientAddress patientAddress, PatientPhone patientPhone, PatientEmailAddress emailAddress, LocalDateTime row_Create) {
+    public Patient(Date dob, String firstName, String lastName, String medicalInformation, Appointment appointment, PatientAddress patientAddress, PatientPhone patientPhone, PatientEmailAddress emailAddress) {
         this.dob = dob;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -58,7 +62,7 @@ public class Patient {
         this.patientAddress = patientAddress;
         this.patientPhone = patientPhone;
         this.emailAddress = emailAddress;
-        this.row_Create = row_Create;
+
     }
 
     public int getId() {
@@ -141,21 +145,7 @@ public class Patient {
         this.emailAddress = emailAddress;
     }
 
-    public LocalDateTime getRow_Create() {
-        return row_Create;
-    }
 
-    public void setRow_Create(LocalDateTime row_Create) {
-        this.row_Create = row_Create;
-    }
-
-    public LocalDateTime getRow_LastUpdate() {
-        return row_LastUpdate;
-    }
-
-    private void setRow_LastUpdate(LocalDateTime row_LastUpdate) {
-        this.row_LastUpdate = row_LastUpdate;
-    }
 
     @Contract(value = "null -> false", pure = true)
     @Override
@@ -171,14 +161,6 @@ public class Patient {
         return Objects.hash(id);
     }
 
-    //on update sets the row LastUpdate to the localtime
-    @PostUpdate
-    void postUpdate(Object object) {
-        setRow_LastUpdate(LocalDateTime.now());
-    }
 
-    @PrePersist
-    void prePersist(Object object) {
-        setRow_Create(LocalDateTime.now());
-    }
+
 }

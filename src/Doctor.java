@@ -1,5 +1,8 @@
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.jetbrains.annotations.Contract;
 
+import javax.persistence.Column;
 import javax.persistence.PostUpdate;
 import javax.persistence.PrePersist;
 import java.time.LocalDateTime;
@@ -91,10 +94,20 @@ public class Doctor {
         return id == doctor.id;
     }
 
+    @Column
+    @CreationTimestamp
+    private LocalDateTime createDateTime;
+
+    @Column
+    @UpdateTimestamp
+    private LocalDateTime updateDateTime;
+
     @Override
     public int hashCode() {
         return Objects.hash(id);
     }
+
+
     //on update sets the row LastUpdate to the localtime
     @PostUpdate
     void postUpdate(Object object) {
