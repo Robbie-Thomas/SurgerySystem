@@ -21,14 +21,6 @@
         <property name="middleName" column="Middle_Name" type="string" not-null="true"/>
         <property name="dob" column="DateOfBirth" type="date" not-null="true"/>
         <property name="medicalInformation" column="Medical_Information" type="string"/>
-        <property name="appointment" column="Appointment_Id" type="integer"/>
-
-
-
-        <many-to-one name = "patientAddress" column = "Address_Id" unique="true" class="PatientAddress" not-null="true" cascade="all"/>
-        <many-to-one name="appointment" column="Appointment_Id" unique="true" class="Appointment" not-null="true" cascade="all" />
-        <many-to-one name="emailAddress" column="Email_Id" unique="true" class="PatientEmailAddress" not-null="true" cascade="all" />
-        <many-to-one name="patientPhone" column="Phone_Id" unique="true" class="PatientPhone" not-null="true" cascade="all" />
     </class>
 
     <class name = "PatientPhone" table = "PatientPhoneNumber">
