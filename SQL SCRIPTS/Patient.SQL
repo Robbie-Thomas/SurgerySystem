@@ -1,4 +1,4 @@
-CREATE TABLE Patient.Patient (
+CREATE TABLE Patient (
 Patient_Id INT NOT NULL AUTO_INCREMENT,
 First_Name VARCHAR(55)  NOT NULL,
 Middle_Name VARCHAR(55) NOT NULL,
