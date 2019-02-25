@@ -49,7 +49,7 @@ CREATE TABLE Workday(
   Tuesday TINYINT,
   Wednesday TINYINT,
   Thursday TINYINT,
-  Frday TINYINT,
+  Friday TINYINT,
   Saturday TINYINT,
   Sunday TINYINT,
   PRIMARY KEY (Worday_Id)
