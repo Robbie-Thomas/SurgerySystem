@@ -2,27 +2,37 @@ import org.jetbrains.annotations.Contract;
 
 import javax.persistence.PostUpdate;
 import javax.persistence.PrePersist;
-import java.beans.Statement;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.Objects;
 
 public class Nurse{
 
-    private int id, workday_id;
+    private int id;
     private String firstName, lastName, specialistArea;
     private LocalDateTime row_Create, row_LastUpdate;
+    private Boolean MondayAM, MondayPM, TuesdayAM, TuesdayPM, WednesdayAM, WednesdayPM, ThursdayAM, ThursdayPM, FridayAM, FridayPM, SaturdayAM, SaturdayPM, SundayAM, SundayPM;
 
     public Nurse() {
     }
 
-    public Nurse(int workday_id, String firstName, String lastName, String specialistArea, LocalDateTime row_Create) {
-
-        this.workday_id = workday_id;
+    public Nurse(String firstName, String lastName, String specialistArea, Boolean mondayAM, Boolean mondayPM, Boolean tuesdayAM, Boolean tuesdayPM, Boolean wednesdayAM, Boolean wednesdayPM, Boolean thursdayAM, Boolean thursdayPM, Boolean fridayAM, Boolean fridayPM, Boolean saturdayAM, Boolean saturdayPM, Boolean sundayAM, Boolean sundayPM) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.specialistArea = specialistArea;
-        this.row_Create = row_Create;
+        MondayAM = mondayAM;
+        MondayPM = mondayPM;
+        TuesdayAM = tuesdayAM;
+        TuesdayPM = tuesdayPM;
+        WednesdayAM = wednesdayAM;
+        WednesdayPM = wednesdayPM;
+        ThursdayAM = thursdayAM;
+        ThursdayPM = thursdayPM;
+        FridayAM = fridayAM;
+        FridayPM = fridayPM;
+        SaturdayAM = saturdayAM;
+        SaturdayPM = saturdayPM;
+        SundayAM = sundayAM;
+        SundayPM = sundayPM;
     }
 
     public int getId() {
@@ -31,14 +41,6 @@ public class Nurse{
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getWorkday_id() {
-        return workday_id;
-    }
-
-    public void setWorkday_id(int workday_id) {
-        this.workday_id = workday_id;
     }
 
     public String getFirstName() {
@@ -79,6 +81,118 @@ public class Nurse{
 
     private void setRow_LastUpdate(LocalDateTime row_LastUpdate) {
         this.row_LastUpdate = row_LastUpdate;
+    }
+
+    public Boolean getMondayAM() {
+        return MondayAM;
+    }
+
+    public void setMondayAM(Boolean mondayAM) {
+        MondayAM = mondayAM;
+    }
+
+    public Boolean getMondayPM() {
+        return MondayPM;
+    }
+
+    public void setMondayPM(Boolean mondayPM) {
+        MondayPM = mondayPM;
+    }
+
+    public Boolean getTuesdayAM() {
+        return TuesdayAM;
+    }
+
+    public void setTuesdayAM(Boolean tuesdayAM) {
+        TuesdayAM = tuesdayAM;
+    }
+
+    public Boolean getTuesdayPM() {
+        return TuesdayPM;
+    }
+
+    public void setTuesdayPM(Boolean tuesdayPM) {
+        TuesdayPM = tuesdayPM;
+    }
+
+    public Boolean getWednesdayAM() {
+        return WednesdayAM;
+    }
+
+    public void setWednesdayAM(Boolean wednesdayAM) {
+        WednesdayAM = wednesdayAM;
+    }
+
+    public Boolean getWednesdayPM() {
+        return WednesdayPM;
+    }
+
+    public void setWednesdayPM(Boolean wednesdayPM) {
+        WednesdayPM = wednesdayPM;
+    }
+
+    public Boolean getThursdayAM() {
+        return ThursdayAM;
+    }
+
+    public void setThursdayAM(Boolean thursdayAM) {
+        ThursdayAM = thursdayAM;
+    }
+
+    public Boolean getThursdayPM() {
+        return ThursdayPM;
+    }
+
+    public void setThursdayPM(Boolean thursdayPM) {
+        ThursdayPM = thursdayPM;
+    }
+
+    public Boolean getFridayAM() {
+        return FridayAM;
+    }
+
+    public void setFridayAM(Boolean fridayAM) {
+        FridayAM = fridayAM;
+    }
+
+    public Boolean getFridayPM() {
+        return FridayPM;
+    }
+
+    public void setFridayPM(Boolean fridayPM) {
+        FridayPM = fridayPM;
+    }
+
+    public Boolean getSaturdayAM() {
+        return SaturdayAM;
+    }
+
+    public void setSaturdayAM(Boolean saturdayAM) {
+        SaturdayAM = saturdayAM;
+    }
+
+    public Boolean getSaturdayPM() {
+        return SaturdayPM;
+    }
+
+    public void setSaturdayPM(Boolean saturdayPM) {
+        SaturdayPM = saturdayPM;
+    }
+
+    public Boolean getSundayAM() {
+        return SundayAM;
+    }
+
+    public void setSundayAM(Boolean sundayAM) {
+        SundayAM = sundayAM;
+    }
+
+    public Boolean getSundayPM() {
+        return SundayPM;
+    }
+
+    public void setSundayPM(Boolean sundayPM) {
+        SundayPM = sundayPM;
     }
 
     @Contract(value = "null -> false", pure = true)

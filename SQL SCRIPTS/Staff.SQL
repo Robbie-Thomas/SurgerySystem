@@ -20,12 +20,22 @@ Doctor_Id INT NOT NULL AUTO_INCREMENT,
 First_Name VARCHAR (55),
 Last_Name VARCHAR (55),
 Specialist_Area VARCHAR (255),
-Workday_Id INT,
+Monday_AM TINYINT,
+Monday_PM TINYINT,
+Tuesday_AM TINYINT,
+Tuesday_PM TINYINT,
+Wednesday_AM TINYINT,
+Wednesday_PM TINYINT,
+Thursday_AM TINYINT,
+Thursday_PM TINYINT,
+Friday_AM TINYINT,
+Friday_PM TINYINT,
+Saturday_AM TINYINT,
+Saturday_PM TINYINT,
+Sunday_AM TINYINT,
+Sunday_PM TINYINT,
 Row_Create DATETIME NOT NULL,
 Row_LastUpdate DATETIME,
-FOREIGN KEY( Workday_Id)
-REFERENCES Workday(Worday_Id)
-ON UPDATE CASCADE ON DELETE CASCADE,
 PRIMARY KEY( Doctor_Id)
 )ENGINE=INNODB;
 
@@ -34,17 +44,27 @@ Nurse_Id INT NOT NULL AUTO_INCREMENT,
 First_Name VARCHAR (55),
 Last_Name VARCHAR (55),
 Specialist_Area VARCHAR (255),
-Workday_Id INT,
+Monday_AM TINYINT,
+Monday_PM TINYINT,
+Tuesday_AM TINYINT,
+Tuesday_PM TINYINT,
+Wednesday_AM TINYINT,
+Wednesday_PM TINYINT,
+Thursday_AM TINYINT,
+Thursday_PM TINYINT,
+Friday_AM TINYINT,
+Friday_PM TINYINT,
+Saturday_AM TINYINT,
+Saturday_PM TINYINT,
+Sunday_AM TINYINT,
+Sunday_PM TINYINT,
 Row_Create DATETIME NOT NULL,
 Row_LastUpdate DATETIME,
-FOREIGN KEY( Workday_Id)
-REFERENCES Workday(Worday_Id)
-ON UPDATE CASCADE ON DELETE CASCADE,
 PRIMARY KEY( Nurse_Id)
 )ENGINE=INNODB;
 
-CREATE TABLE Workday(
-Worday_Id INT NOT NULL AUTO_INCREMENT,
+/*CREATE TABLE Workday(
+Workday_Id INT NOT NULL AUTO_INCREMENT,
 Monday_AM TINYINT,
 Monday_PM TINYINT,
 Tuesday_AM TINYINT,
@@ -60,4 +80,4 @@ Saturday_PM TINYINT,
 Sunday_AM TINYINT,
 Sunday_PM TINYINT,
 PRIMARY KEY (Worday_Id)
-)ENGINE=INNODB;
+)ENGINE=INNODB;*/
