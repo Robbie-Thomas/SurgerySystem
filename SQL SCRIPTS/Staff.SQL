@@ -4,7 +4,7 @@ Doctor_Id INT NOT NULL,
 Nurse_Id INT NOT NULL,
 Row_Create DATETIME NOT NULL,
 Row_LastUpdate DATETIME,
-PRIMARY KEY (  Staff_Id),
+PRIMARY KEY (Staff_Id),
 FOREIGN KEY (Doctor_Id)
 REFERENCES Doctor (Doctor_Id)
 ON UPDATE CASCADE,
