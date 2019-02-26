@@ -28,7 +28,7 @@ public class ManagePatient {
 
     }
 
-    public Integer addPatient(Date dob, String firstName, String lastName, String medicalInformation, PatientAddress patientAddress, PatientPhone patientPhone, PatientEmailAddress emailAddress)
+    public Integer addPatient(Date dob, String firstName, String lastName, String medicalInformation)
         {
             Session session = factory.openSession();
             Transaction tx = null;
