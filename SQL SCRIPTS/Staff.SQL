@@ -44,13 +44,20 @@ PRIMARY KEY( Nurse_Id)
 )ENGINE=INNODB;
 
 CREATE TABLE Workday(
-  Worday_Id INT NOT NULL AUTO_INCREMENT,
-  Monday TINYINT,
-  Tuesday TINYINT,
-  Wednesday TINYINT,
-  Thursday TINYINT,
-  Friday TINYINT,
-  Saturday TINYINT,
-  Sunday TINYINT,
-  PRIMARY KEY (Worday_Id)
+Worday_Id INT NOT NULL AUTO_INCREMENT,
+Monday_AM TINYINT,
+Monday_PM TINYINT,
+Tuesday_AM TINYINT,
+Tuesday_PM TINYINT,
+Wednesday_AM TINYINT,
+Wednesday_PM TINYINT,
+Thursday_AM TINYINT,
+Thursday_PM TINYINT,
+Friday_AM TINYINT,
+Friday_PM TINYINT,
+Saturday_AM TINYINT,
+Saturday_PM TINYINT,
+Sunday_AM TINYINT,
+Sunday_PM TINYINT,
+PRIMARY KEY (Worday_Id)
 )ENGINE=INNODB;
