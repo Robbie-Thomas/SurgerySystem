@@ -45,8 +45,6 @@ public class Appointment
     @UpdateTimestamp
     private LocalDateTime updateDateTime;
 
-
-
     public Appointment(){}
 
     public Appointment(Date appointmentDate, LocalDateTime appointmentTime, Patient patient, Staff staff, Room room, LocalDateTime row_Create) {
