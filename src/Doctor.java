@@ -2,19 +2,79 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.jetbrains.annotations.Contract;
 
-import javax.persistence.Column;
-import javax.persistence.PostUpdate;
-import javax.persistence.PrePersist;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Objects;
 
+@Entity
+@Table(name = "Doctor")
 public class Doctor {
-    private int id;
-    private String firstName, lastName, specialistArea;
-    private LocalDateTime row_Create, row_LastUpdate;
-    private Boolean MondayAM, MondayPM, TuesdayAM, TuesdayPM, WednesdayAM, WednesdayPM, ThursdayAM, ThursdayPM, FridayAM, FridayPM, SaturdayAM, SaturdayPM, SundayAM, SundayPM;
 
+
+    @Id
+    @GeneratedValue
+    @Column(name = "Doctor_Id")
+    private int id;
+
+    @Column(name = "First_Name")
+    private String  firstName;
+
+    @Column(name = "Last_Name")
+    private String  lastName;
+
+    @Column(name = "Specialist_Area")
+    private String  specialistArea;
+
+    @Column(name = "Monday_AM")
+    private Boolean MondayAM;
+
+    @Column(name = "Monday_PM")
+    private Boolean MondayPM;
+
+    @Column(name = "Tuesday_AM")
+    private Boolean TuesdayAM;
+
+    @Column(name = "Tuesday_PM")
+    private Boolean TuesdayPM;
+
+    @Column(name = "Wednesday_AM")
+    private Boolean WednesdayAM;
+
+    @Column(name = "Wednesday_PM")
+    private Boolean WednesdayPM;
+
+    @Column(name = "Thursday_AM")
+    private Boolean ThursdayAM;
+
+    @Column(name = "Thursday_PM")
+    private Boolean ThursdayPM;
+
+    @Column(name = "Firday_AM")
+    private Boolean FridayAM;
+
+    @Column(name= "Friday_PM")
+    private Boolean FridayPM;
+
+    @Column(name = "Saturday_AM")
+    private Boolean SaturdayAM;
+
+    @Column(name = "Saturday_PM")
+    private Boolean SaturdayPM;
+
+    @Column(name= "Sunday_AM")
+    private Boolean SundayAM;
+
+    @Column(name = "Sunday_PM")
+    private Boolean SundayPM;
+
+    @Column (name = "Row_Create")
+    @CreationTimestamp
+    private LocalDateTime createDateTime;
+
+    @Column (name = "Row_LastUpdate")
+    @UpdateTimestamp
+    private LocalDateTime updateDateTime;
 
     public Doctor() {
     }
@@ -23,8 +83,6 @@ public class Doctor {
         this.firstName = firstName;
         this.lastName = lastName;
         this.specialistArea = specialistArea;
-        this.row_Create = row_Create;
-        this.row_LastUpdate = row_LastUpdate;
         MondayAM = mondayAM;
         MondayPM = mondayPM;
         TuesdayAM = tuesdayAM;
@@ -201,21 +259,6 @@ public class Doctor {
         this.specialistArea = specialistArea;
     }
 
-    public LocalDateTime getRow_Create() {
-        return row_Create;
-    }
-
-    public void setRow_Create(LocalDateTime row_Create) {
-        this.row_Create = row_Create;
-    }
-
-    public LocalDateTime getRow_LastUpdate() {
-        return row_LastUpdate;
-    }
-
-    private void setRow_LastUpdate(LocalDateTime row_LastUpdate) {
-        this.row_LastUpdate = row_LastUpdate;
-    }
 
     @Contract(value = "null -> false", pure = true)
     @Override
@@ -226,29 +269,10 @@ public class Doctor {
         return id == doctor.id;
     }
 
-    @Column
-    @CreationTimestamp
-    private LocalDateTime createDateTime;
-
-    @Column
-    @UpdateTimestamp
-    private LocalDateTime updateDateTime;
 
     @Override
     public int hashCode() {
         return Objects.hash(id);
-    }
-
-
-    //on update sets the row LastUpdate to the localtime
-    @PostUpdate
-    void postUpdate(Object object) {
-        setRow_LastUpdate(LocalDateTime.now());
-    }
-
-    @PrePersist
-    void prePersist(Object object) {
-        setRow_Create(LocalDateTime.now());
     }
 
 

@@ -30,13 +30,15 @@ public class Patient {
     private String medicalInformation;
 
 
-    @Column (name = "Create_Time")
+    @Column (name = "Row_Create")
     @CreationTimestamp
     private LocalDateTime createDateTime;
 
-    @Column (name = "Update_Time")
+    @Column (name = "Row_LastUpdate")
     @UpdateTimestamp
     private LocalDateTime updateDateTime;
+
+
 
 
     public Patient() {
@@ -47,9 +49,6 @@ public class Patient {
         this.firstName = firstName;
         this.lastName = lastName;
         this.medicalInformation = medicalInformation;
-
-
-
     }
 
     public int getId() {

@@ -1,32 +1,60 @@
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.*;
 import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-
+@Entity
+@Table(name = "Appointment")
 public class Appointment
 {
+    @Id
+    @GeneratedValue
+    @Column(name = "Appointment_Id")
+    @NotNull
+    private int id;
+
+    @Column(name = "Date")
     private Date appointmentDate;
+
+    @Column(name = "Time")
     private LocalDateTime appointmentTime;
+
+    @OneToOne
+    @JoinColumn(name = "Room_Id")
+    private Room room;
+
+
+    @OneToOne
+    @JoinColumn(name = "Patient_Id")
     private Patient patient;
+
+    @OneToOne
+    @JoinColumn(name = "Staff_Id")
     private Staff staff;
-    private String roomName;
-    private int roomNumber, id;
-    private LocalDateTime row_Create, row_LastUpdate;
+
+    @Column (name = "Row_Create")
+    @CreationTimestamp
+    @NotNull
+    private LocalDateTime createDateTime;
+
+    @Column (name = "Row_LastUpdate")
+    @UpdateTimestamp
+    private LocalDateTime updateDateTime;
+
+
 
     public Appointment(){}
 
-    public Appointment(Date appointmentDate, LocalDateTime appointmentTime, Patient patient, Staff staff, String roomName, int roomNumber, LocalDateTime row_Create) {
+    public Appointment(Date appointmentDate, LocalDateTime appointmentTime, Patient patient, Staff staff, Room room, LocalDateTime row_Create) {
         this.appointmentDate = appointmentDate;
         this.appointmentTime = appointmentTime;
         this.patient = patient;
         this.staff = staff;
-        this.roomName = roomName;
-        this.roomNumber = roomNumber;
-        this.row_Create = row_Create;
+        this.room = room;
     }
 
     public int getId() {
@@ -69,37 +97,30 @@ public class Appointment
         this.staff = staff;
     }
 
-    public LocalDateTime getRow_Create() {
-        return row_Create;
+    public Room getRoom() {
+        return room;
     }
 
-    public void setRow_Create(LocalDateTime row_Create) {
-        this.row_Create = row_Create;
+    public void setRoom(Room room) {
+        this.room = room;
     }
 
-    public LocalDateTime getRow_LastUpdate() {
-        return row_LastUpdate;
+    public LocalDateTime getCreateDateTime() {
+        return createDateTime;
     }
 
-    private void setRow_LastUpdate(LocalDateTime row_LastUpdate) {
-        this.row_LastUpdate = row_LastUpdate;
+    public void setCreateDateTime(LocalDateTime createDateTime) {
+        this.createDateTime = createDateTime;
     }
 
-    public String getRoomName() {
-        return roomName;
+    public LocalDateTime getUpdateDateTime() {
+        return updateDateTime;
     }
 
-    public void setRoomName(String roomName) {
-        this.roomName = roomName;
+    public void setUpdateDateTime(LocalDateTime updateDateTime) {
+        this.updateDateTime = updateDateTime;
     }
 
-    public int getRoomNumber() {
-        return roomNumber;
-    }
-
-    public void setRoomNumber(int roomNumber) {
-        this.roomNumber = roomNumber;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -115,15 +136,5 @@ public class Appointment
     }
 
 
-    //on update sets the row LastUpdate to the localtime
-    @PostUpdate
-    void postUpdate(Object object) {
-        setRow_LastUpdate(LocalDateTime.now());
-    }
-
-    @PrePersist
-    void prePersist(Object object) {
-        setRow_Create(LocalDateTime.now());
-    }
 }
 
