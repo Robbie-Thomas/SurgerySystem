@@ -1,24 +1,45 @@
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.jetbrains.annotations.Contract;
 
-import javax.persistence.PostUpdate;
-import javax.persistence.PrePersist;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Objects;
 
+@Entity
+@Table(name = "Staff")
 public class Staff {
 
+
+    @Id
+    @GeneratedValue
+    @Column(name = "Staff_Id")
     private int id;
+
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "Doctor_Id")
     private Doctor doctor;
+
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "Nurse_Id")
     private Nurse nurse;
-    private LocalDateTime row_Create, row_LastUpdate;
+
+    @Column (name = "Row_Create")
+    @CreationTimestamp
+    private LocalDateTime createDateTime;
+
+    @Column (name = "Row_LastUpdate")
+    @UpdateTimestamp
+    private LocalDateTime updateDateTime;
+
 
     public Staff(){}
 
-    public Staff(Doctor doctor, Nurse nurse, LocalDateTime row_Create) {
+    public Staff(Doctor doctor, Nurse nurse) {
         this.doctor = doctor;
         this.nurse = nurse;
-        this.row_Create = row_Create;
+
     }
 
     public int getId() {
@@ -45,21 +66,6 @@ public class Staff {
         this.nurse = nurse;
     }
 
-    public LocalDateTime getRow_Create() {
-        return row_Create;
-    }
-
-    public void setRow_Create(LocalDateTime row_Create) {
-        this.row_Create = row_Create;
-    }
-
-    public LocalDateTime getRow_LastUpdate() {
-        return row_LastUpdate;
-    }
-
-    private void setRow_LastUpdate(LocalDateTime row_LastUpdate) {
-        this.row_LastUpdate = row_LastUpdate;
-    }
 
     @Contract(value = "null -> false", pure = true)
     @Override
@@ -73,17 +79,6 @@ public class Staff {
     @Override
     public int hashCode() {
         return Objects.hash(id);
-    }
-
-    //on update sets the row LastUpdate to the localtime
-    @PostUpdate
-    void postUpdate(Object object) {
-        setRow_LastUpdate(LocalDateTime.now());
-    }
-
-    @PrePersist
-    void prePersist(Object object) {
-        setRow_Create(LocalDateTime.now());
     }
 
 }

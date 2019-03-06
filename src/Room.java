@@ -1,11 +1,25 @@
 import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
+import javax.persistence.*;
 import java.util.Objects;
 
+@Entity
+@Table(name = "Room")
 public class Room {
 
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name = "Room_Id")
+    @Basic(optional = false)
+    @NotNull
     private int id;
+
+
+    @Column(name = "Name")
     private String roomName;
+
+    @Column(name = "Number")
     private String roomNumber;
 
     public Room() {

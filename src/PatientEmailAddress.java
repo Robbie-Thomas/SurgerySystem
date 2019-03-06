@@ -1,39 +1,38 @@
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.jetbrains.annotations.Contract;
 
-import javax.persistence.PostUpdate;
-import javax.persistence.PrePersist;
+import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.Objects;
 
+
+@Entity
+@Table(name = "PatientEmailAddress")
 public class PatientEmailAddress {
 
+
+    @Id
+    @GeneratedValue
+    @Column(name = "PatientEmailAddress_Id", unique = true)
     private int id;
+
+    @Column(name = "Email_Address", unique = true)
     private String emailAddress;
-    private LocalDateTime row_Create, row_LastUpdate;
+
+    @Column (name = "Row_Create")
+    @CreationTimestamp
+    private LocalDateTime createDateTime;
+
+    @Column (name = "Row_LastUpdate")
+    @UpdateTimestamp
+    private LocalDateTime updateDateTime;
 
     public PatientEmailAddress() {
     }
 
-    public PatientEmailAddress(String emailAddress, LocalDateTime row_Create) {
-        this.row_Create = row_Create;
+    public PatientEmailAddress(String emailAddress) {
         this.emailAddress = emailAddress;
-    }
-
-    public LocalDateTime getRow_Create() {
-        return row_Create;
-    }
-
-    public void setRow_Create(LocalDateTime row_Create) {
-        this.row_Create = row_Create;
-    }
-
-    public LocalDateTime getRow_LastUpdate() {
-        return row_LastUpdate;
-    }
-
-    private void setRow_LastUpdate(LocalDateTime row_LastUpdate) {
-        this.row_LastUpdate = row_LastUpdate;
     }
 
     public int getId() {
@@ -68,13 +67,5 @@ public class PatientEmailAddress {
     }
 
     //on update sets the row LastUpdate to the localtime
-    @PostUpdate
-    void postUpdate(Object object) {
-        setRow_LastUpdate(LocalDateTime.now());
-    }
 
-    @PrePersist
-    void prePersist(Object object) {
-        setRow_Create(LocalDateTime.now());
-    }
 }
