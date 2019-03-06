@@ -23,6 +23,9 @@ public class Doctor {
     @Column(name = "Last_Name")
     private String  lastName;
 
+    @Column( name="Is_Male")
+    private boolean isMale;
+
     @Column(name = "Specialist_Area")
     private String  specialistArea;
 
@@ -79,10 +82,11 @@ public class Doctor {
     public Doctor() {
     }
 
-    public Doctor(String firstName, String lastName, String specialistArea, LocalDateTime row_Create, LocalDateTime row_LastUpdate, Boolean mondayAM, Boolean mondayPM, Boolean tuesdayAM, Boolean tuesdayPM, Boolean wednesdayAM, Boolean wednesdayPM, Boolean thursdayAM, Boolean thursdayPM, Boolean fridayAM, Boolean fridayPM, Boolean saturdayAM, Boolean saturdayPM, Boolean sundayAM, Boolean sundayPM) {
+    public Doctor(String firstName, String lastName, String specialistArea, Boolean isMale, Boolean mondayAM, Boolean mondayPM, Boolean tuesdayAM, Boolean tuesdayPM, Boolean wednesdayAM, Boolean wednesdayPM, Boolean thursdayAM, Boolean thursdayPM, Boolean fridayAM, Boolean fridayPM, Boolean saturdayAM, Boolean saturdayPM, Boolean sundayAM, Boolean sundayPM) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.specialistArea = specialistArea;
+        this.isMale = isMale;
         MondayAM = mondayAM;
         MondayPM = mondayPM;
         TuesdayAM = tuesdayAM;

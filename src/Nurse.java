@@ -21,6 +21,9 @@ public class Nurse{
     @Column(name = "Last_Name")
     private String  lastName;
 
+    @Column( name="Is_Male")
+    private boolean isMale;
+
     @Column(name = "Specialist_Area")
     private String  specialistArea;
 
@@ -77,10 +80,11 @@ public class Nurse{
     public Nurse() {
     }
 
-    public Nurse(String firstName, String lastName, String specialistArea, Boolean mondayAM, Boolean mondayPM, Boolean tuesdayAM, Boolean tuesdayPM, Boolean wednesdayAM, Boolean wednesdayPM, Boolean thursdayAM, Boolean thursdayPM, Boolean fridayAM, Boolean fridayPM, Boolean saturdayAM, Boolean saturdayPM, Boolean sundayAM, Boolean sundayPM) {
+    public Nurse(String firstName, String lastName, String specialistArea, Boolean isMale, Boolean mondayAM, Boolean mondayPM, Boolean tuesdayAM, Boolean tuesdayPM, Boolean wednesdayAM, Boolean wednesdayPM, Boolean thursdayAM, Boolean thursdayPM, Boolean fridayAM, Boolean fridayPM, Boolean saturdayAM, Boolean saturdayPM, Boolean sundayAM, Boolean sundayPM) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.specialistArea = specialistArea;
+        this.isMale = isMale;
         MondayAM = mondayAM;
         MondayPM = mondayPM;
         TuesdayAM = tuesdayAM;
@@ -103,6 +107,14 @@ public class Nurse{
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public boolean isMale() {
+        return isMale;
+    }
+
+    public void setMale(boolean male) {
+        isMale = male;
     }
 
     public String getFirstName() {
