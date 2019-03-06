@@ -1,7 +1,8 @@
 CREATE TABLE Staff (
 Staff_Id INT NOT NULL AUTO_INCREMENT,
-Doctor_Id INT,
-Nurse_Id INT,
+Doctor_Id INT NOT NULL,
+Nurse_Id INT NOT NULL,
+Is_Male TINYINT NOT NULL,
 Row_Create DATETIME NOT NULL,
 Row_LastUpdate DATETIME,
 PRIMARY KEY (Staff_Id),
@@ -14,7 +15,6 @@ ON UPDATE CASCADE,
 INDEX StaffDoc(Staff_Id, Doctor_Id),
 INDEX StaffNurse(Staff_Id, Nurse_Id)
 ) ENGINE=INNODB;
-
 
 CREATE TABLE Doctor (
 Doctor_Id INT NOT NULL AUTO_INCREMENT,
@@ -46,7 +46,6 @@ Nurse_Id INT NOT NULL AUTO_INCREMENT,
 First_Name VARCHAR (55),
 Last_Name VARCHAR (55),
 Specialist_Area VARCHAR (255),
-Is_Male TINYINT NOT NULL,
 Monday_AM TINYINT,
 Monday_PM TINYINT,
 Tuesday_AM TINYINT,
