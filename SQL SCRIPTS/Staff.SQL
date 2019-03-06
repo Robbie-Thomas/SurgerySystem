@@ -16,6 +16,7 @@ INDEX StaffDoc(Staff_Id, Doctor_Id),
 INDEX StaffNurse(Staff_Id, Nurse_Id)
 ) ENGINE=INNODB;
 
+
 CREATE TABLE Doctor (
 Doctor_Id INT NOT NULL AUTO_INCREMENT,
 First_Name VARCHAR (55),
