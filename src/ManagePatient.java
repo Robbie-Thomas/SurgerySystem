@@ -28,7 +28,7 @@ public class ManagePatient {
 
     }
 
-    public Integer addPatient(Date dob, String firstName, String lastName, String medicalInformation)
+    public Integer addPatient(Date dob, String firstName, String lastName, String medicalInformation, boolean isMale)
         {
             Session session = factory.openSession();
             Transaction tx = null;
@@ -37,7 +37,7 @@ public class ManagePatient {
 
         try {
             tx = session.beginTransaction();
-            Patient patient = new Patient(dob, firstName, lastName, medicalInformation);
+            Patient patient = new Patient(dob, firstName, lastName, medicalInformation, isMale);
             PatientId = (Integer) session.save(patient);
             tx.commit();
         }catch (HibernateException e)
