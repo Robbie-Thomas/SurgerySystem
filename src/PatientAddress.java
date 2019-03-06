@@ -1,22 +1,69 @@
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.jetbrains.annotations.Contract;
 
-import javax.persistence.PostUpdate;
-import javax.persistence.PrePersist;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.*;
 
+
+@Entity
+@Table(name = "Address")
+@Access(value=AccessType.FIELD)
 public class PatientAddress {
 
-    private String houseName, street, city, postcode, county, country;
-    private String houseNumber;
-    private int id;
-    private LocalDateTime row_Create, row_LastUpdate;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column (name = "PatientAddress_Id")
+    private int id;
+
+    @ManyToOne
+    @JoinColumn (name = "Patient_Id")
+    private int patientId;
+
+    @Column(name = "House_Name")
+    private String houseName;
+
+    @Column(name = "House_Number")
+    private String houseNumber;
+
+    @Column(name = "Street")
+    private String street;
+
+    @Column(name = "City")
+    private String city;
+
+    @Column(name = "Postcode")
+    private String postcode;
+
+    @Column(name = "County")
+    private String county;
+
+    @Column(name = "Country")
+    private String country;
+
+
+
+    @Column (name = "Create_Time")
+    @CreationTimestamp
+    private LocalDateTime createDateTime;
+
+    @Column (name = "Update_Time")
+    @UpdateTimestamp
+    private LocalDateTime updateDateTime;
+
+
+    @OneToOne
+    @PrimaryKeyJoinColumn
+    private Patient patient;
 
     public PatientAddress() {
     }
 
-    public PatientAddress(String houseName, String street, String city, String postcode, String county, String country, String houseNumber, LocalDateTime row_Create) {
+    public PatientAddress(int patientId,String houseName, String street, String city, String postcode, String county, String country, String houseNumber) {
+        this.patientId = patientId;
         this.houseName = houseName;
         this.street = street;
         this.city = city;
@@ -24,24 +71,10 @@ public class PatientAddress {
         this.county = county;
         this.country = country;
         this.houseNumber = houseNumber;
-        this.row_Create = row_Create;
     }
 
-    public LocalDateTime getRow_Create() {
-        return row_Create;
-    }
 
-    public void setRow_Create(LocalDateTime row_Create) {
-        this.row_Create = row_Create;
-    }
 
-    public LocalDateTime getRow_LastUpdate() {
-        return row_LastUpdate;
-    }
-
-    private void setRow_LastUpdate(LocalDateTime row_LastUpdate) {
-        this.row_LastUpdate = row_LastUpdate;
-    }
 
     public int getId() {
         return id;
@@ -124,14 +157,5 @@ public class PatientAddress {
         return Objects.hash(id);
     }
 
-    //on update sets the row LastUpdate to the localtime
-    @PostUpdate
-    void postUpdate(Object object) {
-        setRow_LastUpdate(LocalDateTime.now());
-    }
 
-    @PrePersist
-    void prePersist(Object object) {
-        setRow_Create(LocalDateTime.now());
-    }
 }

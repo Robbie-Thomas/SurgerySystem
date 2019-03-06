@@ -10,9 +10,11 @@ import java.util.Objects;
 @Entity
 @Table(name = "Patient")
 public class Patient {
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column (name = "id")
     private int id;
+
+
 
     @Column( name="DateOfBirth")
     private Date dob;
