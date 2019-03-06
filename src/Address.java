@@ -1,4 +1,5 @@
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.jetbrains.annotations.Contract;
 
@@ -8,19 +9,19 @@ import java.util.*;
 
 
 @Entity
-@Table(name = "address")
+@Table(name = "Address")
 @Access(value=AccessType.FIELD)
-public class Address {
+public class PatientAddress {
 
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column (name = "PatientAddress_Id")
-    private Integer id;
+    private int id;
 
     @ManyToOne
     @JoinColumn (name = "Patient_Id")
-    private Patient patient;
+    private int patientId;
 
     @Column(name = "House_Name")
     private String houseName;
@@ -45,20 +46,24 @@ public class Address {
 
 
 
-    @Column (name = "Row_Create")
+    @Column (name = "Create_Time")
     @CreationTimestamp
     private LocalDateTime createDateTime;
 
-    @Column (name = "Row_LastUpdate")
+    @Column (name = "Update_Time")
     @UpdateTimestamp
     private LocalDateTime updateDateTime;
 
 
-    public Address() {
+    @OneToOne
+    @PrimaryKeyJoinColumn
+    private Patient patient;
+
+    public PatientAddress() {
     }
 
-    public Address(Patient patient, String houseName, String houseNumber, String street, String city, String postcode, String county, String country) {
-        this.patient = patient;
+    public PatientAddress(int patientId,String houseName, String street, String city, String postcode, String county, String country, String houseNumber) {
+        this.patientId = patientId;
         this.houseName = houseName;
         this.street = street;
         this.city = city;
@@ -71,11 +76,11 @@ public class Address {
 
 
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -131,14 +136,6 @@ public class Address {
         return houseNumber;
     }
 
-    public Patient getPatient() {
-        return patient;
-    }
-
-    public void setPatient(Patient patientId) {
-        this.patient = patientId;
-    }
-
     public void setHouseNumber(String houseNumber) {
         this.houseNumber = houseNumber;
     }
@@ -147,8 +144,8 @@ public class Address {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Address)) return false;
-        Address that = (Address) o;
+        if (!(o instanceof PatientAddress)) return false;
+        PatientAddress that = (PatientAddress) o;
         return houseNumber == that.houseNumber &&
                 id == that.id &&
                 Objects.equals(houseName, that.houseName) &&

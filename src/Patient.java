@@ -3,46 +3,21 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.jetbrains.annotations.Contract;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.HashSet;
+import java.util.Date;
 import java.util.Objects;
-import java.util.Set;
-
-@NamedQueries(
-        value = {
-                @NamedQuery(
-                        name = "findPatientByFirstName",
-                        query = "from Patient p where p.firstName = :name"
-                ),
-                @NamedQuery(
-                        name = "findPatientByLastName",
-                        query = "from Patient p where p.lastName = :name"
-                ),
-                @NamedQuery(
-                        name = "findPatientByDOB",
-                        query = "from Patient p where  p.dob = :dob"
-                ),
-                @NamedQuery(
-                        name = "findPatientEmails",
-                        query = "from Patient p where p.firstName = :firstName AND p.lastName = :lastName"
-                )
-
-
-
-        }
-)
-
 
 @Entity
-@Table(name = "patient")
+@Table(name = "Patient")
 public class Patient {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column (name = "Patient_id")
-    private Integer id;
+    @Column (name = "id")
+    private int id;
 
-    @Column( name="Date_Of_Birth")
-    private LocalDate dob;
+
+
+    @Column( name="DateOfBirth")
+    private Date dob;
 
     @Column( name="First_Name")
     private String firstName;
@@ -56,8 +31,6 @@ public class Patient {
     @Column( name="Medical_Information")
     private String medicalInformation;
 
-    @Column( name="Is_Male")
-    private boolean isMale;
 
     @Column (name = "Row_Create")
     @CreationTimestamp
@@ -67,89 +40,32 @@ public class Patient {
     @UpdateTimestamp
     private LocalDateTime updateDateTime;
 
-    @OneToMany(
-            mappedBy = "patient",
-            targetEntity = Address.class,
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
-    private Set<Address> addresses = new HashSet<Address>();
 
-    @OneToMany(
-            mappedBy = "patient",
-            targetEntity = PatientPhone.class,
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
-    private Set<PatientPhone> patientPhones = new HashSet<PatientPhone>();
-
-    @OneToMany(
-            mappedBy = "patient",
-            targetEntity = PatientEmailAddress.class,
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
-    private Set<PatientEmailAddress> patientEmailAddresses = new HashSet<PatientEmailAddress>();
 
 
     public Patient() {
     }
 
-    public Patient(LocalDate dob, String firstName, String lastName, String medicalInformation, boolean isMale) {
+    public Patient(Date dob, String firstName, String lastName, String medicalInformation) {
         this.dob = dob;
         this.firstName = firstName;
         this.lastName = lastName;
         this.medicalInformation = medicalInformation;
-        this.isMale = isMale;
     }
 
-    public Set<Address> getAddresses() {
-        return addresses;
-    }
-
-    public void setAddresses(Set<Address> addresses) {
-        this.addresses = addresses;
-    }
-
-    public Set<PatientPhone> getPatientPhones() {
-        return patientPhones;
-    }
-
-    public void setPatientPhones(Set<PatientPhone> patientPhones) {
-        this.patientPhones = patientPhones;
-    }
-
-    public Set<PatientEmailAddress> getPatientEmailAddresses() {
-        return patientEmailAddresses;
-    }
-
-    public void setPatientEmailAddresses(Set<PatientEmailAddress> patientEmailAddresses) {
-        this.patientEmailAddresses = patientEmailAddresses;
-    }
-
-
-
-    public boolean isMale() {
-        return isMale;
-    }
-
-    public void setMale(boolean male) {
-        isMale = male;
-    }
-
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public LocalDate getDob() {
+    public Date getDob() {
         return dob;
     }
 
-    public void setDob(LocalDate dob) {
+    public void setDob(Date dob) {
         this.dob = dob;
     }
 
@@ -203,21 +119,6 @@ public class Patient {
         return Objects.hash(id);
     }
 
-    @Override
-    public String toString() {
-        return "Patient{" +
-                "id=" + id +
-                ", dob=" + dob +
-                ", firstName='" + firstName + '\'' +
-                ", middleName='" + middleName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", medicalInformation='" + medicalInformation + '\'' +
-                ", isMale=" + isMale +
-                ", createDateTime=" + createDateTime +
-                ", updateDateTime=" + updateDateTime +
-                ", addresses=" + addresses +
-                ", patientPhones=" + patientPhones +
-                ", patientEmailAddresses=" + patientEmailAddresses +
-                '}';
-    }
+
+
 }
