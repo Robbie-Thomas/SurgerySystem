@@ -1,10 +1,9 @@
 CREATE TABLE Patient (
 Patient_Id INT NOT NULL AUTO_INCREMENT,
 First_Name VARCHAR(55)  NOT NULL,
-Middle_Name VARCHAR(55),
+Middle_Name VARCHAR(55) NOT NULL,
 Last_Name VARCHAR(55) NOT NULL,
 Is_Male TINYINT NOT NULL,
-Medical_Information VARCHAR(5000),
 Date_Of_Birth DATE,
 Row_Create DATETIME NOT NULL,
 Row_LastUpdate DATETIME,
@@ -29,7 +28,7 @@ CREATE TABLE Address (
 PatientAddress_Id INT NOT NULL AUTO_INCREMENT,
 Patient_Id INT NOT NULL,
 House_Name VARCHAR(100),
-House_Number VARCHAR(20),
+House_Number INT,
 Street VARCHAR(70) NOT NULL,
 City VARCHAR(70) NOT NULL,
 Postcode VARCHAR(8) NOT NULL,
@@ -57,10 +56,3 @@ REFERENCES Patient(Patient_Id)
 ON UPDATE CASCADE ON DELETE RESTRICT,
 INDEX PatientID_Email (Patient_Id,Email_Address)
 ) ENGINE=INNODB;
-
-select p.First_Name, p.Last_Name,p.Date_Of_Birth, pE.Email_Address
-from patient p
-       left outer join patientemailaddress pE
-                       on p.Patient_Id = pE.Patient_Id
-where p.last_Name = "test"
-

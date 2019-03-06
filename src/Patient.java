@@ -1,3 +1,4 @@
+import org.hibernate.annotations.CollectionId;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.jetbrains.annotations.Contract;
@@ -14,8 +15,6 @@ public class Patient {
     @Column (name = "id")
     private int id;
 
-
-
     @Column( name="DateOfBirth")
     private Date dob;
 
@@ -31,6 +30,8 @@ public class Patient {
     @Column( name="Medical_Information")
     private String medicalInformation;
 
+    @Column( name="Is_Male")
+    private boolean isMale;
 
     @Column (name = "Row_Create")
     @CreationTimestamp
@@ -46,11 +47,20 @@ public class Patient {
     public Patient() {
     }
 
-    public Patient(Date dob, String firstName, String lastName, String medicalInformation) {
+    public Patient(Date dob, String firstName, String lastName, String medicalInformation, boolean isMale) {
         this.dob = dob;
         this.firstName = firstName;
         this.lastName = lastName;
         this.medicalInformation = medicalInformation;
+        this.isMale = isMale;
+    }
+
+    public boolean isMale() {
+        return isMale;
+    }
+
+    public void setMale(boolean male) {
+        isMale = male;
     }
 
     public int getId() {
