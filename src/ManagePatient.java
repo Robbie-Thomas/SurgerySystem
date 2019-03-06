@@ -30,7 +30,7 @@ public class ManagePatient {
 
 
     //creates a patient with all the fields
-    public Integer addPatient(Date dob, String firstName, String lastName, String medicalInformation, boolean isMale)
+    public void addPatient(Date dob, String firstName, String lastName, String medicalInformation, boolean isMale)
         {
             Session session = factory.openSession();
             Transaction tx = null;
@@ -49,7 +49,6 @@ public class ManagePatient {
         }finally {
             session.close();
         }
-        return PatientId;
 
     }
 
@@ -200,6 +199,7 @@ public class ManagePatient {
             session.close();
         }
     }
+
 
 
 }
