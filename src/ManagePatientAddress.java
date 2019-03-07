@@ -27,23 +27,7 @@ public class ManagePatientAddress {
         ManagePatientAddress mPa = new ManagePatientAddress();
     }
 
-    public void addPatientAddress(int patientId,String houseName, String street, String city, String postcode, String county, String country, String houseNumber){
-        Session session = factory.openSession();
-        Transaction tx = null;
-        Integer PatientAddressId = null;
 
-        try {
-            tx = session.beginTransaction();
-            PatientAddress patientAddress = new PatientAddress(patientId, houseName, street, city, postcode, county, country, houseNumber);
-            PatientAddressId = (Integer) session.save(patientAddress);
-            tx.commit();
-        }catch (HibernateException e){
-            if(tx!=null) tx.rollback();
-            e.printStackTrace();
-        }finally {
-            session.close();
-        }
-    }
 
 
 

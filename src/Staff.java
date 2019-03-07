@@ -1,36 +1,26 @@
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
-@Table(name = "staff")
+@Table(name = "Staff")
 public class Staff {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     @Column(name = "Staff_Id")
-    @NotNull
     private Integer id;
 
-    @OneToOne(
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Doctor_Id")
     private Doctor doctor;
 
-    @OneToOne(
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Nurse_Id")
     private Nurse nurse;
 
@@ -45,17 +35,10 @@ public class Staff {
 
     public Staff(){}
 
-    public Staff(Doctor doctor) {
+    public Staff(Doctor doctor, Nurse nurse) {
         this.doctor = doctor;
-
-    }
-
-    public Staff(Nurse nurse){
         this.nurse = nurse;
-    }
 
-    public void setCreateDateTime(LocalDateTime createDateTime) {
-        this.createDateTime = createDateTime;
     }
 
     public Integer getId() {
@@ -81,6 +64,7 @@ public class Staff {
     public void setNurse(Nurse nurse) {
         this.nurse = nurse;
     }
+
 
     @Contract(value = "null -> false", pure = true)
     @Override

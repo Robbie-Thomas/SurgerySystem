@@ -17,7 +17,7 @@ public class PatientAddress {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column (name = "PatientAddress_Id")
-    private int id;
+    private Integer id;
 
     @ManyToOne
     @JoinColumn (name = "Patient_Id")
@@ -55,10 +55,6 @@ public class PatientAddress {
     private LocalDateTime updateDateTime;
 
 
-    @OneToOne
-    @PrimaryKeyJoinColumn
-    private Patient patient;
-
     public PatientAddress() {
     }
 
@@ -76,11 +72,11 @@ public class PatientAddress {
 
 
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -134,6 +130,14 @@ public class PatientAddress {
 
     public String getHouseNumber() {
         return houseNumber;
+    }
+
+    public int getPatientId() {
+        return patientId;
+    }
+
+    public void setPatientId(int patientId) {
+        this.patientId = patientId;
     }
 
     public void setHouseNumber(String houseNumber) {

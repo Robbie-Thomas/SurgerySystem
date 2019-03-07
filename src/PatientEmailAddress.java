@@ -7,31 +7,22 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 
-@NamedQueries(
-        value = {
-                @NamedQuery(
-                        name = "findEmailByPatientsName",
-                        query = "SELECT pE.emailAddress from PatientEmailAddress pE where pE.patient = :patient"
-                )
-        }
-)
-
 @Entity
-@Table(name = "patientEmailAddress")
+@Table(name = "PatientEmailAddress")
 public class PatientEmailAddress {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     @Column(name = "PatientEmailAddress_Id", unique = true)
     private Integer id;
 
     @Column(name = "Email_Address", unique = true)
     private String emailAddress;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "Patient_id")
-    private Patient patient;
+    @ManyToOne
+    @JoinColumn (name = "Patient_Id")
+    private int patientId;
 
     @Column (name = "Row_Create")
     @CreationTimestamp
@@ -45,9 +36,9 @@ public class PatientEmailAddress {
     public PatientEmailAddress() {
     }
 
-    public PatientEmailAddress(String emailAddress, Patient patient) {
+    public PatientEmailAddress(String emailAddress, Integer patientId) {
         this.emailAddress = emailAddress;
-        this.patient = patient;
+        this.patientId = patientId;
     }
 
     public Integer getId() {
@@ -58,12 +49,12 @@ public class PatientEmailAddress {
         this.id = id;
     }
 
-    public Patient getPatient() {
-        return patient;
+    public int getPatientId() {
+        return patientId;
     }
 
-    public void setPatient(Patient patient) {
-        this.patient = patient;
+    public void setPatientId(int patientId) {
+        this.patientId = patientId;
     }
 
     public String getEmailAddress() {

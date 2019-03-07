@@ -4,12 +4,13 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "room")
+@Table(name = "Room")
 public class Room {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "Room_Id")
+    @Basic(optional = false)
     private Integer id;
 
 
@@ -26,8 +27,6 @@ public class Room {
         this.roomName = roomName;
         this.roomNumber = roomNumber;
     }
-
-
 
 
 

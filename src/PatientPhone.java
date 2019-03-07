@@ -1,18 +1,20 @@
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
-@Table(name = "patientPhoneNumber")
+@Table(name = "PatientPhoneNumber")
 public class PatientPhone {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     @Column(name = "PatientPhoneNumber_Id")
     private Integer id;
 
@@ -21,7 +23,7 @@ public class PatientPhone {
 
     @ManyToOne
     @JoinColumn (name = "Patient_Id")
-    private Patient patient;
+    private Integer patientId;
 
     @Column (name = "Row_Create")
     @CreationTimestamp
@@ -34,17 +36,17 @@ public class PatientPhone {
     public PatientPhone() {
     }
 
-    public PatientPhone(String phoneNumber, Patient patient) {
+    public PatientPhone(String phoneNumber, Integer patientId) {
         this.phoneNumber = phoneNumber;
-        this.patient = patient;
+        this.patientId = patientId;
     }
 
-    public Patient getPatient() {
-        return patient;
+    public Integer getPatientId() {
+        return patientId;
     }
 
-    public void setPatient(Patient patient) {
-        this.patient = patient;
+    public void setPatientId(Integer patientId) {
+        this.patientId = patientId;
     }
 
     public String getPhoneNumber() {
