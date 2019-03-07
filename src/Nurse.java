@@ -13,7 +13,7 @@ public class Nurse{
     @Id
     @GeneratedValue
     @Column(name = "Nurse_Id")
-    private int id;
+    private Integer id;
 
     @Column(name = "First_Name")
     private String  firstName;
@@ -101,11 +101,11 @@ public class Nurse{
         SundayPM = sundayPM;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

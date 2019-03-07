@@ -16,15 +16,14 @@ public class PatientPhone {
     @Id
     @GeneratedValue
     @Column(name = "PatientPhoneNumber_Id")
-    @NotNull
-    private int id;
+    private Integer id;
 
     @Column(name = "Phone_Number")
     private String phoneNumber;
 
     @ManyToOne
-    @JoinColumn(name = "Patient_Id")
-    private Patient patient;
+    @JoinColumn (name = "Patient_Id")
+    private Integer patientId;
 
     @Column (name = "Row_Create")
     @CreationTimestamp
@@ -37,17 +36,17 @@ public class PatientPhone {
     public PatientPhone() {
     }
 
-    public PatientPhone(String phoneNumber, LocalDateTime row_Create, Patient patient) {
+    public PatientPhone(String phoneNumber, Integer patientId) {
         this.phoneNumber = phoneNumber;
-        this.patient = patient;
+        this.patientId = patientId;
     }
 
-    public Patient getPatient() {
-        return patient;
+    public Integer getPatientId() {
+        return patientId;
     }
 
-    public void setPatient(Patient patient) {
-        this.patient = patient;
+    public void setPatientId(Integer patientId) {
+        this.patientId = patientId;
     }
 
     public String getPhoneNumber() {
@@ -58,11 +57,11 @@ public class PatientPhone {
         this.phoneNumber = phoneNumber;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

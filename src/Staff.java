@@ -4,7 +4,6 @@ import org.jetbrains.annotations.Contract;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -15,7 +14,7 @@ public class Staff {
     @Id
     @GeneratedValue
     @Column(name = "Staff_Id")
-    private int id;
+    private Integer id;
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Doctor_Id")
@@ -42,11 +41,11 @@ public class Staff {
 
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

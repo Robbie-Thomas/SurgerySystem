@@ -15,10 +15,14 @@ public class PatientEmailAddress {
     @Id
     @GeneratedValue
     @Column(name = "PatientEmailAddress_Id", unique = true)
-    private int id;
+    private Integer id;
 
     @Column(name = "Email_Address", unique = true)
     private String emailAddress;
+
+    @ManyToOne
+    @JoinColumn (name = "Patient_Id")
+    private int patientId;
 
     @Column (name = "Row_Create")
     @CreationTimestamp
@@ -28,19 +32,29 @@ public class PatientEmailAddress {
     @UpdateTimestamp
     private LocalDateTime updateDateTime;
 
+
     public PatientEmailAddress() {
     }
 
-    public PatientEmailAddress(String emailAddress) {
+    public PatientEmailAddress(String emailAddress, Integer patientId) {
         this.emailAddress = emailAddress;
+        this.patientId = patientId;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
+    }
+
+    public int getPatientId() {
+        return patientId;
+    }
+
+    public void setPatientId(int patientId) {
+        this.patientId = patientId;
     }
 
     public String getEmailAddress() {

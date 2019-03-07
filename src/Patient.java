@@ -1,4 +1,3 @@
-import org.hibernate.annotations.CollectionId;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.jetbrains.annotations.Contract;
@@ -13,7 +12,7 @@ import java.util.Objects;
 public class Patient {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column (name = "id")
-    private int id;
+    private Integer id;
 
     @Column( name="DateOfBirth")
     private Date dob;
@@ -63,11 +62,11 @@ public class Patient {
         isMale = male;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

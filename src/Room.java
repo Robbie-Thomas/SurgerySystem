@@ -1,5 +1,4 @@
 import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -12,8 +11,7 @@ public class Room {
     @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "Room_Id")
     @Basic(optional = false)
-    @NotNull
-    private int id;
+    private Integer id;
 
 
     @Column(name = "Name")
@@ -32,11 +30,11 @@ public class Room {
 
 
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
