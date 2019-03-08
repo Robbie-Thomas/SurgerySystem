@@ -103,6 +103,14 @@ public class Doctor {
         SundayPM = sundayPM;
     }
 
+    public boolean isMale() {
+        return isMale;
+    }
+
+    public void setMale(boolean male) {
+        isMale = male;
+    }
+
     public Boolean getMondayAM() {
         return MondayAM;
     }
@@ -262,6 +270,8 @@ public class Doctor {
     public void setSpecialistArea(String specialistArea) {
         this.specialistArea = specialistArea;
     }
+
+
 
 
     @Contract(value = "null -> false", pure = true)
