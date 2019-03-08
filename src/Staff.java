@@ -41,6 +41,14 @@ public class Staff {
 
     }
 
+    public Staff(Doctor doctor) {
+        this.doctor = doctor;
+    }
+
+    public Staff(Nurse nurse) {
+        this.nurse = nurse;
+    }
+
     public Integer getId() {
         return id;
     }
