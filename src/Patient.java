@@ -43,11 +43,11 @@ public class Patient {
     private LocalDateTime updateDateTime;
 
     @OneToMany(
-            targetEntity = PatientAddress.class,
+            targetEntity = Address.class,
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    private Set<PatientAddress> patientAddresses = new HashSet<PatientAddress>();
+    private Set<Address> addresses = new HashSet<Address>();
 
     @OneToMany(
             targetEntity = PatientPhone.class,
@@ -75,12 +75,12 @@ public class Patient {
         this.isMale = isMale;
     }
 
-    public Set<PatientAddress> getPatientAddresses() {
-        return patientAddresses;
+    public Set<Address> getAddresses() {
+        return addresses;
     }
 
-    public void setPatientAddresses(Set<PatientAddress> patientAddresses) {
-        this.patientAddresses = patientAddresses;
+    public void setAddresses(Set<Address> addresses) {
+        this.addresses = addresses;
     }
 
     public Set<PatientPhone> getPatientPhones() {
@@ -185,7 +185,7 @@ public class Patient {
                 ", isMale=" + isMale +
                 ", createDateTime=" + createDateTime +
                 ", updateDateTime=" + updateDateTime +
-                ", patientAddresses=" + patientAddresses +
+                ", addresses=" + addresses +
                 ", patientPhones=" + patientPhones +
                 ", patientEmailAddresses=" + patientEmailAddresses +
                 '}';

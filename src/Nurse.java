@@ -11,7 +11,7 @@ import java.util.Objects;
 public class Nurse{
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Nurse_Id")
     private Integer id;
 

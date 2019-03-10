@@ -13,7 +13,7 @@ public class Doctor {
 
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Doctor_Id")
     private Integer id;
 
