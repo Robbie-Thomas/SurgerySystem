@@ -6,7 +6,6 @@ import org.hibernate.cfg.Configuration;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalDate;
 
 
 public class SessionManager {
@@ -191,7 +190,7 @@ public class SessionManager {
 
     //Managing the patient address.
 
-    public void addPatientAddress(Integer patientId, String houseName, String street, String city, String postcode, String county, String country, String houseNumber){
+    public void addPatientAddress(Patient patientId, String houseName, String street, String city, String postcode, String county, String country, String houseNumber){
         Session session = factory.openSession();
         Transaction tx = null;
 
@@ -355,7 +354,7 @@ public class SessionManager {
 
     //Patient email Address
 
-    public void addPatientEmailAddress(String Email, Integer patientId)
+    public void addPatientEmailAddress(String Email, Patient patientId)
     {
         Session session = factory.openSession();
         Transaction tx = null;

@@ -53,7 +53,7 @@ public class Doctor {
     @Column(name = "Thursday_PM")
     private Boolean ThursdayPM;
 
-    @Column(name = "Firday_AM")
+    @Column(name = "Friday_AM")
     private Boolean FridayAM;
 
     @Column(name= "Friday_PM")

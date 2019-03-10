@@ -1,5 +1,4 @@
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.jetbrains.annotations.Contract;
 
@@ -21,7 +20,7 @@ public class PatientAddress {
 
     @ManyToOne
     @JoinColumn (name = "Patient_Id")
-    private int patientId;
+    private Patient patient;
 
     @Column(name = "House_Name")
     private String houseName;
@@ -58,8 +57,8 @@ public class PatientAddress {
     public PatientAddress() {
     }
 
-    public PatientAddress(int patientId,String houseName, String street, String city, String postcode, String county, String country, String houseNumber) {
-        this.patientId = patientId;
+    public PatientAddress(Patient patient, String houseName, String street, String city, String postcode, String county, String country, String houseNumber) {
+        this.patient = patient;
         this.houseName = houseName;
         this.street = street;
         this.city = city;
@@ -132,12 +131,12 @@ public class PatientAddress {
         return houseNumber;
     }
 
-    public int getPatientId() {
-        return patientId;
+    public Patient getPatient() {
+        return patient;
     }
 
-    public void setPatientId(int patientId) {
-        this.patientId = patientId;
+    public void setPatient(Patient patientId) {
+        this.patient = patientId;
     }
 
     public void setHouseNumber(String houseNumber) {

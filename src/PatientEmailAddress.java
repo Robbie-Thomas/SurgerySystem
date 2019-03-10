@@ -22,7 +22,7 @@ public class PatientEmailAddress {
 
     @ManyToOne
     @JoinColumn (name = "Patient_Id")
-    private int patientId;
+    private Patient patient;
 
     @Column (name = "Row_Create")
     @CreationTimestamp
@@ -36,9 +36,9 @@ public class PatientEmailAddress {
     public PatientEmailAddress() {
     }
 
-    public PatientEmailAddress(String emailAddress, Integer patientId) {
+    public PatientEmailAddress(String emailAddress, Patient patient) {
         this.emailAddress = emailAddress;
-        this.patientId = patientId;
+        this.patient = patient;
     }
 
     public Integer getId() {
@@ -49,12 +49,12 @@ public class PatientEmailAddress {
         this.id = id;
     }
 
-    public int getPatientId() {
-        return patientId;
+    public Patient getPatient() {
+        return patient;
     }
 
-    public void setPatientId(int patientId) {
-        this.patientId = patientId;
+    public void setPatient(Patient patient) {
+        this.patient = patient;
     }
 
     public String getEmailAddress() {

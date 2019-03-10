@@ -43,23 +43,23 @@ public class Patient {
     private LocalDateTime updateDateTime;
 
     @OneToMany(
-    cascade = CascadeType.ALL,
-    orphanRemoval = true
+            targetEntity = PatientAddress.class,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
     )
     private Set<PatientAddress> patientAddresses = new HashSet<PatientAddress>();
 
     @OneToMany(
+            targetEntity = PatientPhone.class,
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
     private Set<PatientPhone> patientPhones = new HashSet<PatientPhone>();
 
     @OneToMany(
-            targetEntity = PatientPhone.class,
+            targetEntity = PatientEmailAddress.class,
             cascade = CascadeType.ALL,
             orphanRemoval = true
-
-
     )
     private Set<PatientEmailAddress> patientEmailAddresses = new HashSet<PatientEmailAddress>();
 
