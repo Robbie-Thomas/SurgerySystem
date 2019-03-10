@@ -1,8 +1,6 @@
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -23,7 +21,7 @@ public class PatientPhone {
 
     @ManyToOne
     @JoinColumn (name = "Patient_Id")
-    private Integer patientId;
+    private Patient patient;
 
     @Column (name = "Row_Create")
     @CreationTimestamp
@@ -36,17 +34,17 @@ public class PatientPhone {
     public PatientPhone() {
     }
 
-    public PatientPhone(String phoneNumber, Integer patientId) {
+    public PatientPhone(String phoneNumber, Patient patient) {
         this.phoneNumber = phoneNumber;
-        this.patientId = patientId;
+        this.patient = patient;
     }
 
-    public Integer getPatientId() {
-        return patientId;
+    public Patient getPatient() {
+        return patient;
     }
 
-    public void setPatientId(Integer patientId) {
-        this.patientId = patientId;
+    public void setPatient(Patient patient) {
+        this.patient = patient;
     }
 
     public String getPhoneNumber() {

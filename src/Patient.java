@@ -173,6 +173,21 @@ public class Patient {
         return Objects.hash(id);
     }
 
-
-
+    @Override
+    public String toString() {
+        return "Patient{" +
+                "id=" + id +
+                ", dob=" + dob +
+                ", firstName='" + firstName + '\'' +
+                ", middleName='" + middleName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", medicalInformation='" + medicalInformation + '\'' +
+                ", isMale=" + isMale +
+                ", createDateTime=" + createDateTime +
+                ", updateDateTime=" + updateDateTime +
+                ", patientAddresses=" + patientAddresses +
+                ", patientPhones=" + patientPhones +
+                ", patientEmailAddresses=" + patientEmailAddresses +
+                '}';
+    }
 }
