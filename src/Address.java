@@ -10,7 +10,7 @@ import java.util.*;
 @Entity
 @Table(name = "address")
 @Access(value=AccessType.FIELD)
-public class PatientAddress {
+public class Address {
 
 
     @Id
@@ -54,10 +54,10 @@ public class PatientAddress {
     private LocalDateTime updateDateTime;
 
 
-    public PatientAddress() {
+    public Address() {
     }
 
-    public PatientAddress(Patient patient, String houseName, String houseNumber, String street, String city, String postcode, String county, String country) {
+    public Address(Patient patient, String houseName, String houseNumber, String street, String city, String postcode, String county, String country) {
         this.patient = patient;
         this.houseName = houseName;
         this.street = street;
@@ -147,8 +147,8 @@ public class PatientAddress {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof PatientAddress)) return false;
-        PatientAddress that = (PatientAddress) o;
+        if (!(o instanceof Address)) return false;
+        Address that = (Address) o;
         return houseNumber == that.houseNumber &&
                 id == that.id &&
                 Objects.equals(houseName, that.houseName) &&

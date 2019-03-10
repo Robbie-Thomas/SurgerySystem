@@ -13,7 +13,7 @@ public class PatientEmailAddress {
 
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "PatientEmailAddress_Id", unique = true)
     private Integer id;
 
