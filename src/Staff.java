@@ -4,10 +4,12 @@ import org.jetbrains.annotations.Contract;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
-@Table(name = "Staff")
+@Table(name = "staff")
 public class Staff {
 
 
@@ -16,13 +18,19 @@ public class Staff {
     @Column(name = "Staff_Id")
     private Integer id;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
     @JoinColumn(name = "Doctor_Id")
-    private Doctor doctor;
+    private Set<Doctor> doctor = new HashSet<Doctor>();
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
     @JoinColumn(name = "Nurse_Id")
-    private Nurse nurse;
+    private Set<Nurse> nurse = new HashSet<Nurse>();
 
     @Column (name = "Row_Create")
     @CreationTimestamp
@@ -35,18 +43,21 @@ public class Staff {
 
     public Staff(){}
 
-    public Staff(Doctor doctor, Nurse nurse) {
+    public Staff(Set<Doctor> doctor, Set<Nurse> nurse) {
         this.doctor = doctor;
         this.nurse = nurse;
-
     }
 
-    public Staff(Doctor doctor) {
-        this.doctor = doctor;
-    }
-
-    public Staff(Nurse nurse) {
+    public void setNurse(Set<Nurse> nurse) {
         this.nurse = nurse;
+    }
+
+    public Set<Nurse> getNurse() {
+        return nurse;
+    }
+
+    public void setCreateDateTime(LocalDateTime createDateTime) {
+        this.createDateTime = createDateTime;
     }
 
     public Integer getId() {
@@ -57,21 +68,14 @@ public class Staff {
         this.id = id;
     }
 
-    public Doctor getDoctor() {
+    public Set<Doctor> getDoctor() {
         return doctor;
     }
 
-    public void setDoctor(Doctor doctor) {
+    public void setDoctor(Set<Doctor> doctor) {
         this.doctor = doctor;
     }
 
-    public Nurse getNurse() {
-        return nurse;
-    }
-
-    public void setNurse(Nurse nurse) {
-        this.nurse = nurse;
-    }
 
 
     @Contract(value = "null -> false", pure = true)

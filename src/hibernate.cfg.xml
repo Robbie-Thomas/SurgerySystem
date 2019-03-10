@@ -10,12 +10,13 @@
 
         <property name = "hibernate.connection.driver_class">
             com.mysql.cj.jdbc.Driver
+
         </property>
 
         <!-- Assume test is the database name -->
 
         <property name = "hibernate.connection.url">
-            jdbc:mysql://localhost/test
+            jdbc:mysql://localhost:3306/surgery
         </property>
 
         <property name = "hibernate.connection.username">
@@ -25,6 +26,17 @@
         <property name = "hibernate.connection.password">
             password
         </property>
+
+        <mapping class="Patient"/>
+        <mapping class="PatientPhone"/>
+        <mapping class="PatientEmailAddress"/>
+        <mapping class="PatientAddress"/>
+        <mapping class="Doctor"/>
+        <mapping class="Staff"/>
+        <mapping class="Nurse"/>
+        <mapping class="Room"/>
+        <mapping class="Appointment"/>
+
 
         <!-- List of XML mapping files -->
         <!-- <mapping resource = "Employee.hbm.xml"/> -->

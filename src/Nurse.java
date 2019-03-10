@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
-@Table(name = "Nurse")
+@Table(name = "nurse")
 public class Nurse{
 
     @Id
@@ -51,7 +51,7 @@ public class Nurse{
     @Column(name = "Thursday_PM")
     private Boolean ThursdayPM;
 
-    @Column(name = "Firday_AM")
+    @Column(name = "Friday_AM")
     private Boolean FridayAM;
 
     @Column(name= "Friday_PM")

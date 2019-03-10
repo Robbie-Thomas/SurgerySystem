@@ -3,12 +3,11 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.*;
-import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
-@Table(name = "Appointment")
+@Table(name = "appointment")
 public class Appointment
 {
     @Id
@@ -17,7 +16,7 @@ public class Appointment
     private Integer id;
 
     @Column(name = "Date")
-    private Date appointmentDate;
+    private LocalDateTime appointmentDate;
 
     @Column(name = "Time")
     private LocalDateTime appointmentTime;
@@ -31,9 +30,11 @@ public class Appointment
     @JoinColumn(name = "Patient_Id")
     private Patient patient;
 
-    @OneToOne
+
+    @OneToOne(targetEntity = Staff.class)
     @JoinColumn(name = "Staff_Id")
     private Staff staff;
+
 
     @Column (name = "Row_Create")
     @CreationTimestamp
@@ -46,7 +47,7 @@ public class Appointment
 
     public Appointment(){}
 
-    public Appointment(Date appointmentDate, LocalDateTime appointmentTime, Patient patient, Staff staff, Room room, LocalDateTime row_Create) {
+    public Appointment(LocalDateTime appointmentDate, LocalDateTime appointmentTime, Patient patient, Staff staff, Room room) {
         this.appointmentDate = appointmentDate;
         this.appointmentTime = appointmentTime;
         this.patient = patient;
@@ -62,11 +63,11 @@ public class Appointment
         this.id = id;
     }
 
-    public Date getAppointmentDate() {
+    public LocalDateTime getAppointmentDate() {
         return appointmentDate;
     }
 
-    public void setAppointmentDate(Date appointmentDate) {
+    public void setAppointmentDate(LocalDateTime appointmentDate) {
         this.appointmentDate = appointmentDate;
     }
 

@@ -4,13 +4,12 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "Room")
+@Table(name = "room")
 public class Room {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "Room_Id")
-    @Basic(optional = false)
     private Integer id;
 
 
