@@ -9,7 +9,7 @@ import java.util.*;
 
 
 @Entity
-@Table(name = "Address")
+@Table(name = "address")
 @Access(value=AccessType.FIELD)
 public class PatientAddress {
 
@@ -46,11 +46,11 @@ public class PatientAddress {
 
 
 
-    @Column (name = "Create_Time")
+    @Column (name = "Row_Create")
     @CreationTimestamp
     private LocalDateTime createDateTime;
 
-    @Column (name = "Update_Time")
+    @Column (name = "Row_LastUpdate")
     @UpdateTimestamp
     private LocalDateTime updateDateTime;
 

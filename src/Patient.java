@@ -3,19 +3,21 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.jetbrains.annotations.Contract;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
-@Table(name = "Patient")
+@Table(name = "patient")
 public class Patient {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column (name = "id")
+    @Column (name = "Patient_id")
     private Integer id;
 
-    @Column( name="DateOfBirth")
-    private Date dob;
+    @Column( name="Date_Of_Birth")
+    private LocalDate dob;
 
     @Column( name="First_Name")
     private String firstName;
@@ -40,18 +42,61 @@ public class Patient {
     @UpdateTimestamp
     private LocalDateTime updateDateTime;
 
+    @OneToMany(
+    cascade = CascadeType.ALL,
+    orphanRemoval = true
+    )
+    private Set<PatientAddress> patientAddresses = new HashSet<PatientAddress>();
 
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private Set<PatientPhone> patientPhones = new HashSet<PatientPhone>();
+
+    @OneToMany(
+            targetEntity = PatientPhone.class,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+
+
+    )
+    private Set<PatientEmailAddress> patientEmailAddresses = new HashSet<PatientEmailAddress>();
 
 
     public Patient() {
     }
 
-    public Patient(Date dob, String firstName, String lastName, String medicalInformation, boolean isMale) {
+    public Patient(LocalDate dob, String firstName, String lastName, String medicalInformation, boolean isMale) {
         this.dob = dob;
         this.firstName = firstName;
         this.lastName = lastName;
         this.medicalInformation = medicalInformation;
         this.isMale = isMale;
+    }
+
+    public Set<PatientAddress> getPatientAddresses() {
+        return patientAddresses;
+    }
+
+    public void setPatientAddresses(Set<PatientAddress> patientAddresses) {
+        this.patientAddresses = patientAddresses;
+    }
+
+    public Set<PatientPhone> getPatientPhones() {
+        return patientPhones;
+    }
+
+    public void setPatientPhones(Set<PatientPhone> patientPhones) {
+        this.patientPhones = patientPhones;
+    }
+
+    public Set<PatientEmailAddress> getPatientEmailAddresses() {
+        return patientEmailAddresses;
+    }
+
+    public void setPatientEmailAddresses(Set<PatientEmailAddress> patientEmailAddresses) {
+        this.patientEmailAddresses = patientEmailAddresses;
     }
 
     public boolean isMale() {
@@ -70,11 +115,11 @@ public class Patient {
         this.id = id;
     }
 
-    public Date getDob() {
+    public LocalDate getDob() {
         return dob;
     }
 
-    public void setDob(Date dob) {
+    public void setDob(LocalDate dob) {
         this.dob = dob;
     }
 

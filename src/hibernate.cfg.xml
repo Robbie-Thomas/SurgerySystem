@@ -30,7 +30,7 @@
         <mapping class="Patient"/>
         <mapping class="PatientPhone"/>
         <mapping class="PatientEmailAddress"/>
-        <mapping class="Address"/>
+        <mapping class="PatientAddress"/>
         <mapping class="Doctor"/>
         <mapping class="Staff"/>
         <mapping class="Nurse"/>

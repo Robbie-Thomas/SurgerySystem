@@ -11,7 +11,7 @@ import java.util.Objects;
 public class Appointment
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     @Column(name = "Appointment_Id")
     private Integer id;
 
@@ -35,9 +35,6 @@ public class Appointment
     @JoinColumn(name = "Staff_Id")
     private Staff staff;
 
-    @Column(name = "On_Time")
-    private Boolean onTime;
-
 
     @Column (name = "Row_Create")
     @CreationTimestamp
@@ -50,13 +47,12 @@ public class Appointment
 
     public Appointment(){}
 
-    public Appointment(LocalDateTime appointmentDate, LocalDateTime appointmentTime, Room room, Patient patient, Staff staff, Boolean onTime) {
+    public Appointment(LocalDateTime appointmentDate, LocalDateTime appointmentTime, Patient patient, Staff staff, Room room) {
         this.appointmentDate = appointmentDate;
         this.appointmentTime = appointmentTime;
-        this.room = room;
         this.patient = patient;
         this.staff = staff;
-        this.onTime = onTime;
+        this.room = room;
     }
 
     public Integer getId() {
@@ -65,14 +61,6 @@ public class Appointment
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Boolean getOnTime() {
-        return onTime;
-    }
-
-    public void setOnTime(Boolean onTime) {
-        this.onTime = onTime;
     }
 
     public LocalDateTime getAppointmentDate() {

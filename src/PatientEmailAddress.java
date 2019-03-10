@@ -8,7 +8,7 @@ import java.util.Objects;
 
 
 @Entity
-@Table(name = "PatientEmailAddress")
+@Table(name = "patientEmailAddress")
 public class PatientEmailAddress {
 
 
