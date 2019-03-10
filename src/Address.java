@@ -57,7 +57,7 @@ public class PatientAddress {
     public PatientAddress() {
     }
 
-    public PatientAddress(Patient patient, String houseName, String street, String city, String postcode, String county, String country, String houseNumber) {
+    public PatientAddress(Patient patient, String houseName, String houseNumber, String street, String city, String postcode, String county, String country) {
         this.patient = patient;
         this.houseName = houseName;
         this.street = street;

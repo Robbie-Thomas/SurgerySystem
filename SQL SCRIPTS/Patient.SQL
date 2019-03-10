@@ -1,7 +1,7 @@
 CREATE TABLE Patient (
 Patient_Id INT NOT NULL AUTO_INCREMENT,
 First_Name VARCHAR(55)  NOT NULL,
-Middle_Name VARCHAR(55) NOT NULL,
+Middle_Name VARCHAR(55),
 Last_Name VARCHAR(55) NOT NULL,
 Is_Male TINYINT NOT NULL,
 Medical_Information VARCHAR(5000),
@@ -29,7 +29,7 @@ CREATE TABLE Address (
 PatientAddress_Id INT NOT NULL AUTO_INCREMENT,
 Patient_Id INT NOT NULL,
 House_Name VARCHAR(100),
-House_Number INT,
+House_Number VARCHAR(20),
 Street VARCHAR(70) NOT NULL,
 City VARCHAR(70) NOT NULL,
 Postcode VARCHAR(8) NOT NULL,
