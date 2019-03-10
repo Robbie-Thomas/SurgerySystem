@@ -6283,232 +6283,237 @@ Date</ColNames>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="1394" parent="422" name="Date_Of_Birth">
+    <column id="1394" parent="422" name="Medical_Information">
       <Position>6</Position>
+      <DataType>varchar(5000)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="1395" parent="422" name="Date_Of_Birth">
+      <Position>7</Position>
       <DataType>date|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="1395" parent="422" name="Row_Create">
-      <Position>7</Position>
+    <column id="1396" parent="422" name="Row_Create">
+      <Position>8</Position>
       <DataType>datetime|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="1396" parent="422" name="Row_LastUpdate">
-      <Position>8</Position>
+    <column id="1397" parent="422" name="Row_LastUpdate">
+      <Position>9</Position>
       <DataType>datetime|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="1397" parent="422" name="name">
+    <index id="1398" parent="422" name="name">
       <ColNames>First_Name
 Last_Name</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="1398" parent="422" name="PRIMARY">
+    <key id="1399" parent="422" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>Patient_Id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="1399" parent="423" name="PatientEmailAddress_Id">
+    <column id="1400" parent="423" name="PatientEmailAddress_Id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="1400" parent="423" name="Patient_Id">
+    <column id="1401" parent="423" name="Patient_Id">
       <Position>2</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="1401" parent="423" name="Email_Address">
+    <column id="1402" parent="423" name="Email_Address">
       <Position>3</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="1402" parent="423" name="Row_Create">
+    <column id="1403" parent="423" name="Row_Create">
       <Position>4</Position>
       <DataType>datetime|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="1403" parent="423" name="Row_LastUpdate">
+    <column id="1404" parent="423" name="Row_LastUpdate">
       <Position>5</Position>
       <DataType>datetime|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="1404" parent="423" name="Email_Address">
+    <index id="1405" parent="423" name="Email_Address">
       <ColNames>Email_Address</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <index id="1405" parent="423" name="PatientID_Email">
+    <index id="1406" parent="423" name="PatientID_Email">
       <ColNames>Patient_Id
 Email_Address</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="1406" parent="423" name="PRIMARY">
+    <key id="1407" parent="423" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>PatientEmailAddress_Id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="1407" parent="423" name="Email_Address">
+    <key id="1408" parent="423" name="Email_Address">
       <ColNames>Email_Address</ColNames>
       <UnderlyingIndexName>Email_Address</UnderlyingIndexName>
     </key>
-    <foreign-key id="1408" parent="423" name="patientemailaddress_ibfk_1">
+    <foreign-key id="1409" parent="423" name="patientemailaddress_ibfk_1">
       <ColNames>Patient_Id</ColNames>
       <RefSchemaName>surgery</RefSchemaName>
       <RefTableName>patient</RefTableName>
       <RefColNames>Patient_Id</RefColNames>
       <OnUpdate>cascade</OnUpdate>
     </foreign-key>
-    <column id="1409" parent="424" name="PatientPhoneNumber_Id">
+    <column id="1410" parent="424" name="PatientPhoneNumber_Id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="1410" parent="424" name="Patient_Id">
+    <column id="1411" parent="424" name="Patient_Id">
       <Position>2</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="1411" parent="424" name="Phone_Number">
+    <column id="1412" parent="424" name="Phone_Number">
       <Position>3</Position>
       <DataType>varchar(15)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="1412" parent="424" name="Row_Create">
+    <column id="1413" parent="424" name="Row_Create">
       <Position>4</Position>
       <DataType>datetime|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="1413" parent="424" name="Row_LastUpdate">
+    <column id="1414" parent="424" name="Row_LastUpdate">
       <Position>5</Position>
       <DataType>datetime|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="1414" parent="424" name="PatientID_PhoneNum">
+    <index id="1415" parent="424" name="PatientID_PhoneNum">
       <ColNames>Patient_Id
 Phone_Number</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="1415" parent="424" name="PRIMARY">
+    <key id="1416" parent="424" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>PatientPhoneNumber_Id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="1416" parent="424" name="patientphonenumber_ibfk_1">
+    <foreign-key id="1417" parent="424" name="patientphonenumber_ibfk_1">
       <ColNames>Patient_Id</ColNames>
       <RefSchemaName>surgery</RefSchemaName>
       <RefTableName>patient</RefTableName>
       <RefColNames>Patient_Id</RefColNames>
       <OnUpdate>cascade</OnUpdate>
     </foreign-key>
-    <column id="1417" parent="425" name="Room_Id">
+    <column id="1418" parent="425" name="Room_Id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="1418" parent="425" name="Name">
+    <column id="1419" parent="425" name="Name">
       <Position>2</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="1419" parent="425" name="Number">
+    <column id="1420" parent="425" name="Number">
       <Position>3</Position>
       <DataType>varchar(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="1420" parent="425" name="Id_Number">
+    <index id="1421" parent="425" name="Id_Number">
       <ColNames>Room_Id
 Name</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="1421" parent="425" name="Id_Name">
+    <index id="1422" parent="425" name="Id_Name">
       <ColNames>Room_Id
 Number</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="1422" parent="425" name="PRIMARY">
+    <key id="1423" parent="425" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>Room_Id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="1423" parent="426" name="Staff_Id">
+    <column id="1424" parent="426" name="Staff_Id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="1424" parent="426" name="Doctor_Id">
+    <column id="1425" parent="426" name="Doctor_Id">
       <Position>2</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="1425" parent="426" name="Nurse_Id">
+    <column id="1426" parent="426" name="Nurse_Id">
       <Position>3</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="1426" parent="426" name="Is_Male">
+    <column id="1427" parent="426" name="Is_Male">
       <Position>4</Position>
       <DataType>tinyint(4)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="1427" parent="426" name="Row_Create">
+    <column id="1428" parent="426" name="Row_Create">
       <Position>5</Position>
       <DataType>datetime|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="1428" parent="426" name="Row_LastUpdate">
+    <column id="1429" parent="426" name="Row_LastUpdate">
       <Position>6</Position>
       <DataType>datetime|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="1429" parent="426" name="StaffDoc">
+    <index id="1430" parent="426" name="StaffDoc">
       <ColNames>Staff_Id
 Doctor_Id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="1430" parent="426" name="StaffNurse">
+    <index id="1431" parent="426" name="StaffNurse">
       <ColNames>Staff_Id
 Nurse_Id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="1431" parent="426" name="Doctor_Id">
+    <index id="1432" parent="426" name="Doctor_Id">
       <ColNames>Doctor_Id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="1432" parent="426" name="Nurse_Id">
+    <index id="1433" parent="426" name="Nurse_Id">
       <ColNames>Nurse_Id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="1433" parent="426" name="PRIMARY">
+    <key id="1434" parent="426" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>Staff_Id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="1434" parent="426" name="staff_ibfk_1">
+    <foreign-key id="1435" parent="426" name="staff_ibfk_1">
       <ColNames>Doctor_Id</ColNames>
       <RefSchemaName>surgery</RefSchemaName>
       <RefTableName>doctor</RefTableName>
       <RefColNames>Doctor_id</RefColNames>
       <OnUpdate>cascade</OnUpdate>
     </foreign-key>
-    <foreign-key id="1435" parent="426" name="staff_ibfk_2">
+    <foreign-key id="1436" parent="426" name="staff_ibfk_2">
       <ColNames>Nurse_Id</ColNames>
       <RefSchemaName>surgery</RefSchemaName>
       <RefTableName>nurse</RefTableName>
