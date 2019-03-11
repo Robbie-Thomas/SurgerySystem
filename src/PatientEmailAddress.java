@@ -7,6 +7,15 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 
+@NamedQueries(
+        value = {
+                @NamedQuery(
+                        name = "findEmailByPatients",
+                        query = "select p as Patient from Patient p left outer join fetch PatientEmailAddress pe where pe.emailAddress = :email"
+                )
+        }
+)
+
 @Entity
 @Table(name = "patientEmailAddress")
 public class PatientEmailAddress {
