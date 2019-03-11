@@ -79,6 +79,8 @@ public class Doctor {
     @UpdateTimestamp
     private LocalDateTime updateDateTime;
 
+
+
     public Doctor() {
     }
 

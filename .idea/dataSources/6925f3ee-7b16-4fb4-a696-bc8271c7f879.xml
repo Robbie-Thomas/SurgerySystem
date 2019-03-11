@@ -6456,63 +6456,55 @@ Number</ColNames>
     <column id="1425" parent="426" name="Doctor_Id">
       <Position>2</Position>
       <DataType>int(11)|0s</DataType>
-      <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="1426" parent="426" name="Nurse_Id">
       <Position>3</Position>
       <DataType>int(11)|0s</DataType>
-      <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="1427" parent="426" name="Is_Male">
+    <column id="1427" parent="426" name="Row_Create">
       <Position>4</Position>
-      <DataType>tinyint(4)|0s</DataType>
+      <DataType>datetime|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="1428" parent="426" name="Row_Create">
+    <column id="1428" parent="426" name="Row_LastUpdate">
       <Position>5</Position>
       <DataType>datetime|0s</DataType>
-      <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="1429" parent="426" name="Row_LastUpdate">
-      <Position>6</Position>
-      <DataType>datetime|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <index id="1430" parent="426" name="StaffDoc">
+    <index id="1429" parent="426" name="StaffDoc">
       <ColNames>Staff_Id
 Doctor_Id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="1431" parent="426" name="StaffNurse">
+    <index id="1430" parent="426" name="StaffNurse">
       <ColNames>Staff_Id
 Nurse_Id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="1432" parent="426" name="Doctor_Id">
+    <index id="1431" parent="426" name="Doctor_Id">
       <ColNames>Doctor_Id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="1433" parent="426" name="Nurse_Id">
+    <index id="1432" parent="426" name="Nurse_Id">
       <ColNames>Nurse_Id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="1434" parent="426" name="PRIMARY">
+    <key id="1433" parent="426" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>Staff_Id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="1435" parent="426" name="staff_ibfk_1">
+    <foreign-key id="1434" parent="426" name="staff_ibfk_1">
       <ColNames>Doctor_Id</ColNames>
       <RefSchemaName>surgery</RefSchemaName>
       <RefTableName>doctor</RefTableName>
       <RefColNames>Doctor_id</RefColNames>
       <OnUpdate>cascade</OnUpdate>
     </foreign-key>
-    <foreign-key id="1436" parent="426" name="staff_ibfk_2">
+    <foreign-key id="1435" parent="426" name="staff_ibfk_2">
       <ColNames>Nurse_Id</ColNames>
       <RefSchemaName>surgery</RefSchemaName>
       <RefTableName>nurse</RefTableName>

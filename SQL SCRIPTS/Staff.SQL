@@ -1,8 +1,7 @@
 CREATE TABLE Staff (
 Staff_Id INT NOT NULL AUTO_INCREMENT,
-Doctor_Id INT NOT NULL,
-Nurse_Id INT NOT NULL,
-Is_Male TINYINT NOT NULL,
+Doctor_Id INT,
+Nurse_Id INT,
 Row_Create DATETIME NOT NULL,
 Row_LastUpdate DATETIME,
 PRIMARY KEY (Staff_Id),
