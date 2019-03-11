@@ -9,6 +9,25 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+@NamedQueries(
+        value = {
+                @NamedQuery(
+                        name = "findPatientByFirstName",
+                        query = "from Patient p where p.firstName = :name"
+                ),
+                @NamedQuery(
+                        name = "findPatientByLastName",
+                        query = "from Patient p where p.lastName = :name"
+                ),
+                @NamedQuery(
+                        name = "findPatientByDOB",
+                        query = "from Patient p where  p.dob = :dob"
+                )
+
+        }
+)
+
+
 @Entity
 @Table(name = "patient")
 public class Patient {

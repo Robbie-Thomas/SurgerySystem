@@ -57,3 +57,10 @@ REFERENCES Patient(Patient_Id)
 ON UPDATE CASCADE ON DELETE RESTRICT,
 INDEX PatientID_Email (Patient_Id,Email_Address)
 ) ENGINE=INNODB;
+
+select p.First_Name, p.Last_Name,p.Date_Of_Birth, pE.Email_Address
+from patient p
+       left outer join patientemailaddress pE
+                       on p.Patient_Id = pE.Patient_Id
+where p.last_Name = "test"
+
