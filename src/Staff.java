@@ -1,6 +1,7 @@
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -16,21 +17,22 @@ public class Staff {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Staff_Id")
+    @NotNull
     private Integer id;
 
-    @OneToMany(
+    @OneToOne(
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
     @JoinColumn(name = "Doctor_Id")
-    private Set<Doctor> doctor = new HashSet<Doctor>();
+    private Doctor doctor;
 
-    @OneToMany(
+    @OneToOne(
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
     @JoinColumn(name = "Nurse_Id")
-    private Set<Nurse> nurse = new HashSet<Nurse>();
+    private Nurse nurse;
 
     @Column (name = "Row_Create")
     @CreationTimestamp
@@ -43,17 +45,13 @@ public class Staff {
 
     public Staff(){}
 
-    public Staff(Set<Doctor> doctor, Set<Nurse> nurse) {
+    public Staff(Doctor doctor) {
         this.doctor = doctor;
-        this.nurse = nurse;
+
     }
 
-    public void setNurse(Set<Nurse> nurse) {
+    public Staff(Nurse nurse){
         this.nurse = nurse;
-    }
-
-    public Set<Nurse> getNurse() {
-        return nurse;
     }
 
     public void setCreateDateTime(LocalDateTime createDateTime) {
@@ -68,15 +66,21 @@ public class Staff {
         this.id = id;
     }
 
-    public Set<Doctor> getDoctor() {
+    public Doctor getDoctor() {
         return doctor;
     }
 
-    public void setDoctor(Set<Doctor> doctor) {
+    public void setDoctor(Doctor doctor) {
         this.doctor = doctor;
     }
 
+    public Nurse getNurse() {
+        return nurse;
+    }
 
+    public void setNurse(Nurse nurse) {
+        this.nurse = nurse;
+    }
 
     @Contract(value = "null -> false", pure = true)
     @Override
