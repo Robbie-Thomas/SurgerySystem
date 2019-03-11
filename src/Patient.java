@@ -22,7 +22,12 @@ import java.util.Set;
                 @NamedQuery(
                         name = "findPatientByDOB",
                         query = "from Patient p where  p.dob = :dob"
+                ),
+                @NamedQuery(
+                        name = "findPatientByEmail",
+                        query = "select distinct p as Patient from Patient p left outer join fetch PatientEmailAddress pe where pe.emailAddress = :email"
                 )
+
 
         }
 )

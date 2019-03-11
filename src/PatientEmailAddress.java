@@ -10,8 +10,8 @@ import java.util.Objects;
 @NamedQueries(
         value = {
                 @NamedQuery(
-                        name = "findEmailByPatients",
-                        query = "select p as Patient from Patient p left outer join fetch PatientEmailAddress pe where pe.emailAddress = :email"
+                        name = "findEmailByPatientsName",
+                        query = "select p as Patient from Patient p left outer join fetch PatientEmailAddress pe where p.firstName = :firstName AND p.lastName = :lastName"
                 )
         }
 )

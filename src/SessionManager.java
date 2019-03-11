@@ -3,7 +3,6 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.query.Query;
 
 import javax.persistence.TypedQuery;
 import java.time.LocalDate;
@@ -45,8 +44,12 @@ public class SessionManager {
 
         //List<Patient> patients = sM.getPatientsWithLastName("Test");
         //System.out.println(patients.get(0).getFirstName());
-        List<Patient> patients = sM.getPatientsWithEmailAddress("dasdas@dasda.com");
-       System.out.println(patients.get(0).getFirstName());
+        //List<Patient> patients = sM.getPatientsWithEmailAddress("dasdas@dasda.com");
+        //System.out.println(patients.get(0).getFirstName());
+       sM.getEmailFromPatientName("Tom", "Test");
+        //System.out.println(patientWithEmail.get(0).getPatientEmailAddresses());
+        //System.out.println(patientWithEmail.get(1).getPatientEmailAddresses());
+
 
     }
 
@@ -1085,8 +1088,8 @@ public class SessionManager {
         session.close();
     }
 
-    public List<Patient> getPatientsWithLastName(String lastName) {
-        List<Patient> patients = null;
+    public List getPatientsWithLastName(String lastName) {
+        List patients = null;
         Session session = factory.openSession();
         Transaction tx = null;
         try {
@@ -1099,14 +1102,29 @@ public class SessionManager {
         }return patients;
     }
 
-    public List<Patient> getPatientsWithEmailAddress(String email) {
-        List<Patient> patients = null;
+    public List getPatientsWithEmailAddress(String email) {
+        List patients = null;
         Session session = factory.openSession();
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
             TypedQuery query = session.getNamedQuery("findPatientByEmail");
             query.setParameter("email", email);
+            patients = query.getResultList();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        }return patients;
+    }
+
+    public List getEmailFromPatientName(String firstName, String lastName) {
+        List patients = null;
+        Session session = factory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            TypedQuery query = session.getNamedQuery("findEmailByPatientsName");
+            query.setParameter("firstName", firstName);
+            query.setParameter("lastName",lastName);
             patients = query.getResultList();
         } catch (HibernateException e) {
             e.printStackTrace();
