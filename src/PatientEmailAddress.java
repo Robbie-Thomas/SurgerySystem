@@ -11,7 +11,7 @@ import java.util.Objects;
         value = {
                 @NamedQuery(
                         name = "findEmailByPatientsName",
-                        query = "select p as Patient from Patient p left outer join fetch PatientEmailAddress pe where p.firstName = :firstName AND p.lastName = :lastName"
+                        query = "SELECT pE.emailAddress from PatientEmailAddress pE where pE.patient = :patient"
                 )
         }
 )
@@ -29,8 +29,8 @@ public class PatientEmailAddress {
     @Column(name = "Email_Address", unique = true)
     private String emailAddress;
 
-    @ManyToOne
-    @JoinColumn (name = "Patient_Id")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "Patient_id")
     private Patient patient;
 
     @Column (name = "Row_Create")
