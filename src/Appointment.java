@@ -6,6 +6,18 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+
+
+@NamedQueries(
+        @NamedQuery(
+                name = "getAppointmentFromPatientNames",
+                query ="select t from Appointment t \n" +
+                "join t.patient p \n" +
+                "where p.firstName = :firstName AND p.lastName = :lastName"
+        )
+)
+
+
 @Entity
 @Table(name = "appointment")
 public class Appointment
@@ -146,5 +158,17 @@ public class Appointment
     }
 
 
+    @Override
+    public String toString() {
+        return "Appointment{" +
+                "appointmentDate=" + appointmentDate +
+                ", appointmentTime=" + appointmentTime +
+                ", room=" + room.getRoomNumber() + " " + room.getRoomName() +
+                ", patient=" + patient.getFirstName() + " " + patient.getLastName() +
+                ", Nurse=" + staff.getNurse().getFirstName() + " " + staff.getNurse().getLastName() +
+                ", Doctor=" + staff.getDoctor().getFirstName() + " " + staff.getDoctor().getLastName() +
+                ", onTime=" + onTime +
+                '}';
+    }
 }
 

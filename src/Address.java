@@ -5,7 +5,14 @@ import org.jetbrains.annotations.Contract;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.*;
-
+@NamedQueries(
+                @NamedQuery(
+                        name = "findAddressByName",
+                        query ="select t from Address t \n" +
+                                "join t.patient p \n" +
+                                "where p.firstName = :firstName AND p.lastName = :lastName"
+                )
+)
 
 @Entity
 @Table(name = "address")
@@ -160,5 +167,18 @@ public class Address {
         return Objects.hash(id);
     }
 
+    @Override
+    public String toString() {
 
+        return "Address{" + "Name='" +
+                patient.getFirstName() + " " +patient.getLastName() + '\''+
+                ",houseName='" + houseName + '\'' +
+                ", houseNumber='" + houseNumber + '\'' +
+                ", street='" + street + '\'' +
+                ", city='" + city + '\'' +
+                ", postcode='" + postcode + '\'' +
+                ", county='" + county + '\'' +
+                ", country='" + country + '\'' +
+                '}';
+    }
 }

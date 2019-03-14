@@ -46,11 +46,29 @@ public class SessionManager {
         //List<Patient> patients = sM.getPatientsWithLastName("Test");
         //System.out.println(patients.get(0).getFirstName());
         List<PatientEmailAddress> patientEmailAddresses = sM.getEmailsByName("Tom", "Test");
-       // System.out.println(sM.getEmailsByName("Tom","Test"));
+        List<PatientPhone> patientPhones = sM.getPhoneByName("Tom", "Test");
+        List<Address> patientAddress = sM.getAddressByName("Tom", "Test");
+        List<Appointment> appointments = sM.getAppointmentByName("Tom", "Test");
+
+        // System.out.println(sM.getEmailsByName("Tom","Test"));
 
         for(int i = 0; i < patientEmailAddresses.size(); i++){
             System.out.println(patientEmailAddresses.get(i).getEmailAddress());
         }
+
+        for(int i = 0; i < patientPhones.size(); i++){
+            System.out.println(patientPhones.get(i).getPhoneNumber());
+        }
+
+        for(int i = 0; i < patientAddress.size(); i++){
+            System.out.println(patientAddress.get(i).toString());
+        }
+
+
+
+
+
+
 
     }
 
@@ -1152,6 +1170,50 @@ public class SessionManager {
         return patientEmailAddress;
     }
 
+    public List<PatientPhone> getPhoneByName(String firstName, String lastName){
+        List patientsPhone = null;
+        Session session = factory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            TypedQuery query = session.getNamedQuery("findPhoneByName");
+            query.setParameter("firstName", firstName);
+            query.setParameter("lastName", lastName);
+            patientsPhone = query.getResultList();
+        }catch (HibernateException e){
+            e.printStackTrace();
+        }return patientsPhone;
+    }
+
+    public List<Address> getAddressByName(String firstName, String lastName){
+        List patientsAddress = null;
+        Session session = factory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            TypedQuery query = session.getNamedQuery("findAddressByName");
+            query.setParameter("firstName", firstName);
+            query.setParameter("lastName", lastName);
+            patientsAddress = query.getResultList();
+        }catch (HibernateException e){
+            e.printStackTrace();
+        }return patientsAddress;
+    }
+
+    public List<Appointment> getAppointmentByName(String firstName, String lastName){
+        List appointment = null;
+        Session session = factory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            TypedQuery query = session.getNamedQuery("getAppointmentFromPatientNames");
+            query.setParameter("firstName", firstName);
+            query.setParameter("lastName", lastName);
+            appointment = query.getResultList();
+        }catch (HibernateException e) {
+            e.printStackTrace();
+        }return appointment;
+    }
 
 
 

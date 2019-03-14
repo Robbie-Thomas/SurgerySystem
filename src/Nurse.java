@@ -6,6 +6,16 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+
+@NamedQueries(
+        @NamedQuery(
+                name = "findAppointmentByPatientName",
+                query = "from Patient p where p.firstName = :firstName AND p.lastName = :lastName"
+        )
+)
+
+
+
 @Entity
 @Table(name = "nurse")
 public class Nurse{
