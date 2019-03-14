@@ -20,6 +20,13 @@ import java.util.Objects;
                                 "join t.patient p \n" +
                                 "where p.firstName = :firstName AND p.lastName = :lastName"
                 )
+                ,
+                @NamedQuery(
+                        name = "findEmailsByName",
+                        query ="select t from PatientEmailAddress t \n" +
+                                "join t.patient p \n" +
+                                "where p.firstName = :firstName AND p.lastName = :lastName"
+                )
         }
 )
 
