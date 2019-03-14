@@ -13,6 +13,13 @@ import java.util.Objects;
                         name = "findEmailByPatients",
                         query = "select p as Patient from Patient p left outer join fetch PatientEmailAddress pe where pe.emailAddress = :email"
                 )
+                ,
+                @NamedQuery(
+                        name = "findEmailsByName",
+                        query ="select t from PatientEmailAddress t \n" +
+                                "join t.patient p \n" +
+                                "where p.firstName = :firstName AND p.lastName = :lastName"
+                )
         }
 )
 
