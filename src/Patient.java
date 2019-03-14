@@ -22,6 +22,10 @@ import java.util.Set;
                 @NamedQuery(
                         name = "findPatientByDOB",
                         query = "from Patient p where  p.dob = :dob"
+                ),
+                @NamedQuery(
+                        name = "findPatientByFullName",
+                        query = "from Patient p where p.firstName = :firstName AND p.lastName = :lastName"
                 )
 
         }

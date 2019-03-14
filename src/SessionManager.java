@@ -45,8 +45,12 @@ public class SessionManager {
 
         //List<Patient> patients = sM.getPatientsWithLastName("Test");
         //System.out.println(patients.get(0).getFirstName());
-        List<Patient> patients = sM.getPatientsWithEmailAddress("dasdas@dasda.com");
-       System.out.println(patients.get(0).getFirstName());
+        List<PatientEmailAddress> patientEmailAddresses = sM.getEmailsByName("Tom", "Test");
+       // System.out.println(sM.getEmailsByName("Tom","Test"));
+
+        for(int i = 0; i < patientEmailAddresses.size(); i++){
+            System.out.println(patientEmailAddresses.get(i).getEmailAddress());
+        }
 
     }
 
@@ -1099,19 +1103,56 @@ public class SessionManager {
         }return patients;
     }
 
-    public List<Patient> getPatientsWithEmailAddress(String email) {
-        List<Patient> patients = null;
+    public List<Patient> getPatientByFullName(String firstName, String lastName) {
+        List patientsName = null;
         Session session = factory.openSession();
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
-            TypedQuery query = session.getNamedQuery("findPatientByEmail");
-            query.setParameter("email", email);
-            patients = query.getResultList();
-        } catch (HibernateException e) {
+            TypedQuery query = session.getNamedQuery("findPatientByFullName");
+            query.setParameter("firstName", firstName);
+            query.setParameter("lastName", lastName);
+            patientsName = query.getResultList();
+        }catch (HibernateException e){
             e.printStackTrace();
-        }return patients;
+        }return patientsName;
     }
+
+
+
+
+
+    public List<PatientEmailAddress> getEmailsByName(String firstName, String lastName){
+        List patientsEmails = null;
+        Session session = factory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            TypedQuery query = session.getNamedQuery("findEmailsByName");
+            query.setParameter("firstName", firstName);
+            query.setParameter("lastName", lastName);
+            patientsEmails = query.getResultList();
+        }catch (HibernateException e){
+            e.printStackTrace();
+        }return patientsEmails;
+    }
+
+    private PatientEmailAddress getEmail(Integer patientEmailId){
+        PatientEmailAddress patientEmailAddress = new PatientEmailAddress();
+        Session session = factory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            patientEmailAddress = session.get(PatientEmailAddress.class, patientEmailId);
+
+        }catch (HibernateException e){
+            e.printStackTrace();
+        }tx.commit();
+        session.close();
+        return patientEmailAddress;
+    }
+
+
 
 
 }
