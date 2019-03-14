@@ -3,6 +3,7 @@ import org.jetbrains.annotations.Contract;
 import java.util.Objects;
 
 public class Workday {
+/*
     private int id;
     private boolean monday;
     private boolean tuesday;
@@ -104,4 +105,5 @@ public class Workday {
     public int hashCode() {
         return Objects.hash(id);
     }
+*/
 }
