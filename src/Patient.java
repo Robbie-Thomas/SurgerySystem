@@ -24,11 +24,9 @@ import java.util.Set;
                         query = "from Patient p where  p.dob = :dob"
                 ),
                 @NamedQuery(
-                        name = "findPatientEmails",
+                        name = "findPatientByFullName",
                         query = "from Patient p where p.firstName = :firstName AND p.lastName = :lastName"
                 )
-
-
 
         }
 )
@@ -68,7 +66,6 @@ public class Patient {
     private LocalDateTime updateDateTime;
 
     @OneToMany(
-            mappedBy = "patient",
             targetEntity = Address.class,
             cascade = CascadeType.ALL,
             orphanRemoval = true
@@ -76,7 +73,6 @@ public class Patient {
     private Set<Address> addresses = new HashSet<Address>();
 
     @OneToMany(
-            mappedBy = "patient",
             targetEntity = PatientPhone.class,
             cascade = CascadeType.ALL,
             orphanRemoval = true
@@ -84,7 +80,6 @@ public class Patient {
     private Set<PatientPhone> patientPhones = new HashSet<PatientPhone>();
 
     @OneToMany(
-            mappedBy = "patient",
             targetEntity = PatientEmailAddress.class,
             cascade = CascadeType.ALL,
             orphanRemoval = true
@@ -126,8 +121,6 @@ public class Patient {
     public void setPatientEmailAddresses(Set<PatientEmailAddress> patientEmailAddresses) {
         this.patientEmailAddresses = patientEmailAddresses;
     }
-
-
 
     public boolean isMale() {
         return isMale;
