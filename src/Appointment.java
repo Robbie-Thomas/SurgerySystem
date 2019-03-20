@@ -9,12 +9,30 @@ import java.util.Objects;
 
 
 @NamedQueries(
-        @NamedQuery(
-                name = "getAppointmentFromPatientNames",
-                query ="select t from Appointment t \n" +
-                "join t.patient p \n" +
-                "where p.firstName = :firstName AND p.lastName = :lastName"
-        )
+        value = {
+                @NamedQuery(
+                        name = "getAppointmentsFromPatientNames",
+                        query = "select t from Appointment t \n" +
+                                "join t.patient p \n" +
+                                "where p.firstName = :firstName AND p.lastName = :lastName"
+                ),
+                @NamedQuery(
+                        name = "getAppointmentsByDate",
+                        query = "select Appointment from Appointment a where a.appointmentDate = :date"
+                ),
+                @NamedQuery(
+                        name = "getAppointmentsFromDoctorName",
+                        query = "select t from Appointment t \n" +
+                                "join t.staff s \n" +
+                                "where s.doctor.firstName = :firstName AND s.doctor.lastName = :lastName"
+                ),
+                @NamedQuery(
+                        name = "getAppointmentsFromNurseName",
+                        query = "select t from Appointment t \n" +
+                                "join t.staff s \n" +
+                                "where s.nurse.firstName = :firstName AND s.nurse.lastName = :lastName"
+                )
+        }
 )
 
 

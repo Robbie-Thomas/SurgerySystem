@@ -6,6 +6,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
 import javax.persistence.TypedQuery;
+import javax.print.Doc;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -1206,7 +1207,7 @@ public class SessionManager {
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
-            TypedQuery query = session.getNamedQuery("getAppointmentFromPatientNames");
+            TypedQuery query = session.getNamedQuery("getAppointmentsFromPatientNames");
             query.setParameter("firstName", firstName);
             query.setParameter("lastName", lastName);
             appointment = query.getResultList();
@@ -1215,6 +1216,49 @@ public class SessionManager {
         }return appointment;
     }
 
+    public List<Appointment> getAppointmentByDate(LocalDateTime appointmentDate){
+        List appointment =null;
+        Session session = factory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            TypedQuery query = session.getNamedQuery("getAppointmentsByDate");
+            query.setParameter("date", appointmentDate);
+            appointment = query.getResultList();
+        }catch (HibernateException e){
+            e.printStackTrace();
+        }return appointment;
+    }
+
+    public List<Appointment> getAppointmentFromDoctorName(String firstName, String lastName){
+        List appointment =null;
+        Session session = factory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            TypedQuery query = session.getNamedQuery("getAppointmentsFromDoctorName");
+            query.setParameter("firstName", firstName);
+            query.setParameter("lastName", lastName);
+            appointment = query.getResultList();
+        }catch (HibernateException e){
+            e.printStackTrace();
+        }return appointment;
+    }
+
+    public List<Appointment> getAppointmentFromNurseName(String firstName, String lastName){
+        List appointment =null;
+        Session session = factory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            TypedQuery query = session.getNamedQuery("getAppointmentsFromNurseName");
+            query.setParameter("firstName", firstName);
+            query.setParameter("lastName", lastName);
+            appointment = query.getResultList();
+        }catch (HibernateException e){
+            e.printStackTrace();
+        }return appointment;
+    }
 
 
 }
