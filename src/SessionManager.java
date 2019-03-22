@@ -20,6 +20,8 @@ public class SessionManager {
 
     public static void main(String[] args) {
 
+
+
         try {
             factory = new Configuration().configure().buildSessionFactory();
         } catch (Throwable ex) {
@@ -46,27 +48,6 @@ public class SessionManager {
 
         //List<Patient> patients = sM.getPatientsWithLastName("Test");
         //System.out.println(patients.get(0).getFirstName());
-        List<PatientEmailAddress> patientEmailAddresses = sM.getEmailsByName("Tom", "Test");
-        List<PatientPhone> patientPhones = sM.getPhoneByName("Tom", "Test");
-        List<Address> patientAddress = sM.getAddressByName("Tom", "Test");
-        List<Appointment> appointments = sM.getAppointmentByName("Tom", "Test");
-
-        // System.out.println(sM.getEmailsByName("Tom","Test"));
-
-        for(int i = 0; i < patientEmailAddresses.size(); i++){
-            System.out.println(patientEmailAddresses.get(i).getEmailAddress());
-        }
-
-        for(int i = 0; i < patientPhones.size(); i++){
-            System.out.println(patientPhones.get(i).getPhoneNumber());
-        }
-
-        for(int i = 0; i < patientAddress.size(); i++){
-            System.out.println(patientAddress.get(i).toString());
-        }
-
-
-
 
 
 
