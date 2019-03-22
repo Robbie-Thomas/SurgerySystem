@@ -13,19 +13,19 @@ import java.util.Set;
         value = {
                 @NamedQuery(
                         name = "findPatientByFirstName",
-                        query = "from Patient p where p.firstName = :name"
+                        query = "select p from Patient p where p.firstName = :name"
                 ),
                 @NamedQuery(
                         name = "findPatientByLastName",
-                        query = "from Patient p where p.lastName = :name"
+                        query = "select p from Patient p where p.lastName = :name"
                 ),
                 @NamedQuery(
                         name = "findPatientByDOB",
-                        query = "from Patient p where  p.dob = :dob"
+                        query = "select current_timestamp from Patient p where  p.dob = :dob"
                 ),
                 @NamedQuery(
                         name = "findPatientByFullName",
-                        query = "from Patient p where p.firstName = :firstName AND p.lastName = :lastName"
+                        query = "select p from Patient p where p.firstName = :firstName AND p.lastName = :lastName"
                 )
 
         }

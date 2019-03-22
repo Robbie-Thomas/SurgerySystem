@@ -16,7 +16,7 @@ import java.util.Objects;
                 ),
                 @NamedQuery(
                         name = "getAppointmentsByDate",
-                        query = "select Appointment from Appointment a where a.appointmentDate = :date"
+                        query = "select a from Appointment a where a.appointmentDate = :date"
                 ),
                 @NamedQuery(
                         name = "getAppointmentsFromDoctorName",

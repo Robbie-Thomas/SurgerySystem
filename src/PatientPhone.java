@@ -7,12 +7,14 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 @NamedQueries(
-        @NamedQuery(
-                name = "findPhoneByName",
-                query ="select t from PatientPhone t \n" +
-                        "join t.patient p \n" +
-                        "where p.firstName = :firstName AND p.lastName = :lastName"
-        )
+        value = {
+                @NamedQuery(
+                        name = "findPhoneByName",
+                        query = "select t from PatientPhone t \n" +
+                                "join t.patient p \n" +
+                                "where p.firstName = :firstName AND p.lastName = :lastName"
+                )
+        }
 )
 
 @Entity

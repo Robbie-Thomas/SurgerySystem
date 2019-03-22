@@ -1118,6 +1118,7 @@ public class SessionManager {
         }return patientsName;
     }
 
+
     public List<PatientEmailAddress> getEmailsByName(String firstName, String lastName){
         List patientsEmails = null;
         Session session = factory.openSession();

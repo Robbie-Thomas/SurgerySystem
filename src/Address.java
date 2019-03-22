@@ -8,12 +8,14 @@ import java.util.*;
 
 
 @NamedQueries(
-        @NamedQuery(
-                name = "findAddressByName",
-                query ="select t from Address t \n" +
-                        "join t.patient p \n" +
-                        "where p.firstName = :firstName AND p.lastName = :lastName"
-        )
+        value = {
+                @NamedQuery(
+                        name = "findAddressByName",
+                        query = "select t from Address t \n" +
+                                "join t.patient p \n" +
+                                "where p.firstName = :firstName AND p.lastName = :lastName"
+                )
+        }
 )
 
 
