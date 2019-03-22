@@ -7,6 +7,16 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 
+@NamedQueries(
+        @NamedQuery(
+                name = "findAddressByName",
+                query ="select t from Address t \n" +
+                        "join t.patient p \n" +
+                        "where p.firstName = :firstName AND p.lastName = :lastName"
+        )
+)
+
+
 @Entity
 @Table(name = "address")
 @Access(value=AccessType.FIELD)
