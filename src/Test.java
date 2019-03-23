@@ -1,12 +1,23 @@
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+import java.time.LocalDate;
+import java.util.List;
+
 public class Test {
+
+    private static SessionFactory sessionFactory;
 
     public static void main(String[] args) {
 
 
 
-        //Adding doctors
-        //mp.addDoctor("Derick","Peppah","",true,true,true,true,true,true,true,true,true,true,true,false,false,false,false);
-       // mp.addNurse("Sarah","Tilter","",false,true,true,true,true,true,true,true,true,true,true,false,false,false,false);
+        SessionManager sessionManager = new SessionManager();
+        sessionManager.setUpFactory();
+        System.out.println(sessionManager.getPatient(1).getFirstName());
+
+
+
 
     }
 

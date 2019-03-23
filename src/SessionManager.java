@@ -3,6 +3,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.jetbrains.annotations.Contract;
 
 import javax.persistence.TypedQuery;
 import java.sql.Time;
@@ -60,9 +61,16 @@ public class SessionManager {
 
     }
 
+    public void setUpFactory(){
+        factory = new Configuration().configure().buildSessionFactory();
+    }
+
+
+
 
     //creates a patient with all the fields
     public void addPatient(LocalDate dob, String firstName, String lastName, String medicalInformation, boolean isMale) {
+        setUpFactory();
         Session session = factory.openSession();
         Transaction tx = null;
 
@@ -81,6 +89,7 @@ public class SessionManager {
     }
 
     public Patient getPatient(Integer patientId) {
+
         Patient patient = new Patient();
         Session session = factory.openSession();
         Transaction tx = null;
