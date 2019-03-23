@@ -9,6 +9,7 @@ public class GUI {
     private JButton pressToStart;
     private JPanel homePanel;
     private JPanel startPanel;
+    private JPanel detailsPanel;
 
 
     public static void main(String[] args) {
@@ -41,4 +42,5 @@ public class GUI {
 
     }
 
-   }
+
+}
