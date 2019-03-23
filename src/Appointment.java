@@ -3,6 +3,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.*;
+import java.sql.Time;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -43,10 +45,10 @@ public class Appointment
     private Integer id;
 
     @Column(name = "Date")
-    private LocalDateTime appointmentDate;
+    private LocalDate appointmentDate;
 
     @Column(name = "Time")
-    private LocalDateTime appointmentTime;
+    private Time appointmentTime;
 
     @OneToOne
     @JoinColumn(name = "Room_Id")
@@ -77,7 +79,7 @@ public class Appointment
 
     public Appointment(){}
 
-    public Appointment(LocalDateTime appointmentDate, LocalDateTime appointmentTime, Room room, Patient patient, Staff staff, Boolean onTime) {
+    public Appointment(LocalDate appointmentDate, Time appointmentTime, Room room, Patient patient, Staff staff, Boolean onTime) {
         this.appointmentDate = appointmentDate;
         this.appointmentTime = appointmentTime;
         this.room = room;
@@ -102,19 +104,19 @@ public class Appointment
         this.onTime = onTime;
     }
 
-    public LocalDateTime getAppointmentDate() {
+    public LocalDate getAppointmentDate() {
         return appointmentDate;
     }
 
-    public void setAppointmentDate(LocalDateTime appointmentDate) {
+    public void setAppointmentDate(LocalDate appointmentDate) {
         this.appointmentDate = appointmentDate;
     }
 
-    public LocalDateTime getAppointmentTime() {
+    public Time getAppointmentTime() {
         return appointmentTime;
     }
 
-    public void setAppointmentTime(LocalDateTime appointmentTime) {
+    public void setAppointmentTime(Time appointmentTime) {
         this.appointmentTime = appointmentTime;
     }
 

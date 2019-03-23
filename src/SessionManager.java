@@ -3,11 +3,10 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.query.Query;
 
 import javax.persistence.TypedQuery;
+import java.sql.Time;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -51,6 +50,13 @@ public class SessionManager {
         for(int i = 0; i < patientEmailAddresses.size(); i++){
             System.out.println(patientEmailAddresses.get(i).getEmailAddress());
         }
+
+        List<Appointment> appointments =  sM.getAppointmentByDate(LocalDate.parse("2019-03-11"));
+        for(int i = 0; i < appointments.size(); i++){
+            System.out.println(appointments.get(i).getPatient().getFirstName());
+            System.out.println(appointments.get(i).getAppointmentTime());
+        }
+
 
     }
 
@@ -965,7 +971,7 @@ public class SessionManager {
 
     //Appointment
 
-    public void addAppointment(LocalDateTime appTime, LocalDateTime appDate, Integer patientId, Integer staffId, Integer roomId, boolean onTime) {
+    public void addAppointment(Time appTime, LocalDate appDate, Integer patientId, Integer staffId, Integer roomId, boolean onTime) {
         Session session = factory.openSession();
         Transaction tx = null;
         try {
@@ -996,7 +1002,7 @@ public class SessionManager {
         session.close();
     }
 
-    public void updateAppointmentDate(Integer appId, LocalDateTime date) {
+    public void updateAppointmentDate(Integer appId, LocalDate date) {
         Session session = factory.openSession();
         Transaction tx = null;
         try {
@@ -1011,7 +1017,7 @@ public class SessionManager {
         session.close();
     }
 
-    public void updateAppointmentTime(Integer appId, LocalDateTime time) {
+    public void updateAppointmentTime(Integer appId, Time time) {
         Session session = factory.openSession();
         Transaction tx = null;
         try {
@@ -1196,7 +1202,7 @@ public class SessionManager {
         }return appointment;
     }
 
-    public List<Appointment> getAppointmentByDate(LocalDateTime appointmentDate){
+    public List<Appointment> getAppointmentByDate(LocalDate appointmentDate){
         List appointment =null;
         Session session = factory.openSession();
         Transaction tx = null;
