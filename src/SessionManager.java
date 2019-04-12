@@ -12,7 +12,7 @@ import java.util.List;
 
 
 
-public class SessionManager {
+public class SessionManager{
 
     private static SessionFactory factory;
 
