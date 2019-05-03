@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "room")
+@Table(name = "Room")
 public class Room {
 
     @Id
@@ -61,7 +61,7 @@ public class Room {
         if (this == o) return true;
         if (!(o instanceof Room)) return false;
         Room room = (Room) o;
-        return id == room.id;
+        return id.equals(room.id);
     }
 
     @Override

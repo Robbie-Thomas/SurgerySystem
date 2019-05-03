@@ -20,7 +20,7 @@ import java.util.*;
 
 
 @Entity
-@Table(name = "address")
+@Table(name = "Address")
 @Access(value=AccessType.FIELD)
 public class Address {
 
@@ -31,7 +31,7 @@ public class Address {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn (name = "Patient_Id")
+    @JoinColumn (name = "Patient_Id", nullable = false)
     private Patient patient;
 
     @Column(name = "House_Name")
@@ -162,7 +162,7 @@ public class Address {
         if (!(o instanceof Address)) return false;
         Address that = (Address) o;
         return houseNumber == that.houseNumber &&
-                id == that.id &&
+                id.equals(that.id) &&
                 Objects.equals(houseName, that.houseName) &&
                 Objects.equals(postcode, that.postcode);
     }

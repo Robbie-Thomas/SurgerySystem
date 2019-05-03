@@ -1,4 +1,5 @@
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Type;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.jetbrains.annotations.NotNull;
 
@@ -19,6 +20,12 @@ import java.util.Objects;
                 @NamedQuery(
                         name = "getAppointmentsByDate",
                         query = "select a from Appointment a where a.appointmentDate = :date"
+
+                ),
+                @NamedQuery(
+                        name = "getAppointmentsByDateWeek",
+                        query = "select a from Appointment a where a.appointmentDate BETWEEN :date1 AND :date2 "
+
                 ),
                 @NamedQuery(
                         name = "getAppointmentsFromDoctorName",
@@ -27,16 +34,33 @@ import java.util.Objects;
                                 "where s.doctor.firstName = :firstName AND s.doctor.lastName = :lastName"
                 ),
                 @NamedQuery(
+                        name = "getAppointmentsFromStaffId",
+                        query = "select t from Appointment t \n" +
+                                "join t.staff s \n" +
+                                "where s.id = :staffId"
+                ),
+                @NamedQuery(
                         name = "getAppointmentsFromNurseName",
                         query = "select t from Appointment t \n" +
                                 "join t.staff s \n" +
                                 "where s.nurse.firstName = :firstName AND s.nurse.lastName = :lastName"
+                ),
+                @NamedQuery(
+                        name = "updateAppointmentCheckedIn",
+                        query = "update Appointment t SET checkedIn = :checkedInBool  \n" +
+                                "where t.id = : id"
+                ),
+                @NamedQuery(
+                        name = "updateAppointmentOnTime",
+                        query = "update Appointment t SET checkedIn = :OnTimeBool  \n" +
+                                "where t.id = : id"
                 )
+
         }
 )
 
 @Entity
-@Table(name = "appointment")
+@Table(name = "Appointment")
 public class Appointment
 {
     @Id
@@ -64,8 +88,14 @@ public class Appointment
     @JoinColumn(name = "Staff_Id")
     private Staff staff;
 
-    @Column(name = "On_Time")
+    @Column(name = "On_Time", columnDefinition = "BOOLEAN")
+    @Type(type = "org.hibernate.type.NumericBooleanType")
     private Boolean onTime;
+
+
+    @Column(name = "Checked_In", columnDefinition = "BOOLEAN")
+    @Type(type = "org.hibernate.type.NumericBooleanType")
+    private Boolean checkedIn;
 
 
     @Column (name = "Row_Create")
@@ -86,6 +116,14 @@ public class Appointment
         this.patient = patient;
         this.staff = staff;
         this.onTime = onTime;
+    }
+
+    public Boolean getCheckedIn() {
+        return checkedIn;
+    }
+
+    public void setCheckedIn(Boolean checkedIn) {
+        this.checkedIn = checkedIn;
     }
 
     public Integer getId() {
@@ -166,7 +204,7 @@ public class Appointment
         if (this == o) return true;
         if (!(o instanceof Appointment)) return false;
         Appointment that = (Appointment) o;
-        return id == that.id;
+        return id.equals(that.id);
     }
 
     @Override

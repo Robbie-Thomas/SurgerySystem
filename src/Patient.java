@@ -33,7 +33,7 @@ import java.util.Set;
 
 
 @Entity
-@Table(name = "patient")
+@Table(name = "Patient")
 public class Patient {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column (name = "Patient_id")
@@ -86,6 +86,12 @@ public class Patient {
     )
     private Set<PatientEmailAddress> patientEmailAddresses = new HashSet<PatientEmailAddress>();
 
+    @OneToMany(
+            targetEntity = Appointment.class,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private Set<Appointment> appointmentset = new HashSet<Appointment>();
 
     public Patient() {
     }
@@ -93,6 +99,15 @@ public class Patient {
     public Patient(LocalDate dob, String firstName, String lastName, String medicalInformation, boolean isMale) {
         this.dob = dob;
         this.firstName = firstName;
+        this.lastName = lastName;
+        this.medicalInformation = medicalInformation;
+        this.isMale = isMale;
+    }
+
+    public Patient(LocalDate dob, String firstName, String middleName, String lastName, String medicalInformation, boolean isMale) {
+        this.dob = dob;
+        this.firstName = firstName;
+        this.middleName = middleName;
         this.lastName = lastName;
         this.medicalInformation = medicalInformation;
         this.isMale = isMale;
@@ -120,6 +135,14 @@ public class Patient {
 
     public void setPatientEmailAddresses(Set<PatientEmailAddress> patientEmailAddresses) {
         this.patientEmailAddresses = patientEmailAddresses;
+    }
+
+    public Set<Appointment> getAppointmentset() {
+        return appointmentset;
+    }
+
+    public void setAppointmentset(Set<Appointment> appointmentset) {
+        this.appointmentset = appointmentset;
     }
 
     public boolean isMale() {
@@ -188,7 +211,7 @@ public class Patient {
         if (this == o) return true;
         if (!(o instanceof Patient)) return false;
         Patient patient = (Patient) o;
-        return id == patient.id;
+        return id.equals(patient.id);
     }
 
     @Override
