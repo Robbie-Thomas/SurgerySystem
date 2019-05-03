@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+
 @NamedQueries(
         value = {
                 @NamedQuery(
@@ -20,11 +21,11 @@ import java.util.Objects;
                 @NamedQuery(
                         name = "getAppointmentsByDate",
                         query = "select a from Appointment a where a.appointmentDate = :date"
-
                 ),
                 @NamedQuery(
                         name = "getAppointmentsByDateWeek",
                         query = "select a from Appointment a where a.appointmentDate BETWEEN :date1 AND :date2 "
+
 
                 ),
                 @NamedQuery(
@@ -34,12 +35,14 @@ import java.util.Objects;
                                 "where s.doctor.firstName = :firstName AND s.doctor.lastName = :lastName"
                 ),
                 @NamedQuery(
+
                         name = "getAppointmentsFromStaffId",
                         query = "select t from Appointment t \n" +
                                 "join t.staff s \n" +
                                 "where s.id = :staffId"
                 ),
                 @NamedQuery(
+
                         name = "getAppointmentsFromNurseName",
                         query = "select t from Appointment t \n" +
                                 "join t.staff s \n" +
@@ -58,6 +61,7 @@ import java.util.Objects;
 
         }
 )
+
 
 @Entity
 @Table(name = "Appointment")
@@ -213,5 +217,17 @@ public class Appointment
     }
 
 
+    @Override
+    public String toString() {
+        return "Appointment{" +
+                "appointmentDate=" + appointmentDate +
+                ", appointmentTime=" + appointmentTime +
+                ", room=" + room.getRoomNumber() + " " + room.getRoomName() +
+                ", patient=" + patient.getFirstName() + " " + patient.getLastName() +
+                ", Nurse=" + staff.getNurse().getFirstName() + " " + staff.getNurse().getLastName() +
+                ", Doctor=" + staff.getDoctor().getFirstName() + " " + staff.getDoctor().getLastName() +
+                ", onTime=" + onTime +
+                '}';
+    }
 }
 

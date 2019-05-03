@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+
 @NamedQueries(
         value = {
                 @NamedQuery(

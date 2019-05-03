@@ -9,6 +9,16 @@ import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Objects;
 
+
+@NamedQueries(
+        @NamedQuery(
+                name = "findAppointmentByPatientName",
+                query = "from Patient p where p.firstName = :firstName AND p.lastName = :lastName"
+        )
+)
+
+
+
 @Entity
 @Table(name = "Nurse")
 public class Nurse{

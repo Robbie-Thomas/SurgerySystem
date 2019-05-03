@@ -20,7 +20,6 @@ import java.util.Objects;
                                 "join t.patient p \n" +
                                 "where p.firstName = :firstName AND p.lastName = :lastName"
                 )
-
         }
 )
 
