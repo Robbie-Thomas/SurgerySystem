@@ -14,12 +14,11 @@
         <property name="characterSetResults" value="utf8" />
         <property name="yearIsDateType" value="false" />
       </driver-properties>
-    </data-source>
-    <data-source source="LOCAL" name="@localhost [2]" uuid="5f535add-ad4a-438f-8340-ae69ebfac442">
+    <data-source source="LOCAL" name="KYMb02vi2Z@remotemysql.com" uuid="dd9cb59a-a2e4-4fd9-af25-d9303baa3013">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306</jdbc-url>
+      <jdbc-url>jdbc:mysql://remotemysql.com:3306/KYMb02vi2Z</jdbc-url>
       <driver-properties>
         <property name="autoReconnect" value="true" />
         <property name="zeroDateTimeBehavior" value="convertToNull" />
@@ -28,16 +27,6 @@
         <property name="characterSetResults" value="utf8" />
         <property name="yearIsDateType" value="false" />
       </driver-properties>
-    </data-source>
-    <data-source source="LOCAL" name="hibernate.cfg.xml/Hibernate" uuid="902690ab-057a-473d-b6b3-5d8fa3b42afd">
-      <synchronize>true</synchronize>
-      <imported>true</imported>
-      <configured-by-url>true</configured-by-url>
-      <remarks>Hibernate
-
-C:/Users/Robbie/IdeaProjects/SurgerySystem/src/hibernate.cfg.xml</remarks>
-      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306/surgery</jdbc-url>
     </data-source>
   </component>
 </project>

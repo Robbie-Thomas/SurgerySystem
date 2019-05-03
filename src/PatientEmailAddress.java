@@ -24,7 +24,7 @@ import java.util.Objects;
 )
 
 @Entity
-@Table(name = "patientEmailAddress")
+@Table(name = "PatientEmailAddress")
 public class PatientEmailAddress {
 
 
@@ -37,7 +37,7 @@ public class PatientEmailAddress {
     private String emailAddress;
 
     @ManyToOne
-    @JoinColumn (name = "Patient_Id")
+    @JoinColumn (name = "Patient_Id", nullable = false)
     private Patient patient;
 
     @Column (name = "Row_Create")

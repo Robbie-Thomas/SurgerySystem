@@ -8,16 +8,18 @@ import java.util.Objects;
 
 
 @NamedQueries(
-        @NamedQuery(
-                name = "findPhoneByName",
-                query ="select t from PatientPhone t \n" +
-                        "join t.patient p \n" +
-                        "where p.firstName = :firstName AND p.lastName = :lastName"
-        )
+        value = {
+                @NamedQuery(
+                        name = "findPhoneByName",
+                        query = "select t from PatientPhone t \n" +
+                                "join t.patient p \n" +
+                                "where p.firstName = :firstName AND p.lastName = :lastName"
+                )
+        }
 )
 
 @Entity
-@Table(name = "patientPhoneNumber")
+@Table(name = "PatientPhoneNumber")
 public class PatientPhone {
 
 
@@ -30,7 +32,7 @@ public class PatientPhone {
     private String phoneNumber;
 
     @ManyToOne
-    @JoinColumn (name = "Patient_Id")
+    @JoinColumn (name = "Patient_Id", nullable = false)
     private Patient patient;
 
     @Column (name = "Row_Create")
@@ -81,7 +83,7 @@ public class PatientPhone {
         if (!(o instanceof PatientPhone)) return false;
         PatientPhone that = (PatientPhone) o;
         return phoneNumber == that.phoneNumber &&
-                id == that.id;
+                id.equals(that.id);
     }
 
     @Override

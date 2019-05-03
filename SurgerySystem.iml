@@ -4,7 +4,7 @@
     <facet type="hibernate" name="Hibernate">
       <configuration>
         <datasource-map>
-          <unit-entry name="hibernate.cfg.xml" value="6925f3ee-7b16-4fb4-a696-bc8271c7f879" />
+          <unit-entry name="hibernate.cfg.xml" value="dd9cb59a-a2e4-4fd9-af25-d9303baa3013" />
         </datasource-map>
         <naming-strategy-map />
         <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/src/hibernate.cfg.xml" />
@@ -29,5 +29,7 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="Connector J 8" level="project" />
+    <orderEntry type="library" name="java" level="project" />
+    <orderEntry type="library" name="LGoodDatePicker-10.4.1" level="project" />
   </component>
 </module>

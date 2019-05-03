@@ -13,18 +13,18 @@
 
         </property>
 
-        <!-- Assume test is the database name -->
+
 
         <property name = "hibernate.connection.url">
-            jdbc:mysql://localhost:3306/surgery
+            jdbc:mysql://remotemysql.com:3306/KYMb02vi2Z
         </property>
 
         <property name = "hibernate.connection.username">
-            root
+            KYMb02vi2Z
         </property>
 
         <property name = "hibernate.connection.password">
-            password
+            1XwCL2LUOA
         </property>
 
         <mapping class="Patient"/>

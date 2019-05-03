@@ -4,13 +4,25 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.*;
+import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+@NamedQueries(
+        value = {
+                @NamedQuery(
+                        name = "getStaff",
+                        query = "SELECT s from Staff s"
+                ),
+        }
+)
+
 @Entity
-@Table(name = "staff")
+@Table(name = "Staff")
 public class Staff {
 
 
@@ -22,14 +34,16 @@ public class Staff {
 
     @OneToOne(
             cascade = CascadeType.ALL,
-            orphanRemoval = true
+            orphanRemoval = true,
+            targetEntity = Doctor.class
     )
     @JoinColumn(name = "Doctor_Id")
     private Doctor doctor;
 
     @OneToOne(
             cascade = CascadeType.ALL,
-            orphanRemoval = true
+            orphanRemoval = true,
+            targetEntity = Nurse.class
     )
     @JoinColumn(name = "Nurse_Id")
     private Nurse nurse;
@@ -51,6 +65,10 @@ public class Staff {
     }
 
     public Staff(Nurse nurse){
+        this.nurse = nurse;
+    }
+    public Staff(Doctor doctor, Nurse nurse){
+        this.doctor = doctor;
         this.nurse = nurse;
     }
 
@@ -82,18 +100,23 @@ public class Staff {
         this.nurse = nurse;
     }
 
+
+
     @Contract(value = "null -> false", pure = true)
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Staff)) return false;
         Staff staff = (Staff) o;
-        return id == staff.id;
+        return id.equals(staff.id);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(id);
     }
+
+
+
 
 }

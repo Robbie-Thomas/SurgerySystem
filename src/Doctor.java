@@ -3,12 +3,14 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.jetbrains.annotations.Contract;
 
 import javax.persistence.*;
+import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Objects;
 
 @Entity
-@Table(name = "doctor")
+@Table(name = "Doctor")
 public class Doctor {
 
 
@@ -273,7 +275,49 @@ public class Doctor {
         this.specialistArea = specialistArea;
     }
 
+    public boolean canWork(Date date, Time time){
+        Boolean canWork =false;
+        Boolean aM = false;
 
+        if(time.getTime() < 12){ aM = true;}
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("E");
+        simpleDateFormat.format(date);
+        if(aM = true) {
+            switch (simpleDateFormat.format(date)) {
+                case "Mon": if (getMondayAM() == true) canWork = true;
+                break;
+                case "Tue" :if (getTuesdayAM() == true) canWork = true;
+                break;
+                case "Wed" :if (getWednesdayAM() == true) canWork = true;
+                    break;
+                case "Thu" :if (getThursdayAM() == true) canWork = true;
+                    break;
+                case "Fri" :if (getFridayAM() == true) canWork = true;
+                    break;
+                case "Sat" :if (getSaturdayAM() == true) canWork = true;
+                    break;
+                case "Sun" :if (getSundayAM() == true) canWork = true;
+                default: return false;
+            }
+        }
+        switch (simpleDateFormat.format(date)) {
+            case "Mon": if (getMondayPM() == true) canWork = true;
+                break;
+            case "Tue" :if (getTuesdayPM() == true) canWork = true;
+                break;
+            case "Wed" :if (getWednesdayPM() == true) canWork = true;
+                break;
+            case "Thu" :if (getThursdayPM() == true) canWork = true;
+                break;
+            case "Fri" :if (getFridayPM() == true) canWork = true;
+                break;
+            case "Sat" :if (getSaturdayPM() == true) canWork = true;
+                break;
+            case "Sun" :if (getSundayPM() == true) canWork = true;
+            default: return false;
+        }
+     return canWork;
+    }
 
 
     @Contract(value = "null -> false", pure = true)
@@ -282,7 +326,7 @@ public class Doctor {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Doctor doctor = (Doctor) o;
-        return id == doctor.id;
+        return id.equals(doctor.id);
     }
 
 
