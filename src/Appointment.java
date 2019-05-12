@@ -54,7 +54,11 @@ import java.util.Objects;
                         name = "updateAppointmentOnTime",
                         query = "update Appointment t SET checkedIn = :OnTimeBool  \n" +
                                 "where t.id = : id"
-                )
+                ),
+                @NamedQuery(
+                        name = "deleteAppointment",
+                        query = "delete Appointment t where t.id = : id"
+                ),
 
         }
 )
@@ -79,7 +83,7 @@ public class Appointment
     private Room room;
 
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "Patient_Id")
     private Patient patient;
 
@@ -109,13 +113,14 @@ public class Appointment
 
     public Appointment(){}
 
-    public Appointment(LocalDate appointmentDate, Time appointmentTime, Room room, Patient patient, Staff staff, Boolean onTime) {
+    public Appointment(LocalDate appointmentDate, Time appointmentTime, Room room, Patient patient, Staff staff, Boolean onTime, Boolean checkedIn) {
         this.appointmentDate = appointmentDate;
         this.appointmentTime = appointmentTime;
         this.room = room;
         this.patient = patient;
         this.staff = staff;
         this.onTime = onTime;
+        this.checkedIn = checkedIn;
     }
 
     public Boolean getCheckedIn() {
@@ -197,7 +202,6 @@ public class Appointment
     public void setUpdateDateTime(LocalDateTime updateDateTime) {
         this.updateDateTime = updateDateTime;
     }
-
 
     @Override
     public boolean equals(Object o) {

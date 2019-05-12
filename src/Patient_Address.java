@@ -11,7 +11,7 @@ import java.util.*;
         value = {
                 @NamedQuery(
                         name = "findAddressByName",
-                        query = "select t from Address t \n" +
+                        query = "select t from Patient_Address t \n" +
                                 "join t.patient p \n" +
                                 "where p.firstName = :firstName AND p.lastName = :lastName"
                 )
@@ -20,9 +20,9 @@ import java.util.*;
 
 
 @Entity
-@Table(name = "Address")
+@Table(name = "Patient_Address")
 @Access(value=AccessType.FIELD)
-public class Address {
+public class Patient_Address {
 
 
     @Id
@@ -66,10 +66,10 @@ public class Address {
     private LocalDateTime updateDateTime;
 
 
-    public Address() {
+    public Patient_Address() {
     }
 
-    public Address(Patient patient, String houseName, String houseNumber, String street, String city, String postcode, String county, String country) {
+    public Patient_Address(Patient patient, String houseName, String houseNumber, String street, String city, String postcode, String county, String country) {
         this.patient = patient;
         this.houseName = houseName;
         this.street = street;
@@ -159,8 +159,8 @@ public class Address {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Address)) return false;
-        Address that = (Address) o;
+        if (!(o instanceof Patient_Address)) return false;
+        Patient_Address that = (Patient_Address) o;
         return houseNumber == that.houseNumber &&
                 id.equals(that.id) &&
                 Objects.equals(houseName, that.houseName) &&

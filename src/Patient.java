@@ -5,9 +5,7 @@ import org.jetbrains.annotations.Contract;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @NamedQueries(
         value = {
@@ -26,7 +24,12 @@ import java.util.Set;
                 @NamedQuery(
                         name = "findPatientByFullName",
                         query = "select p from Patient p where p.firstName = :firstName AND p.lastName = :lastName"
+                ),
+                @NamedQuery(
+                        name = "deletePatient",
+                        query = "delete from Patient p where p.id = :id"
                 )
+
 
         }
 )
@@ -66,32 +69,66 @@ public class Patient {
     private LocalDateTime updateDateTime;
 
     @OneToMany(
-            targetEntity = Address.class,
+            mappedBy = "patient",
+            targetEntity = Patient_Address.class,
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    private Set<Address> addresses = new HashSet<Address>();
+    private List<Patient_Address> patientAddresses = new ArrayList<>();
+    public void addAddress(Patient_Address patient_address){
+        patientAddresses.add(patient_address);
+        patient_address.setPatient(this);
+    }
+
+    public void removeAddress(Patient_Address patient_address){
+        patientAddresses.remove(patient_address);
+        patient_address.setPatient(null);
+    }
+
 
     @OneToMany(
+            mappedBy = "patient",
             targetEntity = PatientPhone.class,
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    private Set<PatientPhone> patientPhones = new HashSet<PatientPhone>();
+    private List<PatientPhone> patientPhones = new ArrayList<>();
 
     @OneToMany(
+            mappedBy = "patient",
             targetEntity = PatientEmailAddress.class,
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    private Set<PatientEmailAddress> patientEmailAddresses = new HashSet<PatientEmailAddress>();
+    private List<PatientEmailAddress> patientEmailAddresses = new ArrayList<PatientEmailAddress>();
+
+    public void addEmail(PatientEmailAddress patientEmailAddress){
+        patientEmailAddresses.add(patientEmailAddress);
+        patientEmailAddress.setPatient(this);
+    }
+
+    public void removeEmail(PatientEmailAddress patientEmailAddress){
+        patientEmailAddresses.remove(patientEmailAddress);
+        patientEmailAddress.setPatient(null);
+    }
 
     @OneToMany(
+            mappedBy = "patient",
             targetEntity = Appointment.class,
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    private Set<Appointment> appointmentset = new HashSet<Appointment>();
+    private List<Appointment> appointments = new ArrayList<Appointment>();
+    public void addAppointment(Appointment appointment){
+        appointments.add(appointment);
+        appointment.setPatient(this);
+    }
+
+    public void removeAppointment(Appointment appointment){
+        appointments.remove(appointment);
+        appointment.setPatient(null);
+    }
+
 
     public Patient() {
     }
@@ -113,36 +150,36 @@ public class Patient {
         this.isMale = isMale;
     }
 
-    public Set<Address> getAddresses() {
-        return addresses;
+    public List<Patient_Address> getPatientAddresses() {
+        return patientAddresses;
     }
 
-    public void setAddresses(Set<Address> addresses) {
-        this.addresses = addresses;
+    public void setPatientAddresses(List<Patient_Address> patientAddresses) {
+        this.patientAddresses = patientAddresses;
     }
 
-    public Set<PatientPhone> getPatientPhones() {
+    public List<PatientPhone> getPatientPhones() {
         return patientPhones;
     }
 
-    public void setPatientPhones(Set<PatientPhone> patientPhones) {
+    public void setPatientPhones(List<PatientPhone> patientPhones) {
         this.patientPhones = patientPhones;
     }
 
-    public Set<PatientEmailAddress> getPatientEmailAddresses() {
+    public List<PatientEmailAddress> getPatientEmailAddresses() {
         return patientEmailAddresses;
     }
 
-    public void setPatientEmailAddresses(Set<PatientEmailAddress> patientEmailAddresses) {
+    public void setPatientEmailAddresses(List<PatientEmailAddress> patientEmailAddresses) {
         this.patientEmailAddresses = patientEmailAddresses;
     }
 
-    public Set<Appointment> getAppointmentset() {
-        return appointmentset;
+    public List<Appointment> getAppointments() {
+        return appointments;
     }
 
-    public void setAppointmentset(Set<Appointment> appointmentset) {
-        this.appointmentset = appointmentset;
+    public void setAppointments(List<Appointment> appointmentset) {
+        this.appointments = appointmentset;
     }
 
     public boolean isMale() {
@@ -231,7 +268,7 @@ public class Patient {
                 ", isMale=" + isMale +
                 ", createDateTime=" + createDateTime +
                 ", updateDateTime=" + updateDateTime +
-                ", addresses=" + addresses +
+                ", patientAddresses=" + patientAddresses +
                 ", patientPhones=" + patientPhones +
                 ", patientEmailAddresses=" + patientEmailAddresses +
                 '}';

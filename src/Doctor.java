@@ -274,7 +274,7 @@ public class Doctor {
     public void setSpecialistArea(String specialistArea) {
         this.specialistArea = specialistArea;
     }
-
+@SuppressWarnings("Duplicates")
     public boolean canWork(Date date, Time time){
         Boolean canWork =false;
         Boolean aM = false;

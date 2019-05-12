@@ -3,9 +3,9 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import org.jetbrains.annotations.Contract;
 
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
 import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDate;
@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+
 
 
 
@@ -36,56 +37,16 @@ public class SessionManager{
 
 
         session = factory.openSession();
-        //sM.addPatient(LocalDate.now(), "Timmyy", "test", "healthy", true);
-        //sM.updateAppointmentCheckedIn(1,true);
-        //sM.updateAppointmentOnTime(1, false);
-       /* List<Patient> patients = sM.getPatientByFullName("Tom", "test");
-        for(int i = 0; i < patients.size(); i++){
-            System.out.println(patients.get(i).getFirstName());
-        }*/
-        //List<Appointment> appointments= sM.getAppointmentByDateWeek(LocalDate.now());
-       /* for(int i = 0; i < appointments.size(); i++){
-                System.out.println(appointments.get(i).getPatient().getFirstName());
-            }*///List<Staff> staff = sM.getStaff();
-        Date date = Date.valueOf(LocalDate.now());
-        List<Staff> staff = sM.staffCanWork(date, Time.valueOf(LocalTime.now()));
-       /* for(int i = 0; i < staff.size(); i++){
-            System.out.println(staff.get(i).getId());
-        }*/
-       System.out.println(staff.size());
-      /* System.out.println(sM.getPatientByFullName("Tom", "Test").get(0).getFirstName());
-       List<Patient> patients = sM.getPatientByFullName("Tom", "Test");
-       System.out.println(patients.get(0).getPatientEmailAddresses().size());*/
-        //System.out.println(sM.getStaff(111).getNurse().getLastName());
-        //sM.updateFirstName(3, "John");
-        //sM.addAppointment(Time.valueOf("10:10"),LocalDate.now(),1,1,1, true);
-       //sM.addAddressToPatient(1,1);
-       //System.out.println(sM.getPatient(1).toString());
-       //sM.addDoctor("Derick","Peppah","",true,true,true,true,true,true,true,true,true,true,true,false,false,false,false);
-       //sM.addNurse("Sarah","Tilter","",false,true,true,true,true,true,true,true,true,true,true,false,false,false,false);
-
-        //List<Patient> patients = sM.getPatientsWithLastName("Test");
-        //System.out.println(patients.get(0).getFirstName());
-        //List<PatientEmailAddress> patientEmailAddresses = sM.getEmailsByName("Tom", "Test");
-       // System.out.println(sM.getEmailsByName("Tom","Test"));
-
-        //for(int i = 0; i < patientEmailAddresses.size(); i++){
-        //    System.out.println(patientEmailAddresses.get(i).getEmailAddress());
-        //}
-
-       // List<Appointment> appointments =  sM.getAppointmentByDate(LocalDate.parse("2019-03-11"));
-       // for(int i = 0; i < appointments.size(); i++){
-           // System.out.println(appointments.get(i).getPatient().getFirstName());
-       //     System.out.println(appointments.get(i).getAppointmentTime());
-       // }
-
-        //List<Patient> patients = sM.getPatientByFullName("Tom", "Test");
-        //System.out.println(patients.get(1).getAppointmentset());
-
-            //for(int i = 1; i < 500; i++) {
-            //    System.out.println(sM.getPatient(i).getFirstName());
-             //   System.out.println(sM.getEmail(i).getEmailAddress());
-            //}
+        Patient patient = sM.addPatient2(LocalDate.now(),"Tom","test", "is good", true);
+        Patient_Address patient_address = new Patient_Address(patient,"test","test", "test", "Test", "test","test","test");
+        sM.addPatientAddress(patient.getId(),"test","test", "test", "Test", "test","test","test");
+        patient.addAddress(patient_address);
+        System.out.println(patient.getPatientAddresses().get(0).getCity());
+        //sM.deleteAppointment2(164);
+        //sM.deleteAppointment(3);
+        System.out.println(sM.getPatient(1).getPatientEmailAddresses().get(0).getEmailAddress());
+        System.out.println(sM.getPatient(1).getPatientEmailAddresses().get(1).getEmailAddress());
+        System.out.println(sM.getPatient(762).getPatientAddresses().get(0).getCity());
 
 
     }
@@ -117,6 +78,38 @@ public class SessionManager{
         //session.close();
 
 
+    }
+
+    public Patient addPatient2(LocalDate dob, String firstName, String lastName, String medicalInformation, boolean isMale) {
+        setUpFactory();
+        Transaction tx = null;
+        Patient patient = new Patient(dob, firstName, lastName, medicalInformation, isMale);
+        try {
+            tx = session.beginTransaction();
+            session.save(patient);
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) tx.rollback();
+            e.printStackTrace();
+        }
+        session.close();
+        return patient;
+    }
+
+    public Patient addPatient2(LocalDate dob, String firstName, String middlesName, String lastName, String medicalInformation, boolean isMale) {
+        setUpFactory();
+        Transaction tx = null;
+        Patient patient = new Patient(dob, firstName, middlesName,  lastName, medicalInformation, isMale);
+        try {
+            tx = session.beginTransaction();
+            session.save(patient);
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) tx.rollback();
+            e.printStackTrace();
+        }
+        session.close();
+        return patient;
     }
 
     public void addPatient(LocalDate dob, String firstName, String middlesName, String lastName, String medicalInformation, boolean isMale) {
@@ -302,8 +295,8 @@ public class SessionManager{
         try {
             tx = session.beginTransaction();
             Patient patient = session.get(Patient.class, patientId);
-            Address address = new Address(patient, houseName, houseNumber, street, city, postcode, county, country);
-            session.save(address);
+            Patient_Address patientAddress = new Patient_Address(patient, houseName, houseNumber, street, city, postcode, county, country);
+            session.save(patientAddress);
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) tx.rollback();
@@ -312,8 +305,27 @@ public class SessionManager{
         session.close();
     }
 
+    public Patient_Address addPatientAddress2(Integer patientId, String houseName, String houseNumber, String street, String city, String postcode, String county, String country) {
+        Session session = factory.openSession();
+        Transaction tx = null;
+        Patient patient = session.get(Patient.class, patientId);
+        Patient_Address patientAddress = new Patient_Address(patient, houseName, houseNumber, street, city, postcode, county, country);
 
-    //deletes a patientPanel Address with the equivalent Id as the PatientID
+        try {
+            tx = session.beginTransaction();
+
+            session.save(patientAddress);
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) tx.rollback();
+            e.printStackTrace();
+        }
+        session.close();
+        return patientAddress;
+    }
+
+
+    //deletes a patientPanel Patient_Address with the equivalent Id as the PatientID
     public void deletePatientAddress(Integer PatientAddress_Id) {
         //creates the session
         Session session = factory.openSession();
@@ -323,10 +335,10 @@ public class SessionManager{
         try {
             //starts the transaction on the hibernate session
             tx = session.beginTransaction();
-            //Gets the Address with the @params patientId
-            Address address = session.get(Address.class, PatientAddress_Id);
-            //Deletes the Address once found
-            session.delete(address);
+            //Gets the Patient_Address with the @params patientId
+            Patient_Address patientAddress = session.get(Patient_Address.class, PatientAddress_Id);
+            //Deletes the Patient_Address once found
+            session.delete(patientAddress);
             //commits the transaction to the session
             tx.commit();
         } catch (HibernateException e) {
@@ -344,9 +356,9 @@ public class SessionManager{
 
         try {
             tx = session.beginTransaction();
-            Address address = session.get(Address.class, PatientAddress_Id);
-            address.setHouseName(houseName);
-            session.update(address);
+            Patient_Address patientAddress = session.get(Patient_Address.class, PatientAddress_Id);
+            patientAddress.setHouseName(houseName);
+            session.update(patientAddress);
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) tx.rollback();
@@ -361,9 +373,9 @@ public class SessionManager{
 
         try {
             tx = session.beginTransaction();
-            Address address = session.get(Address.class, PatientAddress_Id);
-            address.setHouseNumber(houseNumber);
-            session.update(address);
+            Patient_Address patientAddress = session.get(Patient_Address.class, PatientAddress_Id);
+            patientAddress.setHouseNumber(houseNumber);
+            session.update(patientAddress);
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) tx.rollback();
@@ -378,9 +390,9 @@ public class SessionManager{
 
         try {
             tx = session.beginTransaction();
-            Address address = session.get(Address.class, PatientAddress_Id);
-            address.setStreet(street);
-            session.update(address);
+            Patient_Address patientAddress = session.get(Patient_Address.class, PatientAddress_Id);
+            patientAddress.setStreet(street);
+            session.update(patientAddress);
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) tx.rollback();
@@ -395,9 +407,9 @@ public class SessionManager{
 
         try {
             tx = session.beginTransaction();
-            Address address = session.get(Address.class, PatientAddress_Id);
-            address.setCity(city);
-            session.update(address);
+            Patient_Address patientAddress = session.get(Patient_Address.class, PatientAddress_Id);
+            patientAddress.setCity(city);
+            session.update(patientAddress);
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) tx.rollback();
@@ -412,9 +424,9 @@ public class SessionManager{
 
         try {
             tx = session.beginTransaction();
-            Address address = session.get(Address.class, PatientAddress_Id);
-            address.setPostcode(postcode);
-            session.update(address);
+            Patient_Address patientAddress = session.get(Patient_Address.class, PatientAddress_Id);
+            patientAddress.setPostcode(postcode);
+            session.update(patientAddress);
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) tx.rollback();
@@ -430,9 +442,9 @@ public class SessionManager{
 
         try {
             tx = session.beginTransaction();
-            Address address = session.get(Address.class, PatientAddress_Id);
-            address.setCounty(county);
-            session.update(address);
+            Patient_Address patientAddress = session.get(Patient_Address.class, PatientAddress_Id);
+            patientAddress.setCounty(county);
+            session.update(patientAddress);
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) tx.rollback();
@@ -447,9 +459,9 @@ public class SessionManager{
 
         try {
             tx = session.beginTransaction();
-            Address address = session.get(Address.class, PatientAddress_Id);
-            address.setCountry(country);
-            session.update(address);
+            Patient_Address patientAddress = session.get(Patient_Address.class, PatientAddress_Id);
+            patientAddress.setCountry(country);
+            session.update(patientAddress);
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) tx.rollback();
@@ -459,7 +471,7 @@ public class SessionManager{
     }
 
 
-    //Patient email Address
+    //Patient email Patient_Address
 
     public void addPatientEmailAddress(String Email, Integer patientId) {
         Session session = factory.openSession();
@@ -480,6 +492,24 @@ public class SessionManager{
         session.close();
     }
 
+    public PatientEmailAddress addPatientEmailAddress2(String Email, Integer patientId) {
+        Session session = factory.openSession();
+        Transaction tx = null;
+        Patient patient = session.get(Patient.class, patientId);
+        PatientEmailAddress patientEmailAddress = new PatientEmailAddress(Email, patient);
+
+        try {
+            tx = session.beginTransaction();
+            session.save(patientEmailAddress);
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) tx.rollback();
+            e.printStackTrace();
+        }
+        session.close();
+        return patientEmailAddress;
+    }
+
     public void deletePatientEmailAddress(Integer PatientEmailAddress_Id) {
         //creates the session
         Session session = factory.openSession();
@@ -491,7 +521,7 @@ public class SessionManager{
             tx = session.beginTransaction();
             //Gets the PatientEmailAddress with the @params patientId
             PatientEmailAddress patientEmailAddress = session.get(PatientEmailAddress.class, PatientEmailAddress_Id);
-            //Deletes the Address once found
+            //Deletes the Patient_Address once found
             session.delete(patientEmailAddress);
             //commits the transaction to the session
             tx.commit();
@@ -584,9 +614,9 @@ public class SessionManager{
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
-            Address address = session.load(Address.class, patientAddress_Id);
+            Patient_Address patientAddress = session.load(Patient_Address.class, patientAddress_Id);
             Patient patient = session.load(Patient.class, patientId);
-            patient.getAddresses().add(address);
+            patient.getPatientAddresses().add(patientAddress);
             session.update(patient);
         } catch (HibernateException e) {
             if (tx != null) tx.rollback();
@@ -1043,7 +1073,7 @@ public class SessionManager{
 
     //Appointment
 
-    public void addAppointment(Time appTime, LocalDate appDate, Integer patientId, Integer staffId, Integer roomId, boolean onTime) {
+    public void addAppointment(Time appTime, LocalDate appDate, Integer patientId, Integer staffId, Integer roomId, boolean onTime, boolean checkedIn) {
         Session session = factory.openSession();
         Transaction tx = null;
         try {
@@ -1051,7 +1081,7 @@ public class SessionManager{
             Patient patient = session.get(Patient.class, patientId);
             Staff staff = session.get(Staff.class, staffId);
             Room room = session.get(Room.class, roomId);
-            Appointment appointment = new Appointment(appDate, appTime, room, patient, staff, onTime);
+            Appointment appointment = new Appointment(appDate, appTime, room, patient, staff, onTime, checkedIn);
             session.save(appointment);
             tx.commit();
         } catch (HibernateException e) {
@@ -1067,12 +1097,17 @@ public class SessionManager{
             tx = session.beginTransaction();
             Appointment appointment = session.get(Appointment.class, appId);
             session.delete(appointment);
+            tx.commit();
         } catch (HibernateException e) {
             if (tx != null) tx.rollback();
             e.printStackTrace();
         }
         session.close();
     }
+
+
+
+
 
     public void updateAppointmentDate(Integer appId, LocalDate date) {
         Session session = factory.openSession();
@@ -1104,6 +1139,24 @@ public class SessionManager{
         }
         session.close();
     }
+
+    public void updateAppointmentCheckedIn2(Integer appId, Boolean checked_In) {
+        Session session = factory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+
+            Appointment appointment = session.get(Appointment.class, appId);
+            appointment.setCheckedIn(true);
+        } catch (HibernateException e) {
+            if (tx != null) tx.rollback();
+            e.printStackTrace();
+        }
+        tx.commit();
+        session.close();
+    }
+
+
 
     public void updateAppointmentTime(Integer appId, Time time) {
         Session session = factory.openSession();
@@ -1261,7 +1314,7 @@ public class SessionManager{
         }return patientsPhone;
     }
 
-    public List<Address> getAddressByName(String firstName, String lastName){
+    public List<Patient_Address> getAddressByName(String firstName, String lastName){
         List patientsAddress = null;
         Session session = factory.openSession();
         Transaction tx = null;
@@ -1370,6 +1423,36 @@ public class SessionManager{
         }return appointment;
     }
 
+    public List<Appointment> getCheckedIn(Date date){
+        List appointment =null;
+        Session session = factory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            //TypedQuery query = session.getNamedQuery("getCheckedIn");
+           // query.setParameter("date", date);
+           // appointment = query.getResultList();
+        }catch (HibernateException e){
+            e.printStackTrace();
+        }return appointment;
+    }
+
+    public void deleteAppointment2(Integer appId){
+        Session session = factory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            TypedQuery query = session.getNamedQuery("deleteAppointment");
+             query.setParameter("id", appId);
+             query.executeUpdate();
+
+
+        }catch (HibernateException e){
+            e.printStackTrace();
+        }
+        session.flush();
+    }
+
     public List<Staff> getStaff(){
         List staff =null;
         Session session = factory.openSession();
@@ -1395,6 +1478,22 @@ public class SessionManager{
             }
         }
         return staff1;
+    }
+
+    public void deletePatient2(Integer id){
+        Session session = factory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            TypedQuery query = session.getNamedQuery("deletePatient");
+            query.setParameter("id", id);
+            query.executeUpdate();
+        }catch (HibernateException e){
+            e.printStackTrace();
+            if (tx != null) tx.rollback();
+        }
+        session.flush();
+        tx.commit();
     }
 
 
