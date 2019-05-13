@@ -1126,6 +1126,23 @@ public class SessionManager{
         session.close();
     }
 
+    public void updateAppointmentOnTime2(Integer appId, Boolean onTime) {
+        Session session = factory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            Appointment appointment = session.get(Appointment.class, appId);
+            appointment.setOnTime(onTime);
+            session.update(appointment);
+
+        } catch (HibernateException e) {
+            if (tx != null) tx.rollback();
+            e.printStackTrace();
+        }
+        tx.commit();
+        session.close();
+    }
+
     public void updateAppointmentCheckedIn(Integer appId, Boolean checked_In) {
         Session session = factory.openSession();
         Transaction tx = null;
