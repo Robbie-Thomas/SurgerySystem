@@ -19,10 +19,6 @@ import static java.util.stream.Collectors.toList;
 @SuppressWarnings("Duplicates")
 public class surgeryGUI extends JFrame implements ActionListener {
 
-    private JPanel cards, type, home, admin, staffPanel, patientPanel, adminPatient, adminAppointment, adminStaff, createPatientPnl, updatePatientPnl,
-            deletePatientPnl, viewPatientPnl, patientSelectAppPanel, addPhonePanel, addAddressPanel, addEmailPanel, staffLoggedInPnl, adminAppCreate,
-            adminAppView, adminAppDelete, AdminAppUpdate, patientUpdateSelectedPanel, adminAppView2, adminAppUpdate2, updatePatientPanel2;
-    private JScrollPane scrollPane, scrollPane1, scrollPane2, scrollPane3;
     private final static String HOME_PANEL = "Home Panel";
     private final static String YOU_ARE = "You are?";
     private final static String DOCTOR = "Doctor";
@@ -48,9 +44,13 @@ public class surgeryGUI extends JFrame implements ActionListener {
     private final static String PATIENTEMAIL = "Add a patients email address";
     private final static String UPDATESELECTED = "Selected patient to update";
     private final static String ADMINADDUPDATE2 = "Update an appointment";
+    SessionManager sM = new SessionManager();
+    private JPanel cards, type, home, admin, staffPanel, patientPanel, adminPatient, adminAppointment, adminStaff, createPatientPnl, updatePatientPnl,
+            deletePatientPnl, viewPatientPnl, patientSelectAppPanel, addPhonePanel, addAddressPanel, addEmailPanel, staffLoggedInPnl, adminAppCreate,
+            adminAppView, adminAppDelete, AdminAppUpdate, patientUpdateSelectedPanel, adminAppView2, adminAppUpdate2, updatePatientPanel2;
+    private JScrollPane scrollPane, scrollPane1, scrollPane2, scrollPane3;
     private JButton beginBtn, backBtn, adminBtn, doctorBtn, patientBtn, managePatientBtn, manageAppointmentBtn, manageStaffBtn, createPatientBtn, viewPatientBtn, updatePatientBtn, deletePatientBtn;
     private JTextArea DoctorType;
-    SessionManager sM = new SessionManager();
     private int columnNum = 0;
     private List<Appointment> appointmentByName;
     private List<Appointment> appointmentByDate;
@@ -65,6 +65,46 @@ public class surgeryGUI extends JFrame implements ActionListener {
     private Appointment viewAppointment;
     private Appointment appointmentTemp;
 
+    /**
+     * Create the GUI and show it.  For thread safety,
+     * this method should be invoked from the
+     * event dispatch thread.
+     */
+    private static void createAndShowGUI() {
+        //Create and set up the window.
+        JFrame frame = new JFrame("Surgery appointment sign-in");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(1000, 1000);
+        frame.setMinimumSize(new Dimension(1000, 1000));
+        //Create and set up the content pane.
+        surgeryGUI GUI = new surgeryGUI();
+        GUI.addComponentToPane(frame.getContentPane());
+
+        //Display the window.
+        frame.pack();
+        frame.setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        try {
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+        } catch (UnsupportedLookAndFeelException ex) {
+            ex.printStackTrace();
+        } catch (IllegalAccessException ex) {
+            ex.printStackTrace();
+        } catch (InstantiationException ex) {
+            ex.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
+
+        UIManager.put("swing.boldMetal", Boolean.FALSE);
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                createAndShowGUI();
+            }
+        });
+    }
 
     @SuppressWarnings("Duplicates")
     public void addComponentToPane(Container pane) {
@@ -100,7 +140,6 @@ public class surgeryGUI extends JFrame implements ActionListener {
         home.add(beginBtn);
 
         //Admin manage patientPanel
-
 
 
         adminStaff = new JPanel();
@@ -154,7 +193,6 @@ public class surgeryGUI extends JFrame implements ActionListener {
 
     }
 
-
     public void itemStateChanged(ItemEvent evt) {
         CardLayout cl = (CardLayout) (cards.getLayout());
         cl.show(cards, (String) evt.getItem());
@@ -164,7 +202,6 @@ public class surgeryGUI extends JFrame implements ActionListener {
         CardLayout cl = (CardLayout) (cards.getLayout());
         cl.next(cards);
     }
-
 
     public void createUpdatePatientPanel() {
         Object[] columnNames = {"First Name", "Last name", "Sex", "Email address", "DOB", "Medical Information", "Update Patient"};
@@ -335,12 +372,28 @@ public class surgeryGUI extends JFrame implements ActionListener {
 
     public void createDeletePatientPanel() {
         deletePatientPnl = new JPanel();
-        JTextArea first = new JTextArea("First Name");
-        JTextArea last = new JTextArea("Last Name");
+        GridBagConstraints gbag = new GridBagConstraints();
+        deletePatientPnl.setLayout(new GridBagLayout());
+        JTextArea first = new JTextArea("First Name", 0, 20);
+        JTextArea last = new JTextArea("Last Name", 0, 20);
         JButton fetchPatient = new JButton("Fetch Patient");
-        deletePatientPnl.add(first);
-        deletePatientPnl.add(last);
-        deletePatientPnl.add(fetchPatient);
+        deletePatientPnl.add(first, gbag);
+        deletePatientPnl.add(last, gbag);
+        deletePatientPnl.add(fetchPatient, gbag);
+        first.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                first.setText("");
+            }
+        });
+        last.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                last.setText("");
+            }
+        });
         DefaultTableModel listTableModel;
         Object[] columnNames = {"First Name", "Last name", "Sex", "Email address", "DOB", "Medical Information", "Delete Patient"};
         Object[][] data = {};
@@ -370,7 +423,7 @@ public class surgeryGUI extends JFrame implements ActionListener {
                 patientTable2 = new JTable(listTableModel);
                 JScrollPane scrollPane2 = new JScrollPane(patientTable2);
                 // scrollPane2.setBounds(1000,1000,1500,1000);
-                scrollPane2.setSize(1000, 1000);
+                //scrollPane2.setSize(1000, 1000);
                 scrollPane2.setVisible(true);
                 Action action = new AbstractAction() {
                     @Override
@@ -391,7 +444,7 @@ public class surgeryGUI extends JFrame implements ActionListener {
                 };
                 ButtonColumn buttonColumn = new ButtonColumn(patientTable2, action, 6);
                 buttonColumn.setMnemonic(KeyEvent.VK_D);
-                deletePatientPnl.add(scrollPane2);
+                deletePatientPnl.add(scrollPane2, gbag);
             }
 
         });
@@ -410,14 +463,30 @@ public class surgeryGUI extends JFrame implements ActionListener {
     @SuppressWarnings("Duplicates")
     public void createAdminAppointmentCreatePanel() {
         adminAppCreate = new JPanel();
+        GridBagConstraints gbag2 = new GridBagConstraints();
+        adminAppCreate.setLayout(new GridBagLayout());
         adminAppCreate.add(new JTextArea("Create appointment"));
 
         JTextArea first = new JTextArea("First name", 1, 10);
         JTextArea last = new JTextArea("Last name", 1, 10);
         JButton fetchPatient = new JButton("Fetch Patient");
-        adminAppCreate.add(first);
-        adminAppCreate.add(last);
-        adminAppCreate.add(fetchPatient);
+        first.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                first.setText("");
+            }
+        });
+        last.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                last.setText("");
+            }
+        });
+        adminAppCreate.add(first, gbag2);
+        adminAppCreate.add(last, gbag2);
+        adminAppCreate.add(fetchPatient, gbag2);
         //createPatientTable(fetchPatient, adminAppCreate, first,last);
         DefaultTableModel listTableModel;
         Object[] columnNames = {"First Name", "Last name", "Sex", "Email address", "DOB", "Medical Information", "Select Patient"};
@@ -443,12 +512,10 @@ public class surgeryGUI extends JFrame implements ActionListener {
                         isMale = "Female";
                     }
                     listTableModel.addRow(new Object[]{patient.getFirstName(), patient.getLastName(), isMale, emailAddress, patient.getDob(), patient.getMedicalInformation(), "Select Patient"});
-                    //System.out.println(patients.get(i).getFirstName());
                 }
                 patientTable2 = new JTable(listTableModel);
                 JScrollPane scrollPane2 = new JScrollPane(patientTable2);
-                // scrollPane2.setBounds(1000,1000,1500,1000);
-                scrollPane2.setSize(1000, 1000);
+                //scrollPane2.setSize(1000, 1000);
                 scrollPane2.setVisible(true);
                 Action action = new AbstractAction() {
                     @Override
@@ -597,10 +664,38 @@ public class surgeryGUI extends JFrame implements ActionListener {
 
                 ButtonColumn buttonColumn = new ButtonColumn(patientTable2, action, 6);
                 buttonColumn.setMnemonic(KeyEvent.VK_D);
-                adminAppCreate.add(scrollPane2);
+                adminAppCreate.add(scrollPane2, gbag2);
+                adminAppCreate.revalidate();
+                adminAppCreate.repaint();
+                revalidate();
+                repaint();
             }
 
         });
+        JButton back = new JButton("Back");
+        back.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                CardLayout cl = (CardLayout) (cards.getLayout());
+                cl.show(cards, ADMIN);
+
+                first.setVisible(true);
+                first.setText("First name");
+                last.setVisible(true);
+                last.setText("Last name");
+                fetchPatient.setVisible(true);
+
+                if (listTableModel.getRowCount() > 0) {
+                    for (int i = listTableModel.getRowCount() - 1; i > -1; i--) {
+                        listTableModel.removeRow(i);
+                    }
+                }
+
+
+            }
+        });
+        adminAppCreate.add(back);
 
     }
 
@@ -661,7 +756,7 @@ public class surgeryGUI extends JFrame implements ActionListener {
                 scrollPane.setBounds(1000, 1000, 1500, 1000);
                 scrollPane.setSize(1000, 200);
                 scrollPane.setVisible(true);
-                adminAppView.add(scrollPane);
+
 
                 Action action = new AbstractAction() {
                     @Override
@@ -686,6 +781,12 @@ public class surgeryGUI extends JFrame implements ActionListener {
 
                 ButtonColumn buttonColumn = new ButtonColumn(appointmentTable, action, 6);
                 buttonColumn.setMnemonic(KeyEvent.VK_D);
+                gridBagConstraints.gridy = 3;
+                adminAppView.add(scrollPane, gridBagConstraints);
+                adminAppView.revalidate();
+                adminAppView.repaint();
+                revalidate();
+                repaint();
             }
 
         });
@@ -708,7 +809,6 @@ public class surgeryGUI extends JFrame implements ActionListener {
 
 
     }
-
 
     public void createAppointmentView2Panel() {
         adminAppView2 = new JPanel();
@@ -740,7 +840,6 @@ public class surgeryGUI extends JFrame implements ActionListener {
         adminAppView2.add(back);
 
     }
-
 
     public void createAdminAppointmentUpdatePanel() {
         {
@@ -907,7 +1006,6 @@ public class surgeryGUI extends JFrame implements ActionListener {
         adminAppUpdate2.add(back);
 
     }
-
 
     @SuppressWarnings("Duplicates")
     public void createAdminAppointmentDeletePanel() {
@@ -1085,7 +1183,6 @@ public class surgeryGUI extends JFrame implements ActionListener {
             }
         });
         JButton button = new JButton("Fetch patients");
-        //createPatientTable(button, viewPatientPnl, first, last);
         DefaultTableModel listTableModel1;
         Object[] columnNames = {"First Name", "Middle Names", "Last name", "Sex", "DOB", "Email ", "Medical Information"};
         Object[][] data = {};
@@ -1113,14 +1210,17 @@ public class surgeryGUI extends JFrame implements ActionListener {
                         middle = patient.getMiddleName();
                     }
                     listTableModel1.addRow(new Object[]{patient.getFirstName(), middle, patient.getLastName(), isMale, patient.getDob(), emailAddress, patient.getMedicalInformation()});
-                    //System.out.println(patients.get(i).getFirstName());
                 }
                 patientTable2 = new JTable(listTableModel1);
                 JScrollPane scrollPane2 = new JScrollPane(patientTable2);
                 scrollPane2.setBounds(1000, 1000, 1500, 1000);
                 scrollPane2.setVisible(true);
-
+                scrollPane2.setSize(1000, 1000);
                 viewPatientPnl.add(scrollPane2, gbag);
+                viewPatientPnl.revalidate();
+                viewPatientPnl.repaint();
+                revalidate();
+                repaint();
             }
         });
 
@@ -1137,13 +1237,11 @@ public class surgeryGUI extends JFrame implements ActionListener {
                 super.mouseClicked(e);
                 CardLayout cl = (CardLayout) (cards.getLayout());
                 cl.show(cards, ADMIN);
-
                 if (listTableModel1.getRowCount() > 0) {
                     for (int i = listTableModel1.getRowCount() - 1; i > -1; i--) {
                         listTableModel1.removeRow(i);
                     }
                 }
-
                 first.setText("First Name");
                 last.setText("Last Name");
             }
@@ -1162,8 +1260,6 @@ public class surgeryGUI extends JFrame implements ActionListener {
         JTextArea enter = new JTextArea("Please enter your first and last name");
         enter.setEditable(false);
         JTextArea first = new JTextArea("firstName", 1, 10);
-
-
         first.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -1171,7 +1267,6 @@ public class surgeryGUI extends JFrame implements ActionListener {
                 first.setText("");
             }
         });
-
         JTextArea last = new JTextArea("LastName", 1, 10);
         last.addMouseListener(new MouseAdapter() {
             @Override
@@ -1216,10 +1311,8 @@ public class surgeryGUI extends JFrame implements ActionListener {
 
                 for (Appointment appointment : common) {
                     String time = appointment.getAppointmentTime().toLocalTime().toString();
-                    //System.out.println(time);
                     String nurseDocName = "";
                     String Title = "Nurse";
-                    //if(common.get(i).getStaff().getDoctor() == null){//System.out.println(common.get(i).getStaff().getNurse().getLastName());}
                     if (appointment.getStaff().getDoctor() == null)
                         nurseDocName = appointment.getStaff().getNurse().getLastName();
                     else {
@@ -1227,13 +1320,9 @@ public class surgeryGUI extends JFrame implements ActionListener {
                         Title = "Doctor";
                     }
                     listTableModel.addRow(new Object[]{appointment.getPatient().getFirstName(), appointment.getPatient().getLastName(), Title, nurseDocName, appointment.getAppointmentTime().toLocalTime().minusHours(1), appointment.getAppointmentDate().toString(), "Select Appointment"});
-
-                    //patientPanel.add(appointmentTable, gbag);
                     patientPanel.revalidate();
                 }
                 appointmentTable = new JTable(listTableModel);
-                //appointmentTable.getColumnModel().getColumn(6).setCellRenderer(new ButtonRender());
-
                 gbag.gridx = 7;
                 gbag.gridy = 0;
                 JScrollPane scrollPane = new JScrollPane(appointmentTable);
@@ -1243,21 +1332,13 @@ public class surgeryGUI extends JFrame implements ActionListener {
                 Action action = new AbstractAction() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-
-                        //System.out.println("test");
                         JTable table = (JTable) e.getSource();
-                        int modelRow = Integer.valueOf(e.getActionCommand());
-                        ((DefaultTableModel) table.getModel()).getValueAt(modelRow, 1);
-
                         columnNum = table.getSelectedRow();
-
-                        //System.out.println(table.getSelectedRow());
                         CreatePatientSelectAppPanel();
                         cards.add(patientSelectAppPanel, PATIENTAPPVIEW);
                         CardLayout cl = (CardLayout) (cards.getLayout());
                         cl.show(cards, PATIENTAPPVIEW);
                         patientPanel.remove(appointmentTable);
-
                         if (listTableModel.getRowCount() > 0) {
                             for (int i = listTableModel.getRowCount() - 1; i > -1; i--) {
                                 listTableModel.removeRow(i);
@@ -1274,8 +1355,6 @@ public class surgeryGUI extends JFrame implements ActionListener {
 
                     }
                 };
-
-
                 ButtonColumn buttonColumn = new ButtonColumn(appointmentTable, action, 6);
                 buttonColumn.setMnemonic(KeyEvent.VK_D);
                 if (common.size() == 0) {
@@ -1285,8 +1364,6 @@ public class surgeryGUI extends JFrame implements ActionListener {
                 }
             }
         });
-
-
     }
 
     @SuppressWarnings("Duplicates")
@@ -1308,7 +1385,6 @@ public class surgeryGUI extends JFrame implements ActionListener {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-
                 Staff staff = appointment.getStaff();
                 String nurseDocName = "";
                 String title = "Nurse ";
@@ -1319,9 +1395,7 @@ public class surgeryGUI extends JFrame implements ActionListener {
                 }
                 int input = JOptionPane.showOptionDialog(null, "Checked in for your appointment at " + appointment.getAppointmentTime().toLocalTime().minusHours(1) + " with " + title + nurseDocName, "check in", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
                 if (input == JOptionPane.OK_OPTION) {
-                    //sM.updateAppointmentCheckedIn(appointment.getId(),true);
                     sM.updateAppointmentCheckedIn2(appointment.getId(), true);
-
                     patientPanel.remove(appointmentTable);
                     patientPanel.revalidate();
                     CardLayout cl = (CardLayout) (cards.getLayout());
@@ -1338,10 +1412,7 @@ public class surgeryGUI extends JFrame implements ActionListener {
         });
         patientSelectAppPanel.add(appDetails);
         patientSelectAppPanel.add(checkIn);
-
-
     }
-
 
     public void createStaffPanel() {
         JTextField staffId = new JTextField("Please enter your staff Id number");
@@ -1374,9 +1445,7 @@ public class surgeryGUI extends JFrame implements ActionListener {
                 staff = sM.getStaff(Integer.parseInt(staffIdIn.getText()));
                 if (staff == null) {
                     JOptionPane.showMessageDialog(null, "No staff with that ID");
-
                 } else {
-
                     staffID = Integer.parseInt(staffIdIn.getText());
                     createStaffLoggedInPanel();
                     cards.add(staffLoggedInPnl, STAFF_LOGGED_IN);
@@ -1384,7 +1453,6 @@ public class surgeryGUI extends JFrame implements ActionListener {
                     cl.show(cards, STAFF_LOGGED_IN);
                 }
             }
-
         });
         staffPanel.add(staffId);
         staffPanel.add(staffIdIn);
@@ -1400,7 +1468,6 @@ public class surgeryGUI extends JFrame implements ActionListener {
         });
         staffPanel.add(back);
     }
-
 
     @SuppressWarnings("Duplicates")
     public void createStaffLoggedInPanel() {
@@ -1419,8 +1486,6 @@ public class surgeryGUI extends JFrame implements ActionListener {
         name.setEditable(false);
         JButton viewApps = new JButton("View today's appointments");
         JButton viewApps2 = new JButton("View week's appointments");
-
-
         viewApps.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -1437,7 +1502,6 @@ public class surgeryGUI extends JFrame implements ActionListener {
                     listTableModel.addRow(new Object[]{common.get(i).getPatient().getFirstName(), common.get(i).getPatient().getLastName(), common.get(i).getPatient().getMedicalInformation(),
                             common.get(i).getAppointmentTime().toLocalTime().minusHours(1), common.get(i).getAppointmentDate().toString(), "Start Appointment"});
                 }
-
                 Action action2 = new AbstractAction() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
@@ -1465,16 +1529,12 @@ public class surgeryGUI extends JFrame implements ActionListener {
 
                     }
                 };
-
                 appointmentTable = new JTable(listTableModel);
                 ButtonColumn buttonColumn = new ButtonColumn(appointmentTable, action2, 5);
                 buttonColumn.setMnemonic(KeyEvent.VK_D);
-
-
                 scrollPane2 = new JScrollPane(appointmentTable);
                 scrollPane2.setSize(1000, 1000);
                 scrollPane2.setVisible(true);
-
                 gbag.gridy = 3;
                 staffLoggedInPnl.add(scrollPane2, gbag);
                 staffLoggedInPnl.repaint();
@@ -1484,16 +1544,12 @@ public class surgeryGUI extends JFrame implements ActionListener {
                 viewApps.setEnabled(false);
                 viewApps2.setEnabled(true);
                 hasClicked = true;
-
             }
         });
-
-
         viewApps2.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-
                 Object[] columnNames = {"First Name", "Last name", "Medical Information", "Time", "Date"};
                 Object[][] data = {};
                 DefaultTableModel listTableModel;
@@ -1520,15 +1576,11 @@ public class surgeryGUI extends JFrame implements ActionListener {
                 staffLoggedInPnl.revalidate();
                 if (hasClicked) staffLoggedInPnl.remove(scrollPane2);
                 hasClicked = true;
-
             }
         });
-
-
         staffLoggedInPnl.add(name);
         staffLoggedInPnl.add(viewApps);
         staffLoggedInPnl.add(viewApps2);
-
         JButton back = new JButton("Back");
         back.addMouseListener(new MouseAdapter() {
             @Override
@@ -1541,10 +1593,6 @@ public class surgeryGUI extends JFrame implements ActionListener {
         staffLoggedInPnl.add(back);
     }
 
-
-    public void createCurrentAppointmentPanel() {
-
-    }
 
     @SuppressWarnings("Duplicates")
     public void createTypePanel() {
@@ -1634,22 +1682,9 @@ public class surgeryGUI extends JFrame implements ActionListener {
                 cl.show(cards, YOU_ARE);
             }
         });
-
-       /* manageStaffBtn = new JButton("Manage Staff");
-        manageStaffBtn.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                CardLayout cl = (CardLayout)(cards.getLayout());
-                cl.show(cards, ADMINSTAFF);
-            }
-        });*/
-
         admin.add(managePatientBtn, g);
         admin.add(manageAppointmentBtn, g);
         admin.add(back, g);
-        //admin.add(manageStaffBtn, g);
-
     }
 
     @SuppressWarnings("Duplicates")
@@ -1713,7 +1748,6 @@ public class surgeryGUI extends JFrame implements ActionListener {
         adminPatient.add(back, gbag2);
     }
 
-
     public void adminCreatePatientPnl() {
         createPatientPnl = new JPanel();
         GridBagConstraints gbag3 = new GridBagConstraints();
@@ -1773,8 +1807,6 @@ public class surgeryGUI extends JFrame implements ActionListener {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                //System.out.println(sexInBox.isSelected());
-                //System.out.println(datePicker.getDate());
                 int input = JOptionPane.showOptionDialog(null, "Add Patient " + fstNameIn.getText() + " " + lstNameIn.getText(), "Add Patient", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
                 if (input == JOptionPane.OK_OPTION) {
                     if (mdlNameIn.getText().isEmpty()) {
@@ -1788,7 +1820,6 @@ public class surgeryGUI extends JFrame implements ActionListener {
                 addPhoneBtn.setEnabled(true);
             }
         });
-
         addAddressBtn.setEnabled(false);
         addEmailBtn.setEnabled(false);
         addPhoneBtn.setEnabled(false);
@@ -1853,8 +1884,6 @@ public class surgeryGUI extends JFrame implements ActionListener {
             }
         });
         createPatientPnl.add(finish);
-
-
     }
 
     public void addAddressPanel() {
@@ -1865,7 +1894,7 @@ public class surgeryGUI extends JFrame implements ActionListener {
         JTextArea houseName = new JTextArea("house Name:");
         houseName.setEditable(false);
         JTextArea houseNameIn = new JTextArea("", 0, 20);
-        JTextArea street = new JTextArea("Street:", 0, 20);
+        JTextArea street = new JTextArea("Street:");
         street.setEditable(false);
         JTextArea streetIn = new JTextArea("", 0, 20);
         JTextArea city = new JTextArea("City:");
@@ -1925,8 +1954,6 @@ public class surgeryGUI extends JFrame implements ActionListener {
                 }
             }
         });
-
-
     }
 
     @SuppressWarnings("Duplicates")
@@ -1953,7 +1980,6 @@ public class surgeryGUI extends JFrame implements ActionListener {
                     CardLayout cl = (CardLayout) (cards.getLayout());
                     cl.show(cards, CREATEPATIENT);
                 }
-
             }
         });
     }
@@ -1981,11 +2007,6 @@ public class surgeryGUI extends JFrame implements ActionListener {
                     CardLayout cl = (CardLayout) (cards.getLayout());
                     cl.show(cards, CREATEPATIENT);
                 }
-
-                //PatientEmailAddress  patientEmailAddress = sM.addPatientEmailAddress2(emailIn.getText(), patientCreate.getId());
-                //patientCreate.addEmail(patientEmailAddress);
-
-
             }
         });
 
@@ -2002,7 +2023,6 @@ public class surgeryGUI extends JFrame implements ActionListener {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 List<Patient> patients = sM.getPatientByFullName(first.getText(), last.getText());
-
                 List<PatientEmailAddress> patientEmailAddresses = sM.getEmailsByName(first.getText(), last.getText());
                 List<PatientPhone> patientPhones = sM.getPhoneByName(first.getText(), last.getText());
                 String emailAddress = "";
@@ -2013,7 +2033,6 @@ public class surgeryGUI extends JFrame implements ActionListener {
                 for (int i = 0; i < patientPhones.size(); i++) {
                     phone += patientPhones.get(i).getPhoneNumber() + "\n,";
                 }
-
                 for (int i = 0; i < patients.size(); i++) {
                     Patient patient = patients.get(i);
                     String isMale = "Male";
@@ -2021,7 +2040,6 @@ public class surgeryGUI extends JFrame implements ActionListener {
                         isMale = "Female";
                     }
                     listTableModel.addRow(new Object[]{patient.getFirstName(), patient.getLastName(), isMale, emailAddress, phone, patient.getDob(), patient.getMedicalInformation(), "Select Patient"});
-
                 }
                 patientTable2 = new JTable(listTableModel);
                 JScrollPane scrollPane2 = new JScrollPane(patientTable2);
@@ -2076,12 +2094,8 @@ public class surgeryGUI extends JFrame implements ActionListener {
                     @Override
                     public void actionPerformed(ActionEvent e) {
 
-                        ////System.out.println("Test action");
-
                     }
                 };
-
-
                 ButtonColumn buttonColumn = new ButtonColumn(appointmentTable, action, 6);
                 buttonColumn.setMnemonic(KeyEvent.VK_D);
             }
@@ -2130,7 +2144,6 @@ public class surgeryGUI extends JFrame implements ActionListener {
 
     }
 
-
     public Action createAction() {
         Action action = new AbstractAction() {
             @Override
@@ -2139,48 +2152,6 @@ public class surgeryGUI extends JFrame implements ActionListener {
             }
         };
         return action;
-    }
-
-
-    /**
-     * Create the GUI and show it.  For thread safety,
-     * this method should be invoked from the
-     * event dispatch thread.
-     */
-    private static void createAndShowGUI() {
-        //Create and set up the window.
-        JFrame frame = new JFrame("Surgery appointment sign-in");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1000, 1000);
-        frame.setMinimumSize(new Dimension(1000, 1000));
-        //Create and set up the content pane.
-        surgeryGUI GUI = new surgeryGUI();
-        GUI.addComponentToPane(frame.getContentPane());
-
-        //Display the window.
-        frame.pack();
-        frame.setVisible(true);
-    }
-
-    public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-        } catch (UnsupportedLookAndFeelException ex) {
-            ex.printStackTrace();
-        } catch (IllegalAccessException ex) {
-            ex.printStackTrace();
-        } catch (InstantiationException ex) {
-            ex.printStackTrace();
-        } catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
-        }
-
-        UIManager.put("swing.boldMetal", Boolean.FALSE);
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                createAndShowGUI();
-            }
-        });
     }
 
 
