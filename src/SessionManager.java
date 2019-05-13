@@ -1117,10 +1117,12 @@ public class SessionManager{
             Appointment appointment = session.get(Appointment.class, appId);
             appointment.setAppointmentDate(date);
             session.update(appointment);
+
         } catch (HibernateException e) {
             if (tx != null) tx.rollback();
             e.printStackTrace();
         }
+        tx.commit();
         session.close();
     }
 
@@ -1137,6 +1139,7 @@ public class SessionManager{
             if (tx != null) tx.rollback();
             e.printStackTrace();
         }
+        tx.commit();
         session.close();
     }
 
@@ -1170,6 +1173,7 @@ public class SessionManager{
             if (tx != null) tx.rollback();
             e.printStackTrace();
         }
+        tx.commit();
         session.close();
     }
 
@@ -1186,6 +1190,7 @@ public class SessionManager{
             if (tx != null) tx.rollback();
             e.printStackTrace();
         }
+        tx.commit();
         session.close();
     }
 
@@ -1202,6 +1207,7 @@ public class SessionManager{
             if (tx != null) tx.rollback();
             e.printStackTrace();
         }
+        tx.commit();
         session.close();
     }
 
@@ -1218,6 +1224,7 @@ public class SessionManager{
             if (tx != null) tx.rollback();
             e.printStackTrace();
         }
+        tx.commit();
         session.close();
     }
 
@@ -1234,6 +1241,7 @@ public class SessionManager{
             if (tx != null) tx.rollback();
             e.printStackTrace();
         }
+        tx.commit();
         session.close();
     }
 

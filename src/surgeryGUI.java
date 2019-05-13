@@ -22,7 +22,7 @@ public class surgeryGUI extends JFrame implements ActionListener{
 
      private JPanel cards, type, home, admin, staffPanel, patientPanel, adminPatient, adminAppointment, adminStaff, createPatientPnl, updatePatientPnl,
             deletePatientPnl, viewPatientPnl,  patientSelectAppPanel,  addPhonePanel, addAddressPanel, addEmailPanel, staffLoggedInPnl, adminAppCreate,
-    adminAppView, adminAppDelete, AdminAppUpdate, patientUpdateSelectedPanel, adminAppView2;
+    adminAppView, adminAppDelete, AdminAppUpdate, patientUpdateSelectedPanel, adminAppView2, adminAppUpdate2;
     private JScrollPane scrollPane, scrollPane1, scrollPane2, scrollPane3;
     private final static String HOME_PANEL = "Home Panel";
     private final static String YOU_ARE = "You are?";
@@ -40,13 +40,14 @@ public class surgeryGUI extends JFrame implements ActionListener{
     private final static String ADMINSTAFF = "Manage Staff";
     private final static String CREATEPATIENT = "Create patientPanel";
     private final static String VIEWPATIENT = "View patientPanel";
-    private final static String UPDATEPATIENT = "Update patientPanel";
+    private final static String UPDATEPATIENT = "Update patient";
     private final static String DELETEPATIENT = "Delete Patient";
     private final static String PATIENTAPPVIEW = "View selected appointment";
     private final static String PATIENTADDRESS = "Add a patients address";
     private final static String PATIENTPHONE = "Add a patients phone number";
     private final static String PATIENTEMAIL = "Add a patients email address";
     private final static String UPDATESELECTED = "Selected patient to update";
+    private final static String ADMINADDUPDATE2 = "Update an appointment";
     private JButton beginBtn, backBtn, adminBtn, doctorBtn, patientBtn, managePatientBtn, manageAppointmentBtn, manageStaffBtn, createPatientBtn, viewPatientBtn, updatePatientBtn, deletePatientBtn;
     private JTextArea DoctorType;
     SessionManager sM = new SessionManager();
@@ -129,6 +130,7 @@ public class surgeryGUI extends JFrame implements ActionListener{
 
 
 
+
         //Create the panel that contains the "cards".
         cards = new JPanel(new CardLayout());
         cards.setSize(1920,1080);
@@ -151,8 +153,7 @@ public class surgeryGUI extends JFrame implements ActionListener{
         cards.add(adminAppCreate, ADMINAPPCREATE);
         cards.add(adminAppDelete, ADMINAPPDELETE);
         cards.add(adminAppView, ADMINAPPVIEW);
-
-        //cards.add(AdminAppUpdate, ADMINAPPUPDATE);
+        cards.add(AdminAppUpdate, ADMINAPPUPDATE);
 
 
         pane.add(cards, BorderLayout.CENTER);
@@ -234,6 +235,16 @@ public class surgeryGUI extends JFrame implements ActionListener{
             }
 
         });
+        JButton back = new JButton("Back");
+        back.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                CardLayout cl = (CardLayout)(cards.getLayout());
+                cl.show(cards, ADMIN);
+            }
+        });
+        updatePatientPnl.add(back);
     }
 
     public void UpdateSelectedPatientPanel(){
@@ -681,9 +692,174 @@ public class surgeryGUI extends JFrame implements ActionListener{
 
 
     public void createAdminAppointmentUpdatePanel(){
+        {
+            AdminAppUpdate = new JPanel();
+            JButton button = new JButton("Get Appointment for Patient");
+            GridBagConstraints gridBagConstraints = new GridBagConstraints();
+            AdminAppUpdate.setLayout(new GridBagLayout());
+            JTextArea first = new JTextArea("First name",1,10);
+            JTextArea last = new JTextArea("Last name",1,10);
+            AdminAppUpdate.add(first);
+            first.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    super.mouseClicked(e);
+                    first.setText("");
+                }
+            });
+            AdminAppUpdate.add(last);
+            last.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    super.mouseClicked(e);
+                    last.setText("");
+                }
+            });
+            AdminAppUpdate.add(button);
+            button.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    super.mouseClicked(e);
+                    appointmentByName = sM.getAppointmentByName(first.getText(), last.getText());
+                    Object[] columnNames = {"First Name", "Last name", "Title", "Staff's Name", "Time", "Date", "Select"};
+                    Object[][] data = {};
+                    DefaultTableModel listTableModel;
+                    listTableModel = new DefaultTableModel(data, columnNames);
 
+                    for (int i = 0; i < appointmentByName.size(); i++) {
+                        String time = appointmentByName.get(i).getAppointmentTime().toLocalTime().toString();
+                        ////System.out.println(time);
+                        String nurseDocName = "";
+                        String Title = "Nurse";
+                        if (appointmentByName.get(i).getStaff().getDoctor() == null)
+                            nurseDocName = appointmentByName.get(i).getStaff().getNurse().getLastName();
+                        else {
+                            nurseDocName = appointmentByName.get(i).getStaff().getDoctor().getLastName();
+                            Title = "Doctor";
+                        }
+                        listTableModel.addRow(new Object[]{appointmentByName.get(i).getPatient().getFirstName(), appointmentByName.get(i).getPatient().getLastName(), Title, nurseDocName, appointmentByName.get(i).getAppointmentTime().toLocalTime().minusHours(1), appointmentByName.get(i).getAppointmentDate().toString(), "Select Appointment"});
+                        AdminAppUpdate.revalidate();
+                    }
+                    appointmentTable = new JTable(listTableModel);
+
+                    gridBagConstraints.gridx = 7;
+                    gridBagConstraints.gridy = 0;
+                    JScrollPane scrollPane = new JScrollPane(appointmentTable);
+                    scrollPane.setBounds(1000, 1000, 1500, 1000);
+                    scrollPane.setSize(1000,200);
+                    scrollPane.setVisible(true);
+                    AdminAppUpdate.add(scrollPane);
+
+                    Action action = new AbstractAction() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            viewAppointment = appointmentByName.get(appointmentTable.getSelectedRow());
+                            createAppointmentUpdate2Panel();
+                            cards.add(adminAppUpdate2, ADMINADDUPDATE2);
+                            CardLayout cl = (CardLayout)(cards.getLayout());
+                            cl.show(cards, ADMINADDUPDATE2);
+                            if (listTableModel.getRowCount() > 0) {
+                                for (int i = listTableModel.getRowCount() - 1; i > -1; i--) {
+                                    listTableModel.removeRow(i);
+                                }
+                            }
+                            AdminAppUpdate.remove(scrollPane);
+                            AdminAppUpdate.revalidate();
+                            first.setText("First Name");
+                            last.setText("Last Name");
+
+
+                        }
+                    };
+
+
+                    ButtonColumn buttonColumn = new ButtonColumn(appointmentTable, action, 6);
+                    buttonColumn.setMnemonic(KeyEvent.VK_D);
+                }
+
+            });
+
+            JButton back = new JButton("Back");
+            back.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    super.mouseClicked(e);
+                    CardLayout cl = (CardLayout)(cards.getLayout());
+                    cl.show(cards, ADMIN);
+                }
+            });
+            AdminAppUpdate.add(back);
+
+
+        }
 
     }
+
+    public void createAppointmentUpdate2Panel(){
+        adminAppUpdate2 = new JPanel();
+        JTextArea details= new JTextArea("test");
+        adminAppUpdate2.add(details);
+        JButton back = new JButton("Back");
+        Patient patient= viewAppointment.getPatient();
+        String nurseDocName = "";
+        String Title = "Nurse ";
+        if (viewAppointment.getStaff().getDoctor() == null)
+            nurseDocName = viewAppointment.getStaff().getNurse().getLastName();
+        else {
+            nurseDocName = viewAppointment.getStaff().getDoctor().getLastName();
+            Title = "Doctor ";
+        }
+        details.setText(patient.getFirstName()+ " "+ patient.getLastName()+ "\n" + viewAppointment.getAppointmentTime().toLocalTime().minusHours(1) +
+                "\n"+ viewAppointment.getAppointmentDate() + "\n" + Title + nurseDocName + "\n"
+                + "Room:" + viewAppointment.getRoom().getRoomName() + viewAppointment.getRoom().getRoomNumber()
+                + "\n"+ "Checked in: " +viewAppointment.getCheckedIn());
+
+
+
+        JTextArea firstName = new JTextArea(patient.getFirstName()  +" "+ patient.getLastName(),0,20);
+
+        JTextArea appointmentTime = new JTextArea(viewAppointment.getAppointmentTime().toLocalTime().minusHours(1).toString(),0,20);
+        DatePicker datePicker = new DatePicker();
+        datePicker.setText(viewAppointment.getAppointmentDate().toString());
+        JTextArea healthCareStaff = new JTextArea(viewAppointment.getStaff().getId().toString(),0,20);
+        JTextArea roomNum = new JTextArea(viewAppointment.getRoom().getId().toString(),0,20);
+        adminAppUpdate2.add(firstName);
+        adminAppUpdate2.add(appointmentTime);
+        adminAppUpdate2.add(datePicker);
+        adminAppUpdate2.add(healthCareStaff);
+        adminAppUpdate2.add(roomNum);
+
+        JButton updateAppointment = new JButton("Update Appointment");
+        updateAppointment.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                Integer appId = viewAppointment.getId();
+                sM.updateAppointmentDate(appId, datePicker.getDate());
+                sM.updateAppointmentRoom(appId, Integer.parseInt(roomNum.getText()));
+                sM.updateAppointmentTime(appId, Time.valueOf(LocalTime.parse(appointmentTime.getText())));
+                //sM.updateAppointmentStaff(appId, Integer.parseInt(healthCareStaff.toString()));
+                System.out.println(appId);
+                updateAppointment.setEnabled(false);
+
+            }
+        });
+        adminAppUpdate2.add(updateAppointment);
+        back.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                CardLayout cl = (CardLayout)(cards.getLayout());
+                cl.show(cards, ADMIN);
+                updateAppointment.setEnabled(true);
+            }
+        });
+        adminAppUpdate2.add(back);
+
+    }
+
+
+
 
     @SuppressWarnings("Duplicates")
     public void createAdminAppointmentDeletePanel(){
@@ -1404,7 +1580,7 @@ public class surgeryGUI extends JFrame implements ActionListener{
                 cl.show(cards, ADMINAPP);
             }
         });
-        managePatientBtn = new JButton("Manage patientPanel");
+        managePatientBtn = new JButton("Manage Patients");
         managePatientBtn.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -1413,6 +1589,16 @@ public class surgeryGUI extends JFrame implements ActionListener{
                 cl.show(cards, ADMINPATIENT);
             }
         });
+        JButton back = new JButton("Back");
+        back.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                CardLayout cl = (CardLayout)(cards.getLayout());
+                cl.show(cards, YOU_ARE);
+            }
+        });
+
        /* manageStaffBtn = new JButton("Manage Staff");
         manageStaffBtn.addMouseListener(new MouseAdapter() {
             @Override
@@ -1422,9 +1608,10 @@ public class surgeryGUI extends JFrame implements ActionListener{
                 cl.show(cards, ADMINSTAFF);
             }
         });*/
-        admin.add(backBtn, g);
+
         admin.add(managePatientBtn, g);
         admin.add(manageAppointmentBtn, g);
+        admin.add(back,g);
         //admin.add(manageStaffBtn, g);
 
     }
