@@ -21,7 +21,7 @@ public class surgeryGUI extends JFrame implements ActionListener {
 
     private JPanel cards, type, home, admin, staffPanel, patientPanel, adminPatient, adminAppointment, adminStaff, createPatientPnl, updatePatientPnl,
             deletePatientPnl, viewPatientPnl, patientSelectAppPanel, addPhonePanel, addAddressPanel, addEmailPanel, staffLoggedInPnl, adminAppCreate,
-            adminAppView, adminAppDelete, AdminAppUpdate, patientUpdateSelectedPanel, adminAppView2, adminAppUpdate2;
+            adminAppView, adminAppDelete, AdminAppUpdate, patientUpdateSelectedPanel, adminAppView2, adminAppUpdate2, updatePatientPanel2;
     private JScrollPane scrollPane, scrollPane1, scrollPane2, scrollPane3;
     private final static String HOME_PANEL = "Home Panel";
     private final static String YOU_ARE = "You are?";
@@ -40,6 +40,7 @@ public class surgeryGUI extends JFrame implements ActionListener {
     private final static String CREATEPATIENT = "Create patientPanel";
     private final static String VIEWPATIENT = "View patientPanel";
     private final static String UPDATEPATIENT = "Update patient";
+    private final static String UPDATEPATIENT2 = "Update patient2";
     private final static String DELETEPATIENT = "Delete Patient";
     private final static String PATIENTAPPVIEW = "View selected appointment";
     private final static String PATIENTADDRESS = "Add a patients address";
@@ -101,6 +102,7 @@ public class surgeryGUI extends JFrame implements ActionListener {
         //Admin manage patientPanel
 
 
+
         adminStaff = new JPanel();
 
         createTypePanel();
@@ -120,6 +122,7 @@ public class surgeryGUI extends JFrame implements ActionListener {
         createAdminAppointmentDeletePanel();
         createDeletePatientPanel();
         createUpdatePatientPanel();
+        // createUpdatePatientPanel2();
 
 
         //Create the panel that contains the "cards".
@@ -162,28 +165,42 @@ public class surgeryGUI extends JFrame implements ActionListener {
         cl.next(cards);
     }
 
+
     public void createUpdatePatientPanel() {
-
-        updatePatientPnl = new JPanel();
-        JTextArea first = new JTextArea("First Name", 0, 20);
-        JTextArea last = new JTextArea("Last Name", 0, 20);
-        JButton fetchPatient = new JButton("Fetch Patient");
-
-        updatePatientPnl.add(first);
-        updatePatientPnl.add(last);
-        updatePatientPnl.add(fetchPatient);
         Object[] columnNames = {"First Name", "Last name", "Sex", "Email address", "DOB", "Medical Information", "Update Patient"};
         Object[][] data = {};
         DefaultTableModel listTableModel;
         listTableModel = new DefaultTableModel(data, columnNames);
+        updatePatientPnl = new JPanel();
+        GridBagConstraints gbag = new GridBagConstraints();
+        updatePatientPnl.setLayout(new GridBagLayout());
+        JTextArea first = new JTextArea("First Name", 0, 20);
+        JTextArea last = new JTextArea("Last Name", 0, 20);
+        JButton fetchPatient = new JButton("Fetch Patient");
 
+        updatePatientPnl.add(first, gbag);
+        updatePatientPnl.add(last, gbag);
+        first.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                first.setText("");
+            }
+        });
+        last.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                last.setText("");
+            }
+        });
+        updatePatientPnl.add(fetchPatient, gbag);
         fetchPatient.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 fetchPatient.setEnabled(false);
                 super.mouseClicked(e);
                 List<Patient> patients = sM.getPatientByFullName(first.getText(), last.getText());
-                //System.out.println(patients.size());
                 List<PatientEmailAddress> patientEmailAddresses = sM.getEmailsByName(first.getText(), last.getText());
                 String emailAddress = "";
                 for (int i = 0; i < patientEmailAddresses.size(); i++) {
@@ -195,8 +212,7 @@ public class surgeryGUI extends JFrame implements ActionListener {
                     if (patient.isMale() == false) {
                         isMale = "Female";
                     }
-                    listTableModel.addRow(new Object[]{patient.getFirstName(), patient.getLastName(), isMale, emailAddress, patient.getDob(), patient.getMedicalInformation(), "Delete"});
-                    //System.out.println(patients.get(i).getFirstName());
+                    listTableModel.addRow(new Object[]{patient.getFirstName(), patient.getLastName(), isMale, emailAddress, patient.getDob(), patient.getMedicalInformation(), "Update"});
                 }
                 patientTable2 = new JTable(listTableModel);
                 JScrollPane scrollPane2 = new JScrollPane(patientTable2);
@@ -206,23 +222,29 @@ public class surgeryGUI extends JFrame implements ActionListener {
                 Action action = new AbstractAction() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        Patient patient = patients.get(patientTable2.getSelectedRow());
-                        int option = JOptionPane.showOptionDialog(null, "Are you sure you want to delete patient " + patient.getFirstName() + " " + patient.getLastName(), "Delete Patient", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
-                        if (option == JOptionPane.OK_OPTION) {
-                            sM.deletePatient2(patient.getId());
-                            patientTable2.revalidate();
-                            scrollPane2.removeAll();
-                            scrollPane2.revalidate();
-                            deletePatientPnl.remove(scrollPane2);
-                            deletePatientPnl.revalidate();
-                            deletePatientPnl.repaint();
-                            fetchPatient.setEnabled(true);
+                        updatePatient = patients.get(patientTable2.getSelectedRow());
+                        UpdateSelectedPatientPanel();
+                        cards.add(patientUpdateSelectedPanel, UPDATESELECTED);
+                        first.setText("First Name");
+                        last.setText("Last Name");
+                        System.out.println(updatePatient.getFirstName());
+                        CardLayout cl = (CardLayout) (cards.getLayout());
+                        cl.show(cards, UPDATESELECTED);
+                        if (listTableModel.getRowCount() > 0) {
+                            for (int i = listTableModel.getRowCount() - 1; i > -1; i--) {
+                                listTableModel.removeRow(i);
+                            }
                         }
+                        scrollPane2.removeAll();
+                        updatePatientPnl.remove(scrollPane2);
+
+
                     }
                 };
                 ButtonColumn buttonColumn = new ButtonColumn(patientTable2, action, 6);
                 buttonColumn.setMnemonic(KeyEvent.VK_D);
                 updatePatientPnl.add(scrollPane2);
+                updatePatientPnl.revalidate();
             }
 
         });
@@ -233,6 +255,16 @@ public class surgeryGUI extends JFrame implements ActionListener {
                 super.mouseClicked(e);
                 CardLayout cl = (CardLayout) (cards.getLayout());
                 cl.show(cards, ADMIN);
+                fetchPatient.setEnabled(true);
+                if (listTableModel.getRowCount() > 0) {
+                    for (int i = listTableModel.getRowCount() - 1; i > -1; i--) {
+                        listTableModel.removeRow(i);
+                    }
+                }
+                scrollPane2.removeAll();
+                updatePatientPnl.remove(scrollPane2);
+                first.setText("First Name");
+                last.setText("Last Name");
             }
         });
         updatePatientPnl.add(back);
@@ -243,17 +275,20 @@ public class surgeryGUI extends JFrame implements ActionListener {
 
         JTextArea fstName = new JTextArea("first Name:");
         fstName.setEditable(false);
-        fstName.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-        JTextArea fstNameIn = new JTextArea(updatePatient.getFirstName());
+
+        JTextArea fstNameIn = new JTextArea(updatePatient.getFirstName(), 0, 20);
         JTextArea lstName = new JTextArea("Last Name:");
         lstName.setEditable(false);
-        JTextArea lstNameIn = new JTextArea(updatePatient.getLastName());
+        JTextArea lstNameIn = new JTextArea(updatePatient.getLastName(), 0, 20);
         JTextArea mdlName = new JTextArea("Middle names:");
         mdlName.setEditable(false);
-        JTextArea mdlNameIn = new JTextArea(updatePatient.getMiddleName());
+        if (updatePatient.getMiddleName() == null) {
+            JTextArea mdlNameIn = new JTextArea("", 0, 20);
+        }
+        JTextArea mdlNameIn = new JTextArea(updatePatient.getMiddleName(), 0, 20);
         JTextArea sex = new JTextArea("Is male:");
         sex.setEditable(false);
-        //JTextArea sexIn = new JTextArea("");
+        JTextArea sexIn = new JTextArea("");
         JCheckBox sexInBox = new JCheckBox();
         sexInBox.setSelected(updatePatient.isMale());
         JTextArea dob = new JTextArea("Date of Birth:");
@@ -262,7 +297,7 @@ public class surgeryGUI extends JFrame implements ActionListener {
         datePicker.setDate(updatePatient.getDob());
         JTextArea medicalInfo = new JTextArea("Medical Information:");
         medicalInfo.setEditable(false);
-        JTextArea medicalInfoIn = new JTextArea(updatePatient.getMedicalInformation());
+        JTextArea medicalInfoIn = new JTextArea(updatePatient.getMedicalInformation(), 0, 20);
         patientUpdateSelectedPanel.add(fstName);
         patientUpdateSelectedPanel.add(fstNameIn);
         patientUpdateSelectedPanel.add(lstName);
@@ -275,6 +310,27 @@ public class surgeryGUI extends JFrame implements ActionListener {
         patientUpdateSelectedPanel.add(datePicker);
         patientUpdateSelectedPanel.add(medicalInfo);
         patientUpdateSelectedPanel.add(mdlNameIn);
+        JButton updatePatientBtn = new JButton("Update Patient");
+        patientUpdateSelectedPanel.add(updatePatientBtn);
+        updatePatientBtn.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                Integer id = updatePatient.getId();
+                System.out.println(fstNameIn.getText());
+
+                sM.updateFirstName(id, fstNameIn.getText());
+                sM.updateLastName(id, lstNameIn.getText());
+                sM.updateMiddleName(id, mdlNameIn.getText());
+                sM.updateDateOfBirth(id, datePicker.getDate());
+                sM.updateMedicalInformation(id, medicalInfoIn.getText());
+                sM.updateSex(id, sexInBox.isSelected());
+                CardLayout cl = (CardLayout) (cards.getLayout());
+                cl.show(cards, ADMIN);
+
+
+            }
+        });
     }
 
     public void createDeletePatientPanel() {
@@ -1615,7 +1671,7 @@ public class surgeryGUI extends JFrame implements ActionListener {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                createUpdatePatientPanel();
+
                 CardLayout cl = (CardLayout) (cards.getLayout());
                 cl.show(cards, UPDATEPATIENT);
 

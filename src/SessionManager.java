@@ -37,7 +37,7 @@ public class SessionManager{
 
 
         session = factory.openSession();
-        Patient patient = sM.addPatient2(LocalDate.now(),"Tom","test", "is good", true);
+        /*Patient patient = sM.addPatient2(LocalDate.now(),"Tom","test", "is good", true);
         Patient_Address patient_address = new Patient_Address(patient,"test","test", "test", "Test", "test","test","test");
         sM.addPatientAddress(patient.getId(),"test","test", "test", "Test", "test","test","test");
         patient.addAddress(patient_address);
@@ -46,8 +46,8 @@ public class SessionManager{
         //sM.deleteAppointment(3);
         System.out.println(sM.getPatient(1).getPatientEmailAddresses().get(0).getEmailAddress());
         System.out.println(sM.getPatient(1).getPatientEmailAddresses().get(1).getEmailAddress());
-        System.out.println(sM.getPatient(762).getPatientAddresses().get(0).getCity());
-
+        System.out.println(sM.getPatient(762).getPatientAddresses().get(0).getCity());*/
+        sM.updateFirstName(1, "test2");
 
     }
 
@@ -209,11 +209,12 @@ public class SessionManager{
             Patient patient = session.get(Patient.class, patientId);
             patient.setLastName(lastName);
             session.update(patient);
-            tx.commit();
+
         } catch (HibernateException e) {
             if (tx != null) tx.rollback();
             e.printStackTrace();
         }
+        tx.commit();
         session.close();
 
     }
@@ -227,11 +228,12 @@ public class SessionManager{
             Patient patient = session.get(Patient.class, patientId);
             patient.setMiddleName(middleName);
             session.update(patient);
-            tx.commit();
+
         } catch (HibernateException e) {
             if (tx != null) tx.rollback();
             e.printStackTrace();
         }
+        tx.commit();
         session.close();
 
     }
@@ -245,11 +247,12 @@ public class SessionManager{
             Patient patient = session.get(Patient.class, patientId);
             patient.setMedicalInformation(medicalInfo);
             session.update(patient);
-            tx.commit();
+
         } catch (HibernateException e) {
             if (tx != null) tx.rollback();
             e.printStackTrace();
         }
+        tx.commit();
         session.close();
     }
 
@@ -261,11 +264,12 @@ public class SessionManager{
             Patient patient = session.get(Patient.class, patientId);
             patient.setDob(DOB);
             session.update(patient);
-            tx.commit();
+
         } catch (HibernateException e) {
             if (tx != null) tx.rollback();
             e.printStackTrace();
         }
+        tx.commit();
         session.close();
     }
 
@@ -302,6 +306,7 @@ public class SessionManager{
             if (tx != null) tx.rollback();
             e.printStackTrace();
         }
+        tx.commit();
         session.close();
     }
 
