@@ -13,6 +13,7 @@ import java.util.List;
 import javax.swing.*;
 
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 import static java.util.stream.Collectors.toList;
 
@@ -61,6 +62,7 @@ public class surgeryGUI extends JFrame implements ActionListener{
     private Patient tablePatient;
     private Staff tableStaff;
     private Appointment viewAppointment;
+    private Appointment appointmentTemp;
 
 
 
@@ -512,11 +514,12 @@ public class surgeryGUI extends JFrame implements ActionListener{
                                                 patients.clear();
                                                 patientEmailAddresses.clear();
                                                 staff.clear();
-                                                for(int i2 = 0; i2 < listTableModel.getRowCount(); i2++)
-                                                {
-                                                    listTableModel.removeRow(i2);
-
+                                                if (listTableModel.getRowCount() > 0) {
+                                                    for (int i = listTableModel.getRowCount() - 1; i > -1; i--) {
+                                                        listTableModel.removeRow(i);
+                                                    }
                                                 }
+
 
 
 
@@ -611,7 +614,11 @@ public class surgeryGUI extends JFrame implements ActionListener{
                         cards.add(adminAppView2, ADMINAPPVIEW2);
                         CardLayout cl = (CardLayout)(cards.getLayout());
                         cl.show(cards, ADMINAPPVIEW2);
-                       scrollPane.removeAll();
+                        if (listTableModel.getRowCount() > 0) {
+                            for (int i = listTableModel.getRowCount() - 1; i > -1; i--) {
+                                listTableModel.removeRow(i);
+                            }
+                        }
                        first.setText("First Name");
                        last.setText("Last Name");
 
@@ -737,7 +744,11 @@ public class surgeryGUI extends JFrame implements ActionListener{
                             appointmentTable.revalidate();
                             scrollPane.removeAll();
                             scrollPane.revalidate();
-
+                            if (listTableModel.getRowCount() > 0) {
+                                for (int i = listTableModel.getRowCount() - 1; i > -1; i--) {
+                                    listTableModel.removeRow(i);
+                                }
+                            }
                             adminAppDelete.remove(scrollPane);
                             adminAppDelete.revalidate();
                             adminAppDelete.repaint();
@@ -905,7 +916,16 @@ public class surgeryGUI extends JFrame implements ActionListener{
                 super.mouseClicked(e);
                 CardLayout cl = (CardLayout)(cards.getLayout());
                 cl.show(cards, ADMIN);
-                            }
+
+                if (listTableModel1.getRowCount() > 0) {
+                    for (int i = listTableModel1.getRowCount() - 1; i > -1; i--) {
+                        listTableModel1.removeRow(i);
+                    }
+                }
+
+                first.setText("First Name");
+                last.setText("Last Name");
+            }
         });
         viewPatientPnl.add(back);
 
@@ -1005,6 +1025,12 @@ public class surgeryGUI extends JFrame implements ActionListener{
                         CardLayout cl = (CardLayout)(cards.getLayout());
                         cl.show(cards, PATIENTAPPVIEW);
                         patientPanel.remove(appointmentTable);
+
+                        if (listTableModel.getRowCount() > 0) {
+                            for (int i = listTableModel.getRowCount() - 1; i > -1; i--) {
+                                listTableModel.removeRow(i);
+                            }
+                        }
                         patientPanel.revalidate();
                         patientPanel.repaint();
                         JTextArea jTextArea = new JTextArea();
@@ -1073,17 +1099,19 @@ public class surgeryGUI extends JFrame implements ActionListener{
                 {
                     //sM.updateAppointmentCheckedIn(appointment.getId(),true);
                     sM.updateAppointmentCheckedIn2(appointment.getId(), true);
-                    CardLayout cl = (CardLayout)(cards.getLayout());
-                    cl.show(cards, PATIENT);
+
                     patientPanel.remove(appointmentTable);
                     patientPanel.revalidate();
+                    CardLayout cl = (CardLayout)(cards.getLayout());
+                    cl.show(cards, PATIENT);
                 }
                 else{
+
+                    patientPanel.remove(appointmentTable);
+                                       patientPanel.revalidate();
+                    JOptionPane.showMessageDialog(null,"Returning you to patient area without checking in");
                     CardLayout cl = (CardLayout)(cards.getLayout());
                     cl.show(cards, PATIENT);
-                    patientPanel.remove(appointmentTable);
-                    patientPanel.revalidate();
-                    JOptionPane.showMessageDialog(null,"Returning you to patient area without checking in");
                 }
             }
         });
