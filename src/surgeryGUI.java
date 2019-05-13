@@ -628,6 +628,7 @@ public class surgeryGUI extends JFrame implements ActionListener {
             }
         });
         adminAppView.add(button);
+
         button.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -693,9 +694,14 @@ public class surgeryGUI extends JFrame implements ActionListener {
         back.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+
                 super.mouseClicked(e);
                 CardLayout cl = (CardLayout) (cards.getLayout());
                 cl.show(cards, ADMIN);
+                scrollPane.removeAll();
+                adminAppView.remove(scrollPane);
+
+
             }
         });
         adminAppView.add(back);
