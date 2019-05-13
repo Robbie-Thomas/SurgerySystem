@@ -1451,13 +1451,16 @@ public class surgeryGUI extends JFrame implements ActionListener {
                                     for (int i = listTableModel.getRowCount() - 1; i > -1; i--) {
                                         listTableModel.removeRow(i);
                                     }
-                                } else {
-                                    sM.updateAppointmentOnTime2(appointment.getId(), false);
                                 }
                                 staffLoggedInPnl.remove(scrollPane2);
                                 scrollPane3.removeAll();
                                 scrollPane2.setVisible(false);
                             }
+                        } else {
+                            sM.updateAppointmentOnTime2(appointment.getId(), false);
+                            staffLoggedInPnl.remove(scrollPane2);
+                            scrollPane3.removeAll();
+                            scrollPane2.setVisible(false);
                         }
 
                     }
