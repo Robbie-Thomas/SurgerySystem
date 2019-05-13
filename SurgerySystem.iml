@@ -31,5 +31,7 @@
     <orderEntry type="library" name="Connector J 8" level="project" />
     <orderEntry type="library" name="java" level="project" />
     <orderEntry type="library" name="LGoodDatePicker-10.4.1" level="project" />
+    <orderEntry type="library" name="Java EE 6-Java EE 6" level="project" />
+    <orderEntry type="library" name="javax.mail" level="project" />
   </component>
 </module>
