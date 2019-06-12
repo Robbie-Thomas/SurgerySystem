@@ -9,6 +9,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+/**
+ *
+ */
 @NamedQueries(
         value = {
                 @NamedQuery(
@@ -72,6 +75,7 @@ public class Appointment
     @Column(name = "Appointment_Id")
     private Integer id;
 
+
     @Column(name = "Date")
     private LocalDate appointmentDate;
 
@@ -113,6 +117,15 @@ public class Appointment
 
     public Appointment(){}
 
+    /**
+     * @param appointmentDate
+     * @param appointmentTime
+     * @param room
+     * @param patient
+     * @param staff
+     * @param onTime
+     * @param checkedIn
+     */
     public Appointment(LocalDate appointmentDate, Time appointmentTime, Room room, Patient patient, Staff staff, Boolean onTime, Boolean checkedIn) {
         this.appointmentDate = appointmentDate;
         this.appointmentTime = appointmentTime;
@@ -123,86 +136,171 @@ public class Appointment
         this.checkedIn = checkedIn;
     }
 
+    /**
+     *
+     * @return
+     */
     public Boolean getCheckedIn() {
         return checkedIn;
     }
 
+    /**
+     *
+     * @param checkedIn
+     */
     public void setCheckedIn(Boolean checkedIn) {
         this.checkedIn = checkedIn;
     }
 
+    /**
+     *
+     * @return
+     */
     public Integer getId() {
         return id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(Integer id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     public Boolean getOnTime() {
         return onTime;
     }
 
+    /**
+     *
+     * @param onTime
+     */
     public void setOnTime(Boolean onTime) {
         this.onTime = onTime;
     }
 
+    /**
+     *
+     * @return
+     */
     public LocalDate getAppointmentDate() {
         return appointmentDate;
     }
 
+    /**
+     *
+     * @param appointmentDate
+     */
     public void setAppointmentDate(LocalDate appointmentDate) {
         this.appointmentDate = appointmentDate;
     }
 
+    /**
+     *
+     * @return
+     */
     public Time getAppointmentTime() {
         return appointmentTime;
     }
 
+    /**
+     *
+     * @param appointmentTime
+     */
     public void setAppointmentTime(Time appointmentTime) {
         this.appointmentTime = appointmentTime;
     }
 
+    /**
+     *
+     * @return
+     */
     public Patient getPatient() {
         return patient;
     }
 
+    /**
+     *
+     * @param patient
+     */
     public void setPatient(Patient patient) {
         this.patient = patient;
     }
 
+    /**
+     *
+     * @return
+     */
     public Staff getStaff() {
         return staff;
     }
 
+    /**
+     *
+     * @param staff
+     */
     public void setStaff(Staff staff) {
         this.staff = staff;
     }
 
+    /**
+     *
+     * @return
+     */
     public Room getRoom() {
         return room;
     }
 
+    /**
+     *
+     * @param room
+     */
     public void setRoom(Room room) {
         this.room = room;
     }
 
+    /**
+     *
+     * @return
+     */
     public LocalDateTime getCreateDateTime() {
         return createDateTime;
     }
 
+    /**
+     *
+     * @param createDateTime
+     */
     public void setCreateDateTime(LocalDateTime createDateTime) {
         this.createDateTime = createDateTime;
     }
 
+    /**
+     *
+     * @return
+     */
     public LocalDateTime getUpdateDateTime() {
         return updateDateTime;
     }
 
+    /**
+     *
+     * @param updateDateTime
+     */
     public void setUpdateDateTime(LocalDateTime updateDateTime) {
         this.updateDateTime = updateDateTime;
     }
 
+    /**
+     *
+     * @param o
+     * @return
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -211,6 +309,10 @@ public class Appointment
         return id.equals(that.id);
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int hashCode() {
         return Objects.hash(id);

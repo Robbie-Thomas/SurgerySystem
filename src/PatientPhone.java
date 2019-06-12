@@ -45,35 +45,68 @@ public class PatientPhone {
     public PatientPhone() {
     }
 
+    /**
+     * @param phoneNumber
+     * @param patient
+     */
     public PatientPhone(String phoneNumber, Patient patient) {
         this.phoneNumber = phoneNumber;
         this.patient = patient;
     }
 
+    /**
+     *
+     * @return
+     */
     public Patient getPatient() {
         return patient;
     }
 
+    /**
+     *
+     * @param patient
+     */
     public void setPatient(Patient patient) {
         this.patient = patient;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
+    /**
+     *
+     * @param phoneNumber
+     */
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
+    /**
+     *
+     * @return
+     */
     public Integer getId() {
         return id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(Integer id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @param o
+     * @return
+     */
     @Contract(value = "null -> false", pure = true)
     @Override
     //looks to see if the phone number is unique
@@ -85,6 +118,10 @@ public class PatientPhone {
                 id.equals(that.id);
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int hashCode() {
         return Objects.hash(id);

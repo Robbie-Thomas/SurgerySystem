@@ -85,6 +85,9 @@ public class surgeryGUI extends JFrame implements ActionListener {
         frame.setVisible(true);
     }
 
+    /**
+     * @param args
+     */
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
@@ -107,6 +110,7 @@ public class surgeryGUI extends JFrame implements ActionListener {
     }
 
     @SuppressWarnings("Duplicates")
+
     public void addComponentToPane(Container pane) {
 
         sM.setUpFactory();
@@ -202,6 +206,7 @@ public class surgeryGUI extends JFrame implements ActionListener {
         CardLayout cl = (CardLayout) (cards.getLayout());
         cl.next(cards);
     }
+
 
     public void createUpdatePatientPanel() {
         Object[] columnNames = {"First Name", "Last name", "Sex", "Email address", "DOB", "Medical Information", "Update Patient"};

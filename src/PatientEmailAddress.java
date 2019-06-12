@@ -53,35 +53,68 @@ public class PatientEmailAddress {
     public PatientEmailAddress() {
     }
 
+    /**
+     * @param emailAddress
+     * @param patient
+     */
     public PatientEmailAddress(String emailAddress, Patient patient) {
         this.emailAddress = emailAddress;
         this.patient = patient;
     }
 
+    /**
+     *
+     * @return
+     */
     public Integer getId() {
         return id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(Integer id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     public Patient getPatient() {
         return patient;
     }
 
+    /**
+     *
+     * @param patient
+     */
     public void setPatient(Patient patient) {
         this.patient = patient;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getEmailAddress() {
         return emailAddress;
     }
 
+    /**
+     *
+     * @param emailAddress
+     */
     public void setEmailAddress(String emailAddress) {
         this.emailAddress = emailAddress;
     }
 
+    /**
+     *
+     * @param o
+     * @return
+     */
     @Contract(value = "null -> false", pure = true)
     @Override
     //Checks to see if an email address with the same email already exists
@@ -92,6 +125,10 @@ public class PatientEmailAddress {
         return Objects.equals(emailAddress, that.emailAddress);
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int hashCode() {
         return Objects.hash(emailAddress);

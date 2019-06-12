@@ -69,6 +69,16 @@ public class Patient_Address {
     public Patient_Address() {
     }
 
+    /**
+     * @param patient
+     * @param houseName
+     * @param houseNumber
+     * @param street
+     * @param city
+     * @param postcode
+     * @param county
+     * @param country
+     */
     public Patient_Address(Patient patient, String houseName, String houseNumber, String street, String city, String postcode, String county, String country) {
         this.patient = patient;
         this.houseName = houseName;
@@ -80,81 +90,155 @@ public class Patient_Address {
         this.houseNumber = houseNumber;
     }
 
-
-
-
+    /**
+     *
+     * @return
+     */
     public Integer getId() {
         return id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(Integer id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getHouseName() {
         return houseName;
     }
 
+    /**
+     *
+     * @param houseName
+     */
     public void setHouseName(String houseName) {
         this.houseName = houseName;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getStreet() {
         return street;
     }
 
+    /**
+     *
+     * @param street
+     */
     public void setStreet(String street) {
         this.street = street;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getCity() {
         return city;
     }
 
+    /**
+     *
+     * @param city
+     */
     public void setCity(String city) {
         this.city = city;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPostcode() {
         return postcode;
     }
 
+    /**
+     *
+     * @param postcode
+     */
     public void setPostcode(String postcode) {
         this.postcode = postcode;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getCounty() {
         return county;
     }
 
+    /**
+     *
+     * @param county
+     */
     public void setCounty(String county) {
         this.county = county;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getCountry() {
         return country;
     }
 
+    /**
+     *
+     * @param country
+     */
     public void setCountry(String country) {
         this.country = country;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getHouseNumber() {
         return houseNumber;
     }
 
+    /**
+     *
+     * @return
+     */
     public Patient getPatient() {
         return patient;
     }
 
+    /**
+     *
+     * @param patientId
+     */
     public void setPatient(Patient patientId) {
         this.patient = patientId;
     }
 
+    /**
+     *
+     * @param houseNumber
+     */
     public void setHouseNumber(String houseNumber) {
         this.houseNumber = houseNumber;
     }
 
+    /**
+     *
+     * @param o
+     * @return
+     */
     @Contract(value = "null -> false", pure = true)
     @Override
     public boolean equals(Object o) {
@@ -167,6 +251,10 @@ public class Patient_Address {
                 Objects.equals(postcode, that.postcode);
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int hashCode() {
         return Objects.hash(id);

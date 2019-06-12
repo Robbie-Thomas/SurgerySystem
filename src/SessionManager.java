@@ -16,13 +16,14 @@ import java.util.List;
 
 
 
-
 public class SessionManager{
 
     private static SessionFactory factory;
     private static Session session;
 
-
+    /**
+     * @param args
+     */
     public static void main(String[] args) {
 
         try {
@@ -51,6 +52,7 @@ public class SessionManager{
 
     }
 
+
     public void setUpFactory(){
         factory = new Configuration().configure().buildSessionFactory();
     }
@@ -61,6 +63,15 @@ public class SessionManager{
     }
 
     //creates a patientPanel with all the fields
+
+    /**
+     *
+     * @param dob
+     * @param firstName
+     * @param lastName
+     * @param medicalInformation
+     * @param isMale
+     */
     public void addPatient(LocalDate dob, String firstName, String lastName, String medicalInformation, boolean isMale) {
         setUpFactory();
         Transaction tx = null;
@@ -80,8 +91,20 @@ public class SessionManager{
 
     }
 
+    //Create a patient object
+
+    /**
+     * @param dob
+     * @param firstName
+     * @param lastName
+     * @param medicalInformation
+     * @param isMale
+     * @return
+     */
     public Patient addPatient2(LocalDate dob, String firstName, String lastName, String medicalInformation, boolean isMale) {
+        //Set the factory up
         setUpFactory();
+        //Clear the transaction
         Transaction tx = null;
         Patient patient = new Patient(dob, firstName, lastName, medicalInformation, isMale);
         try {
@@ -96,6 +119,16 @@ public class SessionManager{
         return patient;
     }
 
+    /**
+     *
+     * @param dob
+     * @param firstName
+     * @param middlesName
+     * @param lastName
+     * @param medicalInformation
+     * @param isMale
+     * @return
+     */
     public Patient addPatient2(LocalDate dob, String firstName, String middlesName, String lastName, String medicalInformation, boolean isMale) {
         setUpFactory();
         Transaction tx = null;
@@ -112,6 +145,15 @@ public class SessionManager{
         return patient;
     }
 
+    /**
+     *
+     * @param dob
+     * @param firstName
+     * @param middlesName
+     * @param lastName
+     * @param medicalInformation
+     * @param isMale
+     */
     public void addPatient(LocalDate dob, String firstName, String middlesName, String lastName, String medicalInformation, boolean isMale) {
         setUpFactory();
         Transaction tx = null;
@@ -130,6 +172,11 @@ public class SessionManager{
 
     }
 
+    /**
+     *
+     * @param patientId
+     * @return
+     */
     public Patient getPatient(Integer patientId) {
 
         Patient patient = new Patient();
@@ -148,6 +195,11 @@ public class SessionManager{
 
 
     //deletes a patientPanel with the equivalent Id as the PatientID
+
+    /**
+     *
+     * @param patientId
+     */
     public void deletePatient(Integer patientId) {
         //creates the session
         //Session session = factory.openSession();
@@ -172,8 +224,13 @@ public class SessionManager{
         session.close();
     }
 
-
     //Updates a Patients first name
+
+    /**
+     *
+     * @param patientId
+     * @param firstName
+     */
     public void updateFirstName(Integer patientId, String firstName) {
         //creates the session
         Session session = factory.openSession();
@@ -200,6 +257,11 @@ public class SessionManager{
 
     }
 
+    /**
+     *
+     * @param patientId
+     * @param lastName
+     */
     public void updateLastName(Integer patientId, String lastName) {
         Session session = factory.openSession();
         Transaction tx = null;
@@ -219,6 +281,11 @@ public class SessionManager{
 
     }
 
+    /**
+     *
+     * @param patientId
+     * @param middleName
+     */
     public void updateMiddleName(Integer patientId, String middleName) {
         Session session = factory.openSession();
         Transaction tx = null;
@@ -238,6 +305,11 @@ public class SessionManager{
 
     }
 
+    /**
+     *
+     * @param patientId
+     * @param medicalInfo
+     */
     public void updateMedicalInformation(Integer patientId, String medicalInfo) {
         Session session = factory.openSession();
         Transaction tx = null;
@@ -256,6 +328,11 @@ public class SessionManager{
         session.close();
     }
 
+    /**
+     *
+     * @param patientId
+     * @param DOB
+     */
     public void updateDateOfBirth(Integer patientId, LocalDate DOB) {
         Session session = factory.openSession();
         Transaction tx = null;
@@ -291,6 +368,17 @@ public class SessionManager{
 
     //Managing the patientPanel address.
 
+    /**
+     *
+     * @param patientId
+     * @param houseName
+     * @param houseNumber
+     * @param street
+     * @param city
+     * @param postcode
+     * @param county
+     * @param country
+     */
     public void addPatientAddress(Integer patientId, String houseName, String houseNumber, String street, String city, String postcode, String county, String country) {
         Session session = factory.openSession();
         Transaction tx = null;
@@ -310,6 +398,18 @@ public class SessionManager{
         session.close();
     }
 
+    /**
+     *
+     * @param patientId
+     * @param houseName
+     * @param houseNumber
+     * @param street
+     * @param city
+     * @param postcode
+     * @param county
+     * @param country
+     * @return
+     */
     public Patient_Address addPatientAddress2(Integer patientId, String houseName, String houseNumber, String street, String city, String postcode, String county, String country) {
         Session session = factory.openSession();
         Transaction tx = null;
@@ -331,6 +431,11 @@ public class SessionManager{
 
 
     //deletes a patientPanel Patient_Address with the equivalent Id as the PatientID
+
+    /**
+     *
+     * @param PatientAddress_Id
+     */
     public void deletePatientAddress(Integer PatientAddress_Id) {
         //creates the session
         Session session = factory.openSession();
@@ -355,6 +460,11 @@ public class SessionManager{
         session.close();
     }
 
+    /**
+     *
+     * @param PatientAddress_Id
+     * @param houseName
+     */
     public void updatePatientAddressHouseName(Integer PatientAddress_Id, String houseName) {
         Session session = factory.openSession();
         Transaction tx = null;
@@ -372,6 +482,11 @@ public class SessionManager{
         session.close();
     }
 
+    /**
+     *
+     * @param PatientAddress_Id
+     * @param houseNumber
+     */
     public void updatePatientAddressHouseNumber(Integer PatientAddress_Id, String houseNumber) {
         Session session = factory.openSession();
         Transaction tx = null;
@@ -389,6 +504,11 @@ public class SessionManager{
         session.close();
     }
 
+    /**
+     *
+     * @param PatientAddress_Id
+     * @param street
+     */
     public void updatePatientAddressStreet(Integer PatientAddress_Id, String street) {
         Session session = factory.openSession();
         Transaction tx = null;
@@ -406,6 +526,11 @@ public class SessionManager{
         session.close();
     }
 
+    /**
+     *
+     * @param PatientAddress_Id
+     * @param city
+     */
     public void updatePatientAddressCity(Integer PatientAddress_Id, String city) {
         Session session = factory.openSession();
         Transaction tx = null;
@@ -423,6 +548,11 @@ public class SessionManager{
         session.close();
     }
 
+    /**
+     *
+     * @param PatientAddress_Id
+     * @param postcode
+     */
     public void updatePatientAddressPostcode(Integer PatientAddress_Id, String postcode) {
         Session session = factory.openSession();
         Transaction tx = null;
@@ -440,7 +570,11 @@ public class SessionManager{
         session.close();
     }
 
-
+    /**
+     *
+     * @param PatientAddress_Id
+     * @param county
+     */
     public void updatePatientAddressCounty(Integer PatientAddress_Id, String county) {
         Session session = factory.openSession();
         Transaction tx = null;
@@ -458,6 +592,11 @@ public class SessionManager{
         session.close();
     }
 
+    /**
+     *
+     * @param PatientAddress_Id
+     * @param country
+     */
     public void updatePatientAddressCountry(Integer PatientAddress_Id, String country) {
         Session session = factory.openSession();
         Transaction tx = null;
@@ -477,7 +616,11 @@ public class SessionManager{
 
 
     //Patient email Patient_Address
-
+    /**
+     *
+     * @param Email
+     * @param patientId
+     */
     public void addPatientEmailAddress(String Email, Integer patientId) {
         Session session = factory.openSession();
         Transaction tx = null;
@@ -497,6 +640,12 @@ public class SessionManager{
         session.close();
     }
 
+    /**
+     *
+     * @param Email
+     * @param patientId
+     * @return
+     */
     public PatientEmailAddress addPatientEmailAddress2(String Email, Integer patientId) {
         Session session = factory.openSession();
         Transaction tx = null;
@@ -515,6 +664,10 @@ public class SessionManager{
         return patientEmailAddress;
     }
 
+    /**
+     *
+     * @param PatientEmailAddress_Id
+     */
     public void deletePatientEmailAddress(Integer PatientEmailAddress_Id) {
         //creates the session
         Session session = factory.openSession();
@@ -541,7 +694,11 @@ public class SessionManager{
         //closing the session
     }
 
-
+    /**
+     *
+     * @param PatientEmailAddress_Id
+     * @param email
+     */
     public void updatePatientEmailAddress(Integer PatientEmailAddress_Id, String email) {
         Session session = factory.openSession();
         Transaction tx = null;
@@ -561,7 +718,11 @@ public class SessionManager{
 
     //Patient Phone number
 
-
+    /**
+     *
+     * @param phoneNumber
+     * @param patient_Id
+     */
     public void addPatientPhone(String phoneNumber, Integer patient_Id) {
         Session session = factory.openSession();
         Transaction tx = null;
@@ -580,6 +741,10 @@ public class SessionManager{
         session.close();
     }
 
+    /**
+     *
+     * @param patientPhone_Id
+     */
     public void deletePatientPhone(Integer patientPhone_Id) {
         Session session = factory.openSession();
         Transaction tx = null;
@@ -595,6 +760,11 @@ public class SessionManager{
         session.close();
     }
 
+    /**
+     *
+     * @param patientPhone_Id
+     * @param phoneNumber
+     */
     public void updatePatientPhoneNumber(Integer patientPhone_Id, String phoneNumber) {
         Session session = factory.openSession();
         Transaction tx = null;
@@ -614,6 +784,11 @@ public class SessionManager{
 
     //Adding phone, email and address to the patientPanel
 
+    /**
+     *
+     * @param patientId
+     * @param patientAddress_Id
+     */
     public void addAddressToPatient(Integer patientId, Integer patientAddress_Id) {
         Session session = factory.openSession();
         Transaction tx = null;
@@ -630,6 +805,11 @@ public class SessionManager{
         session.close();
     }
 
+    /**
+     *
+     * @param patientId
+     * @param patientEmailAddress_Id
+     */
     public void addEmailAddressToPatient(Integer patientId, Integer patientEmailAddress_Id) {
         Session session = factory.openSession();
         Transaction tx = null;
@@ -646,6 +826,11 @@ public class SessionManager{
         session.close();
     }
 
+    /**
+     *
+     * @param patientId
+     * @param patientPhone_Id
+     */
     public void addPhoneToPatient(Integer patientId, Integer patientPhone_Id) {
         Session session = factory.openSession();
         Transaction tx = null;
@@ -665,7 +850,27 @@ public class SessionManager{
 
     //Doctor
 
-
+    /**
+     *
+     * @param firstName
+     * @param lastName
+     * @param specialistArea
+     * @param isMale
+     * @param mondayAM
+     * @param mondayPM
+     * @param tuesdayAM
+     * @param tuesdayPM
+     * @param wednesdayAM
+     * @param wednesdayPM
+     * @param thursdayAM
+     * @param thursdayPM
+     * @param fridayAM
+     * @param fridayPM
+     * @param saturdayAM
+     * @param saturdayPM
+     * @param sundayAM
+     * @param sundayPM
+     */
     public void addDoctor(String firstName, String lastName, String specialistArea, Boolean isMale, Boolean mondayAM, Boolean mondayPM, Boolean tuesdayAM, Boolean tuesdayPM, Boolean wednesdayAM, Boolean wednesdayPM, Boolean thursdayAM, Boolean thursdayPM, Boolean fridayAM, Boolean fridayPM, Boolean saturdayAM, Boolean saturdayPM, Boolean sundayAM, Boolean sundayPM) {
         Session session = factory.openSession();
         Transaction tx = null;
@@ -682,6 +887,10 @@ public class SessionManager{
         session.close();
     }
 
+    /**
+     *
+     * @param docId
+     */
     public void deleteDoctor(Integer docId) {
         Session session = factory.openSession();
         Transaction tx = null;
@@ -697,6 +906,11 @@ public class SessionManager{
         session.close();
     }
 
+    /**
+     *
+     * @param docId
+     * @param firstName
+     */
     public void updateDocFirstName(Integer docId, String firstName) {
         Session session = factory.openSession();
         Transaction tx = null;
@@ -713,6 +927,11 @@ public class SessionManager{
         session.close();
     }
 
+    /**
+     *
+     * @param docId
+     * @param lastName
+     */
     public void updateDocLastName(Integer docId, String lastName) {
         Session session = factory.openSession();
         Transaction tx = null;
@@ -729,6 +948,11 @@ public class SessionManager{
         session.close();
     }
 
+    /**
+     *
+     * @param docId
+     * @param specialistArea
+     */
     public void updateDocSpecialistArea(Integer docId, String specialistArea) {
         Session session = factory.openSession();
         Transaction tx = null;
@@ -745,6 +969,11 @@ public class SessionManager{
         session.close();
     }
 
+    /**
+     *
+     * @param docId
+     * @param isMale
+     */
     public void updateDocIsMale(Integer docId, boolean isMale) {
         Session session = factory.openSession();
         Transaction tx = null;
@@ -761,6 +990,24 @@ public class SessionManager{
         session.close();
     }
 
+    /**
+     *
+     * @param docId
+     * @param mondayAM
+     * @param mondayPM
+     * @param tuesdayAM
+     * @param tuesdayPM
+     * @param wednesdayAM
+     * @param wednesdayPM
+     * @param thursdayAM
+     * @param thursdayPM
+     * @param fridayAM
+     * @param fridayPM
+     * @param saturdayAM
+     * @param saturdayPM
+     * @param sundayAM
+     * @param sundayPM
+     */
     @SuppressWarnings("Duplicates")
     public void updateDocSchedule(Integer docId, Boolean mondayAM, Boolean mondayPM, Boolean tuesdayAM, Boolean tuesdayPM, Boolean wednesdayAM, Boolean wednesdayPM, Boolean thursdayAM, Boolean thursdayPM, Boolean fridayAM, Boolean fridayPM, Boolean saturdayAM, Boolean saturdayPM, Boolean sundayAM, Boolean sundayPM) {
         Session session = factory.openSession();
@@ -793,7 +1040,27 @@ public class SessionManager{
 
     // Creating a nurse
 
-
+    /**
+     *
+     * @param firstName
+     * @param lastName
+     * @param specialistArea
+     * @param isMale
+     * @param mondayAM
+     * @param mondayPM
+     * @param tuesdayAM
+     * @param tuesdayPM
+     * @param wednesdayAM
+     * @param wednesdayPM
+     * @param thursdayAM
+     * @param thursdayPM
+     * @param fridayAM
+     * @param fridayPM
+     * @param saturdayAM
+     * @param saturdayPM
+     * @param sundayAM
+     * @param sundayPM
+     */
     public void addNurse(String firstName, String lastName, String specialistArea, Boolean isMale, Boolean mondayAM, Boolean mondayPM, Boolean tuesdayAM, Boolean tuesdayPM, Boolean wednesdayAM, Boolean wednesdayPM, Boolean thursdayAM, Boolean thursdayPM, Boolean fridayAM, Boolean fridayPM, Boolean saturdayAM, Boolean saturdayPM, Boolean sundayAM, Boolean sundayPM) {
         Session session = factory.openSession();
         Transaction tx = null;
@@ -810,6 +1077,10 @@ public class SessionManager{
         session.close();
     }
 
+    /**
+     *
+     * @param nurseId
+     */
     public void deleteNurse(Integer nurseId) {
         Session session = factory.openSession();
         Transaction tx = null;
@@ -825,6 +1096,11 @@ public class SessionManager{
         session.close();
     }
 
+    /**
+     *
+     * @param nurseId
+     * @param firstName
+     */
     @SuppressWarnings("Duplicates")
     //Need these methods even if shows as duplicate code.
     public void updateNurseFirstName(Integer nurseId, String firstName) {
@@ -843,6 +1119,11 @@ public class SessionManager{
         session.close();
     }
 
+    /**
+     *
+     * @param nurseId
+     * @param lastName
+     */
     public void updateNurseLastName(Integer nurseId, String lastName) {
         Session session = factory.openSession();
         Transaction tx = null;
@@ -875,6 +1156,11 @@ public class SessionManager{
         session.close();
     }
 
+    /**
+     *
+     * @param nurseId
+     * @param isMale
+     */
     public void updateNurseIsMale(Integer nurseId, boolean isMale) {
         Session session = factory.openSession();
         Transaction tx = null;
@@ -891,6 +1177,24 @@ public class SessionManager{
         session.close();
     }
 
+    /**
+     *
+     * @param nurseId
+     * @param mondayAM
+     * @param mondayPM
+     * @param tuesdayAM
+     * @param tuesdayPM
+     * @param wednesdayAM
+     * @param wednesdayPM
+     * @param thursdayAM
+     * @param thursdayPM
+     * @param fridayAM
+     * @param fridayPM
+     * @param saturdayAM
+     * @param saturdayPM
+     * @param sundayAM
+     * @param sundayPM
+     */
     @SuppressWarnings("Duplicates")
     public void updateNurseSchedule(Integer nurseId, Boolean mondayAM, Boolean mondayPM, Boolean tuesdayAM, Boolean tuesdayPM, Boolean wednesdayAM, Boolean wednesdayPM, Boolean thursdayAM, Boolean thursdayPM, Boolean fridayAM, Boolean fridayPM, Boolean saturdayAM, Boolean saturdayPM, Boolean sundayAM, Boolean sundayPM) {
         Session session = factory.openSession();
@@ -923,6 +1227,11 @@ public class SessionManager{
 
     //Room
 
+    /**
+     *
+     * @param roomName
+     * @param roomNumber
+     */
     public void addRoom(String roomName, String roomNumber) {
         Session session = factory.openSession();
         Transaction tx = null;
@@ -937,6 +1246,10 @@ public class SessionManager{
         session.close();
     }
 
+    /**
+     *
+     * @param roomId
+     */
     public void deleteRoom(Integer roomId) {
         Session session = factory.openSession();
         Transaction tx = null;
@@ -952,6 +1265,11 @@ public class SessionManager{
 
     }
 
+    /**
+     *
+     * @param roomId
+     * @param roomNumber
+     */
     public void UpdateRoomNumber(Integer roomId, String roomNumber) {
         Session session = factory.openSession();
         Transaction tx = null;
@@ -967,6 +1285,11 @@ public class SessionManager{
         session.close();
     }
 
+    /**
+     *
+     * @param roomId
+     * @param roomName
+     */
     public void UpdateRoomName(Integer roomId, String roomName) {
         Session session = factory.openSession();
         Transaction tx = null;
@@ -984,6 +1307,10 @@ public class SessionManager{
 
     //staff
 
+    /**
+     *
+     * @param doctorId
+     */
     public void addStaffDoctor(Integer doctorId) {
         Session session = factory.openSession();
         Transaction tx = null;
@@ -1000,6 +1327,10 @@ public class SessionManager{
         session.close();
     }
 
+    /**
+     *
+     * @param nurseId
+     */
     public void addStaffNurse(Integer nurseId) {
         Session session = factory.openSession();
         Transaction tx = null;
@@ -1016,6 +1347,10 @@ public class SessionManager{
         session.close();
     }
 
+    /**
+     *
+     * @param staffId
+     */
     public void deleteStaff(Integer staffId) {
         Session session = factory.openSession();
         Transaction tx = null;
@@ -1030,6 +1365,11 @@ public class SessionManager{
         session.close();
     }
 
+    /**
+     *
+     * @param staffId
+     * @param doctorId
+     */
     public void updateStaffDoc(Integer staffId, Integer doctorId) {
         Session session = factory.openSession();
         Transaction tx = null;
@@ -1046,6 +1386,11 @@ public class SessionManager{
         session.close();
     }
 
+    /**
+     *
+     * @param staffId
+     * @param nurseId
+     */
     public void updateStaffNurse(Integer staffId, Integer nurseId) {
         Session session = factory.openSession();
         Transaction tx = null;
@@ -1062,6 +1407,11 @@ public class SessionManager{
         session.close();
     }
 
+    /**
+     *
+     * @param staffID
+     * @return
+     */
     public Staff getStaff(Integer staffID){
         Session session = factory.openSession();
         Transaction tx = null;
@@ -1078,6 +1428,16 @@ public class SessionManager{
 
     //Appointment
 
+    /**
+     *
+     * @param appTime
+     * @param appDate
+     * @param patientId
+     * @param staffId
+     * @param roomId
+     * @param onTime
+     * @param checkedIn
+     */
     public void addAppointment(Time appTime, LocalDate appDate, Integer patientId, Integer staffId, Integer roomId, boolean onTime, boolean checkedIn) {
         Session session = factory.openSession();
         Transaction tx = null;
@@ -1095,6 +1455,10 @@ public class SessionManager{
         session.close();
     }
 
+    /**
+     *
+     * @param appId
+     */
     public void deleteAppointment(Integer appId) {
         Session session = factory.openSession();
         Transaction tx = null;
@@ -1111,9 +1475,11 @@ public class SessionManager{
     }
 
 
-
-
-
+    /**
+     *
+     * @param appId
+     * @param date
+     */
     public void updateAppointmentDate(Integer appId, LocalDate date) {
         Session session = factory.openSession();
         Transaction tx = null;
@@ -1131,6 +1497,11 @@ public class SessionManager{
         session.close();
     }
 
+    /**
+     *
+     * @param appId
+     * @param onTime
+     */
     public void updateAppointmentOnTime2(Integer appId, Boolean onTime) {
         Session session = factory.openSession();
         Transaction tx = null;
@@ -1148,6 +1519,11 @@ public class SessionManager{
         session.close();
     }
 
+    /**
+     *
+     * @param appId
+     * @param checked_In
+     */
     public void updateAppointmentCheckedIn(Integer appId, Boolean checked_In) {
         Session session = factory.openSession();
         Transaction tx = null;
@@ -1165,6 +1541,11 @@ public class SessionManager{
         session.close();
     }
 
+    /**
+     *
+     * @param appId
+     * @param checked_In
+     */
     public void updateAppointmentCheckedIn2(Integer appId, Boolean checked_In) {
         Session session = factory.openSession();
         Transaction tx = null;
@@ -1182,7 +1563,11 @@ public class SessionManager{
     }
 
 
-
+    /**
+     *
+     * @param appId
+     * @param time
+     */
     public void updateAppointmentTime(Integer appId, Time time) {
         Session session = factory.openSession();
         Transaction tx = null;
@@ -1199,6 +1584,11 @@ public class SessionManager{
         session.close();
     }
 
+    /**
+     *
+     * @param appId
+     * @param staffId
+     */
     public void updateAppointmentStaff(Integer appId, Integer staffId) {
         Session session = factory.openSession();
         Transaction tx = null;
@@ -1216,6 +1606,11 @@ public class SessionManager{
         session.close();
     }
 
+    /**
+     *
+     * @param appId
+     * @param patientId
+     */
     public void updateAppointmentPatient(Integer appId, Integer patientId) {
         Session session = factory.openSession();
         Transaction tx = null;
@@ -1233,6 +1628,11 @@ public class SessionManager{
         session.close();
     }
 
+    /**
+     *
+     * @param appId
+     * @param roomId
+     */
     public void updateAppointmentRoom(Integer appId, Integer roomId) {
         Session session = factory.openSession();
         Transaction tx = null;
@@ -1250,6 +1650,11 @@ public class SessionManager{
         session.close();
     }
 
+    /**
+     *
+     * @param appId
+     * @param onTime
+     */
     public void updateAppointmentOnTime(Integer appId, boolean onTime) {
         Session session = factory.openSession();
         Transaction tx = null;
@@ -1267,6 +1672,11 @@ public class SessionManager{
         session.close();
     }
 
+    /**
+     *
+     * @param lastName
+     * @return
+     */
     public List<Patient> getPatientsWithLastName(String lastName) {
         List<Patient> patients = null;
         Session session = factory.openSession();
@@ -1281,6 +1691,12 @@ public class SessionManager{
         }return patients;
     }
 
+    /**
+     *
+     * @param firstName
+     * @param lastName
+     * @return
+     */
     public List<Patient> getPatientByFullName(String firstName, String lastName) {
         List patientsName = null;
         Session session = factory.openSession();
@@ -1296,7 +1712,12 @@ public class SessionManager{
         }return patientsName;
     }
 
-
+    /**
+     *
+     * @param firstName
+     * @param lastName
+     * @return
+     */
     public List<PatientEmailAddress> getEmailsByName(String firstName, String lastName){
         List patientsEmails = null;
         Session session = factory.openSession();
@@ -1312,6 +1733,11 @@ public class SessionManager{
         }return patientsEmails;
     }
 
+    /**
+     *
+     * @param patientEmailId
+     * @return
+     */
     private PatientEmailAddress getEmail(Integer patientEmailId){
         PatientEmailAddress patientEmailAddress = new PatientEmailAddress();
         Session session = factory.openSession();
@@ -1327,8 +1753,12 @@ public class SessionManager{
         return patientEmailAddress;
     }
 
-
-
+    /**
+     *
+     * @param firstName
+     * @param lastName
+     * @return
+     */
     public List<PatientPhone> getPhoneByName(String firstName, String lastName){
         List patientsPhone = null;
         Session session = factory.openSession();
@@ -1344,6 +1774,12 @@ public class SessionManager{
         }return patientsPhone;
     }
 
+    /**
+     *
+     * @param firstName
+     * @param lastName
+     * @return
+     */
     public List<Patient_Address> getAddressByName(String firstName, String lastName){
         List patientsAddress = null;
         Session session = factory.openSession();
@@ -1359,6 +1795,12 @@ public class SessionManager{
         }return patientsAddress;
     }
 
+    /**
+     *
+     * @param firstName
+     * @param lastName
+     * @return
+     */
     public List<Appointment> getAppointmentByName(String firstName, String lastName){
         List appointment = null;
         Session session = factory.openSession();
@@ -1374,16 +1816,18 @@ public class SessionManager{
         }return appointment;
     }
 
+    /**
+     *
+     * @param appointmentDate
+     * @return
+     */
     public List<Appointment> getAppointmentByDate(LocalDate appointmentDate){
-
         List appointment =null;
         Session session = factory.openSession();
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
-
             TypedQuery query = session.getNamedQuery("getAppointmentsByDate");
-            //System.out.println(appointmentDate.toString() );
             query.setParameter("date", appointmentDate.plusDays(1));
             appointment = query.getResultList();
         }catch (HibernateException e){
@@ -1391,6 +1835,11 @@ public class SessionManager{
         }return appointment;
     }
 
+    /**
+     *
+     * @param appointmentDate
+     * @return
+     */
     public List<Appointment> getAppointmentByDateWeek(LocalDate appointmentDate){
 
         List appointment =null;
@@ -1400,7 +1849,6 @@ public class SessionManager{
             tx = session.beginTransaction();
 
             TypedQuery query = session.getNamedQuery("getAppointmentsByDateWeek");
-            //System.out.println(appointmentDate.toString() );
             query.setParameter("date1", appointmentDate.plusDays(1));
             query.setParameter("date2", appointmentDate.plusDays(7));
             appointment = query.getResultList();
@@ -1409,6 +1857,12 @@ public class SessionManager{
         }return appointment;
     }
 
+    /**
+     *
+     * @param firstName
+     * @param lastName
+     * @return
+     */
     public List<Appointment> getAppointmentFromDoctorName(String firstName, String lastName){
         List appointment =null;
         Session session = factory.openSession();
@@ -1424,6 +1878,12 @@ public class SessionManager{
         }return appointment;
     }
 
+    /**
+     *
+     * @param firstName
+     * @param lastName
+     * @return
+     */
     public List<Appointment> getAppointmentFromNurseName(String firstName, String lastName){
         List appointment =null;
         Session session = factory.openSession();
@@ -1439,6 +1899,11 @@ public class SessionManager{
         }return appointment;
     }
 
+    /**
+     *
+     * @param staffId
+     * @return
+     */
     public List<Appointment> getAppointmentFromStaffId(Integer staffId){
         List appointment =null;
         Session session = factory.openSession();
@@ -1453,6 +1918,11 @@ public class SessionManager{
         }return appointment;
     }
 
+    /**
+     *
+     * @param date
+     * @return
+     */
     public List<Appointment> getCheckedIn(Date date){
         List appointment =null;
         Session session = factory.openSession();
@@ -1467,6 +1937,10 @@ public class SessionManager{
         }return appointment;
     }
 
+    /**
+     *
+     * @param appId
+     */
     public void deleteAppointment2(Integer appId){
         Session session = factory.openSession();
         Transaction tx = null;
@@ -1483,6 +1957,10 @@ public class SessionManager{
         session.flush();
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Staff> getStaff(){
         List staff =null;
         Session session = factory.openSession();
@@ -1496,6 +1974,12 @@ public class SessionManager{
         }return staff;
     }
 
+    /**
+     *
+     * @param date
+     * @param time
+     * @return
+     */
     public List<Staff> staffCanWork(Date date, Time time){
         List<Staff> staff = getStaff();
         List<Staff> staff1 = new ArrayList<>();
@@ -1510,6 +1994,10 @@ public class SessionManager{
         return staff1;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void deletePatient2(Integer id){
         Session session = factory.openSession();
         Transaction tx = null;

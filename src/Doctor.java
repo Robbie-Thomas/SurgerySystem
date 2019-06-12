@@ -86,6 +86,26 @@ public class Doctor {
     public Doctor() {
     }
 
+    /**
+     * @param firstName
+     * @param lastName
+     * @param specialistArea
+     * @param isMale
+     * @param mondayAM
+     * @param mondayPM
+     * @param tuesdayAM
+     * @param tuesdayPM
+     * @param wednesdayAM
+     * @param wednesdayPM
+     * @param thursdayAM
+     * @param thursdayPM
+     * @param fridayAM
+     * @param fridayPM
+     * @param saturdayAM
+     * @param saturdayPM
+     * @param sundayAM
+     * @param sundayPM
+     */
     public Doctor(String firstName, String lastName, String specialistArea, Boolean isMale, Boolean mondayAM, Boolean mondayPM, Boolean tuesdayAM, Boolean tuesdayPM, Boolean wednesdayAM, Boolean wednesdayPM, Boolean thursdayAM, Boolean thursdayPM, Boolean fridayAM, Boolean fridayPM, Boolean saturdayAM, Boolean saturdayPM, Boolean sundayAM, Boolean sundayPM) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -107,174 +127,349 @@ public class Doctor {
         SundayPM = sundayPM;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isMale() {
         return isMale;
     }
 
+    /**
+     *
+     * @param male
+     */
     public void setMale(boolean male) {
         isMale = male;
     }
 
+    /**
+     *
+     * @return
+     */
     public Boolean getMondayAM() {
         return MondayAM;
     }
 
+    /**
+     *
+     * @param mondayAM
+     */
     public void setMondayAM(Boolean mondayAM) {
         MondayAM = mondayAM;
     }
 
+    /**
+     *
+     * @return
+     */
     public Boolean getMondayPM() {
         return MondayPM;
     }
 
+    /**
+     *
+     * @param mondayPM
+     */
     public void setMondayPM(Boolean mondayPM) {
         MondayPM = mondayPM;
     }
 
+    /**
+     *
+     * @return
+     */
     public Boolean getTuesdayAM() {
         return TuesdayAM;
     }
 
+    /**
+     *
+     * @param tuesdayAM
+     */
     public void setTuesdayAM(Boolean tuesdayAM) {
         TuesdayAM = tuesdayAM;
     }
 
+    /**
+     *
+     * @return
+     */
     public Boolean getTuesdayPM() {
         return TuesdayPM;
     }
 
+    /**
+     *
+     * @param tuesdayPM
+     */
     public void setTuesdayPM(Boolean tuesdayPM) {
         TuesdayPM = tuesdayPM;
     }
 
+    /**
+     *
+     * @return
+     */
     public Boolean getWednesdayAM() {
         return WednesdayAM;
     }
 
+    /**
+     *
+     * @param wednesdayAM
+     */
     public void setWednesdayAM(Boolean wednesdayAM) {
         WednesdayAM = wednesdayAM;
     }
 
+    /**
+     *
+     * @return
+     */
     public Boolean getWednesdayPM() {
         return WednesdayPM;
     }
 
+    /**
+     *
+     * @param wednesdayPM
+     */
     public void setWednesdayPM(Boolean wednesdayPM) {
         WednesdayPM = wednesdayPM;
     }
 
+    /**
+     *
+     * @return
+     */
     public Boolean getThursdayAM() {
         return ThursdayAM;
     }
 
+    /**
+     *
+     * @param thursdayAM
+     */
     public void setThursdayAM(Boolean thursdayAM) {
         ThursdayAM = thursdayAM;
     }
 
+    /**
+     *
+     * @return
+     */
     public Boolean getThursdayPM() {
         return ThursdayPM;
     }
 
+    /**
+     *
+     * @param thursdayPM
+     */
     public void setThursdayPM(Boolean thursdayPM) {
         ThursdayPM = thursdayPM;
     }
 
+    /**
+     *
+     * @return
+     */
     public Boolean getFridayAM() {
         return FridayAM;
     }
 
+    /**
+     *
+     * @param fridayAM
+     */
     public void setFridayAM(Boolean fridayAM) {
         FridayAM = fridayAM;
     }
 
+    /**
+     *
+     * @return
+     */
     public Boolean getFridayPM() {
         return FridayPM;
     }
 
+    /**
+     *
+     * @param fridayPM
+     */
     public void setFridayPM(Boolean fridayPM) {
         FridayPM = fridayPM;
     }
 
+    /**
+     *
+     * @return
+     */
     public Boolean getSaturdayAM() {
         return SaturdayAM;
     }
 
+    /**
+     *
+     * @param saturdayAM
+     */
     public void setSaturdayAM(Boolean saturdayAM) {
         SaturdayAM = saturdayAM;
     }
 
+    /**
+     *
+     * @return
+     */
     public Boolean getSaturdayPM() {
         return SaturdayPM;
     }
 
+    /**
+     *
+     * @param saturdayPM
+     */
     public void setSaturdayPM(Boolean saturdayPM) {
         SaturdayPM = saturdayPM;
     }
 
+    /**
+     *
+     * @return
+     */
     public Boolean getSundayAM() {
         return SundayAM;
     }
 
+    /**
+     *
+     * @param sundayAM
+     */
     public void setSundayAM(Boolean sundayAM) {
         SundayAM = sundayAM;
     }
 
+    /**
+     *
+     * @return
+     */
     public Boolean getSundayPM() {
         return SundayPM;
     }
 
+    /**
+     *
+     * @param sundayPM
+     */
     public void setSundayPM(Boolean sundayPM) {
         SundayPM = sundayPM;
     }
 
+    /**
+     *
+     * @return
+     */
     public LocalDateTime getCreateDateTime() {
         return createDateTime;
     }
 
+    /**
+     *
+     * @param createDateTime
+     */
     public void setCreateDateTime(LocalDateTime createDateTime) {
         this.createDateTime = createDateTime;
     }
 
+    /**
+     *
+     * @return
+     */
     public LocalDateTime getUpdateDateTime() {
         return updateDateTime;
     }
 
+    /**
+     *
+     * @param updateDateTime
+     */
     public void setUpdateDateTime(LocalDateTime updateDateTime) {
         this.updateDateTime = updateDateTime;
     }
 
+    /**
+     *
+     * @return
+     */
     public Integer getId() {
         return id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(Integer id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getFirstName() {
         return firstName;
     }
 
+    /**
+     *
+     * @param firstName
+     */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getLastName() {
         return lastName;
     }
 
+    /**
+     *
+     * @param lastName
+     */
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getSpecialistArea() {
         return specialistArea;
     }
 
+    /**
+     *
+     * @param specialistArea
+     */
     public void setSpecialistArea(String specialistArea) {
         this.specialistArea = specialistArea;
     }
-@SuppressWarnings("Duplicates")
+
+    /**
+     *
+     * @param date
+     * @param time
+     * @return
+     */
+    @SuppressWarnings("Duplicates")
     public boolean canWork(Date date, Time time){
         Boolean canWork =false;
         Boolean aM = false;
@@ -319,7 +514,11 @@ public class Doctor {
      return canWork;
     }
 
-
+    /**
+     *
+     * @param o
+     * @return
+     */
     @Contract(value = "null -> false", pure = true)
     @Override
     public boolean equals(Object o) {
@@ -329,7 +528,10 @@ public class Doctor {
         return id.equals(doctor.id);
     }
 
-
+    /**
+     *
+     * @return
+     */
     @Override
     public int hashCode() {
         return Objects.hash(id);
